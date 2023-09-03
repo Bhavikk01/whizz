@@ -34,6 +34,30 @@ class AuthServices extends GetxController {
     }
   }
 
+  registerPhoneNumber(String phoneNumber) async {
+    if(await checkUserByPhone(phoneNumber) == null){
+      await auth.verifyPhoneNumber(
+        phoneNumber: '+91$phoneNumber',
+        verificationCompleted: (PhoneAuthCredential credential) async {
+          otp = credential.smsCode!;
+        },
+        verificationFailed: (FirebaseAuthException e) {},
+        codeSent: (String verificationId, int? forceResendingToken) {
+          resendToken = forceResendingToken;
+        },
+        forceResendingToken: resendToken,
+        codeAutoRetrievalTimeout: (String verificationId) {},
+        timeout: const Duration(seconds: 60),
+      );
+    }else{
+      Get.snackbar(
+        'Auth',
+        'This number is already linked with other user',
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      );
+    }
+  }
+
   verifyOtp(String phoneNumber, String otp) async {
     try {
       if(this.otp == otp){
@@ -47,6 +71,20 @@ class AuthServices extends GetxController {
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           );
         }
+      }
+    } catch (err) {
+      Get.snackbar(
+        'Auth',
+        '$err',
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      );
+    }
+  }
+
+  verifyRegistrationOtp(String phoneNumber, String otp, UserModel user) async {
+    try {
+      if(this.otp == otp){
+        await handleSignUp(user);
       }
     } catch (err) {
       Get.snackbar(
