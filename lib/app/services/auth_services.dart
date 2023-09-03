@@ -17,6 +17,7 @@ class AuthServices extends GetxController {
   int? resendToken;
 
   verifyPhoneNumber(String phoneNumber) async {
+    LoadingOverlay.showOverlay();
     if(await checkUserByPhone(phoneNumber) != null){
       await FirebaseAuth.instance.verifyPhoneNumber(
         phoneNumber: '+91$phoneNumber',
@@ -31,7 +32,9 @@ class AuthServices extends GetxController {
         codeAutoRetrievalTimeout: (String verificationId) {},
         timeout: const Duration(seconds: 60),
       );
+      LoadingOverlay.hideOverlay();
     }else{
+      LoadingOverlay.hideOverlay();
       customSnackBar(
         type: AnimatedSnackBarType.error,
         message: 'No user exist with this number',
@@ -64,11 +67,13 @@ class AuthServices extends GetxController {
 
   verifyOtp(String phoneNumber, String otp) async {
     try {
+      LoadingOverlay.showOverlay();
       if(this.otp == otp){
         UserModel? user = await checkUserByPhone(phoneNumber);
         if(user != null){
           await handleSignInByEmail(user.email!, user.password!);
         }else{
+          LoadingOverlay.hideOverlay();
           customSnackBar(
             type: AnimatedSnackBarType.error,
             message: 'NO user exist with this phone number',
@@ -76,6 +81,7 @@ class AuthServices extends GetxController {
         }
       }
     } catch (err) {
+      LoadingOverlay.hideOverlay();
       customSnackBar(
         type: AnimatedSnackBarType.error,
         message: '$err',
@@ -106,10 +112,6 @@ class AuthServices extends GetxController {
         return null;
       }
     }catch(err){
-      customSnackBar(
-        type: AnimatedSnackBarType.error,
-        message: '$err',
-      );
       return null;
     }
   }

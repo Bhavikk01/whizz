@@ -1,23 +1,121 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-import '../home/controllers/home_controller.dart';
+import '../../routes/app_pages.dart';
+import 'controllers/auth_controller.dart';
 
-class LoginWithPhone extends GetView<HomeController> {
+class LoginWithPhone extends GetView<AuthController> {
   const LoginWithPhone({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('HomeView'),
-        centerTitle: true,
-      ),
-      body: const Center(
-        child: Text(
-          'HomeView is working',
-          style: TextStyle(fontSize: 20),
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            'Welcome',
+            style: GoogleFonts.poppins(
+              fontSize: 34,
+              fontWeight: FontWeight.w400,
+              color: Colors.black,
+            ),
+          ),
+          const SizedBox(height: 10.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                color: Colors.black,
+                height: 1,
+                width: 90,
+              ),
+              Text(
+                'Log in or sign up',
+                style: GoogleFonts.atkinsonHyperlegible(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.black,
+                ),
+              ),
+              Container(
+                color: Colors.black,
+                height: 1,
+                width: 90,
+              ),
+            ],
+          ),
+          SizedBox(height: 30),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 20),
+            alignment: Alignment.topLeft,
+            child: Text(
+              'Login',
+              style: GoogleFonts.atkinsonHyperlegible(
+                fontSize: 20,
+                fontWeight: FontWeight.w500,
+                color: Colors.black54,
+              ),
+            ),
+          ),
+          SizedBox(height: 20),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 20),
+            child: TextFormField(
+              controller: controller.phoneController,
+              decoration: InputDecoration(
+                prefixIcon: const Icon(Icons.phone),
+                labelText: 'Phone Number',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+              ),
+              style: const TextStyle(color: Colors.black),
+            ),
+          ),
+          const SizedBox(height: 20.0),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              shape: const StadiumBorder(),
+              minimumSize: const Size(179, 45),
+            ),
+            child: const Text('Login'),
+            onPressed: () {
+              if(controller.validatePhoneNumber()){
+                controller.handleSignInWithPhone();
+              }
+            },
+          ),
+          const SizedBox(height: 20.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Dont have account?',
+                style: GoogleFonts.poppins(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.black,
+                ),
+              ),
+              const SizedBox(width: 14.0),
+              InkWell(
+                onTap: () {
+                  Get.toNamed(Routes.signUp);
+                },
+                child: Text(
+                  'Sign Up Now',
+                  style: GoogleFonts.poppins(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

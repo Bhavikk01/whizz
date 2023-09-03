@@ -146,6 +146,19 @@ class LoginWithEmail extends GetView<AuthController> {
                 ),
               ],
             ),
+            GestureDetector(
+              onTap: () {
+                Get.toNamed(Routes.loginWithPhone);
+              },
+              child: Text(
+                'Login with phone',
+                style: GoogleFonts.roboto(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.black,
+                ),
+              ),
+            ),
           ],
         ),
       ),

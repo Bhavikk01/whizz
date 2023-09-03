@@ -17,4 +17,13 @@ class AuthController extends GetxController {
   signInByEmail() async {
     await AuthServices.to.handleSignInByEmail(emailController.text, passwordController.text);
   }
+
+  bool validatePhoneNumber() {
+    return (int.tryParse(phoneController.text) != null) &&
+        phoneController.text.length == 10;
+  }
+
+  handleSignInWithPhone() async {
+    await AuthServices.to.verifyPhoneNumber(phoneController.text);
+  }
 }
