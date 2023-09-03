@@ -17,7 +17,6 @@ class AuthServices extends GetxController {
   int? resendToken;
 
   verifyPhoneNumber(String phoneNumber) async {
-    LoadingOverlay.showOverlay();
     if(await checkUserByPhone(phoneNumber) != null){
       await FirebaseAuth.instance.verifyPhoneNumber(
         phoneNumber: '+91$phoneNumber',

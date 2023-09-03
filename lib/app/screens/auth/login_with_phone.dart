@@ -1,9 +1,11 @@
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../routes/app_pages.dart';
+import '../../utils/custom_bottom_snackbar.dart';
 import 'controllers/auth_controller.dart';
 
 class LoginWithPhone extends GetView<AuthController> {
@@ -84,6 +86,11 @@ class LoginWithPhone extends GetView<AuthController> {
             onPressed: () {
               if(controller.validatePhoneNumber()){
                 controller.handleSignInWithPhone();
+              }else{
+                customSnackBar(
+                  type: AnimatedSnackBarType.warning,
+                  message: 'Please enter a valid phone number',
+                );
               }
             },
           ),

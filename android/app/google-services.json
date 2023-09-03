@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "658101380569",
+    "project_id": "whizz-9e359",
+    "storage_bucket": "whizz-9e359.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:658101380569:android:8e8870c1d7db62ab15e5c8",
+        "android_client_info": {
+          "package_name": "com.example.whizz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "658101380569-tp2vh3o9lvhba7l17hhtkfuqf1ikj37a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZ-p9icaGsA_k6rM-9yeWb59CLXqPBv-A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "658101380569-tp2vh3o9lvhba7l17hhtkfuqf1ikj37a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
