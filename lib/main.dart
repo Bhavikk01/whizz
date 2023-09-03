@@ -2,21 +2,26 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:whizz/app/screens/auth/login_with_email.dart';
 import 'package:whizz/app/services/auth_services.dart';
 
 import 'app/API/api_client.dart';
 import 'app/routes/app_pages.dart';
 import 'app/services/storage.dart';
 import 'app/services/user.dart';
+import 'firebase_options.dart';
 
 Future<void> main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp();
+  Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await Get.putAsync<StorageService>(() => StorageService().init());
-  Get.put(ApiClient());
-  Get.put(AuthServices());
-  Get.put(UserStore());
+  Get.put<ApiClient>(ApiClient());
+  Get.put<UserStore>(UserStore());
+  Get.put<AuthServices>(AuthServices());
+
   runApp(const MyApp());
 
 }

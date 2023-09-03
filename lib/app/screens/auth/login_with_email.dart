@@ -62,7 +62,7 @@ class LoginWithEmail extends GetView<AuthController> {
                 ),
               ),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 20),
             Container(
               margin: EdgeInsets.symmetric(horizontal: 15),
               child: TextFormField(

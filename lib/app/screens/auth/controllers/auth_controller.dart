@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:whizz/app/services/auth_services.dart';
 
+import '../../../utils/loading_overlay.dart';
+
 class AuthController extends GetxController {
   var isLoading = false.obs;
   TextEditingController emailController = TextEditingController();
