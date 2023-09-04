@@ -14,7 +14,10 @@ dependencies:
   firebase_core: ^2.15.1
   firebase_auth: ^4.9.0
   cloud_firestore: ^4.9.1
+  animated_snack_bar: ^0.3.1
   shared_preferences: ^2.2.1
+  google_fonts: ^5.1.0
+  lottie: ^2.6.0
 
 dev_dependencies: 
   flutter_lints: ^2.0.0
@@ -24,3 +27,5 @@ dev_dependencies:
 flutter: 
   uses-material-design: true
 
+  assets:
+    - assets/icons/

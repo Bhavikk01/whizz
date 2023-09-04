@@ -1,22 +1,47 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:whizz/app/API/api_client.dart';
 import 'package:whizz/app/models/user_model.dart';
 import '../routes/app_pages.dart';
+import '../utils/custom_bottom_snackbar.dart';
+import '../utils/loading_overlay.dart';
 import 'user.dart';
 
 class AuthServices extends GetxController {
   static AuthServices get to => Get.find();
-  FirebaseAuth auth = FirebaseAuth.instance;
-  FirebaseFirestore fireStore = FirebaseFirestore.instance;
+  // FirebaseAuth auth = FirebaseAuth.instance;
   String otp = '';
   int? resendToken;
 
   verifyPhoneNumber(String phoneNumber) async {
     if(await checkUserByPhone(phoneNumber) != null){
-      await auth.verifyPhoneNumber(
+      await FirebaseAuth.instance.verifyPhoneNumber(
+        phoneNumber: '+91$phoneNumber',
+        verificationCompleted: (PhoneAuthCredential credential) async {
+          otp = credential.smsCode!;
+        },
+        verificationFailed: (FirebaseAuthException e) {},
+        codeSent: (String verificationId, int? forceResendingToken) {
+          resendToken = forceResendingToken;
+        },
+        forceResendingToken: resendToken,
+        codeAutoRetrievalTimeout: (String verificationId) {},
+        timeout: const Duration(seconds: 60),
+      );
+      LoadingOverlay.hideOverlay();
+    }else{
+      LoadingOverlay.hideOverlay();
+      customSnackBar(
+        type: AnimatedSnackBarType.error,
+        message: 'No user exist with this number',
+      );
+    }
+  }
+
+  registerPhoneNumber(String phoneNumber) async {
+    if(await checkUserByPhone(phoneNumber) == null){
+      await FirebaseAuth.instance.verifyPhoneNumber(
         phoneNumber: '+91$phoneNumber',
         verificationCompleted: (PhoneAuthCredential credential) async {
           otp = credential.smsCode!;
@@ -30,29 +55,46 @@ class AuthServices extends GetxController {
         timeout: const Duration(seconds: 60),
       );
     }else{
-
+      customSnackBar(
+        type: AnimatedSnackBarType.error,
+        message: 'This number is already linked with other user',
+      );
     }
   }
 
   verifyOtp(String phoneNumber, String otp) async {
     try {
+      LoadingOverlay.showOverlay();
       if(this.otp == otp){
         UserModel? user = await checkUserByPhone(phoneNumber);
         if(user != null){
           await handleSignInByEmail(user.email!, user.password!);
         }else{
-          Get.snackbar(
-            'Auth',
-            'NO user exist with this phone number',
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          LoadingOverlay.hideOverlay();
+          customSnackBar(
+            type: AnimatedSnackBarType.error,
+            message: 'NO user exist with this phone number',
           );
         }
       }
     } catch (err) {
-      Get.snackbar(
-        'Auth',
-        '$err',
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      LoadingOverlay.hideOverlay();
+      customSnackBar(
+        type: AnimatedSnackBarType.error,
+        message: '$err',
+      );
+    }
+  }
+
+  verifyRegistrationOtp(String phoneNumber, String otp, UserModel user) async {
+    try {
+      if(this.otp == otp){
+        await handleSignUp(user);
+      }
+    } catch (err) {
+      customSnackBar(
+        type: AnimatedSnackBarType.error,
+        message: '$err',
       );
     }
   }
@@ -67,54 +109,51 @@ class AuthServices extends GetxController {
         return null;
       }
     }catch(err){
-      Get.snackbar(
-        'Auth',
-        '$err',
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10)
-      );
       return null;
     }
   }
 
   handleSignInByEmail(String email, String password) async {
     try {
-      var value = await auth.signInWithEmailAndPassword(email: email, password: password);
+      LoadingOverlay.showOverlay();
+      var value = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
       if (value.user != null) {
         await ApiClient.to.getUserById(
           value.user!.uid,
           onSuccess: (res) async {
             UserModel user = UserModel.fromJson(res.body['data']);
             await UserStore.to.saveProfile(user.id!);
+            LoadingOverlay.hideOverlay();
             Get.offAllNamed(Routes.home);
           },
           onError: (err){
-            Get.snackbar(
-              'Auth',
-              '$err',
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            LoadingOverlay.hideOverlay();
+            customSnackBar(
+              type: AnimatedSnackBarType.error,
+              message: '${err.body['error']}',
             );
           }
         );
       } else {
-        Get.snackbar(
-          'Auth',
-          'User does not exist with this credentials',
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        LoadingOverlay.hideOverlay();
+        customSnackBar(
+          type: AnimatedSnackBarType.error,
+          message: 'User does not exist with this credentials',
         );
         return false;
       }
     } catch (err) {
-      Get.snackbar(
-        'Auth',
-        '$err',
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      LoadingOverlay.hideOverlay();
+      customSnackBar(
+        type: AnimatedSnackBarType.error,
+        message: '$err',
       );
       return false;
     }
   }
 
   handleSignUp(UserModel user) async {
-    var value = await auth.createUserWithEmailAndPassword(email: user.email!, password: user.password!);
+    var value = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: user.email!, password: user.password!);
     if (value.user != null) {
       await ApiClient.to.addUserData(
         user.toJson(),
@@ -123,10 +162,9 @@ class AuthServices extends GetxController {
           Get.offAllNamed(Routes.home);
         },
         onError: (err) {
-          Get.snackbar(
-            'Auth',
-            '$err',
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          customSnackBar(
+            type: AnimatedSnackBarType.error,
+            message: '${err.body['error']}',
           );
         }
       );
