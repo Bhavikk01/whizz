@@ -102,7 +102,7 @@ class AuthServices extends GetxController {
   Future<UserModel?> checkUserByPhone(String phoneNumber) async {
     try{
       Response res = await ApiClient.to.checkUserByPhone(phoneNumber);
-      if (res.statusCode == 200) {
+      if (res.body['status']) {
         UserModel userModel = UserModel.fromJson(res.body['data']);
         return userModel;
       } else {
@@ -121,10 +121,18 @@ class AuthServices extends GetxController {
         await ApiClient.to.getUserById(
           value.user!.uid,
           onSuccess: (res) async {
-            UserModel user = UserModel.fromJson(res.body['data']);
-            await UserStore.to.saveProfile(user.id!);
-            LoadingOverlay.hideOverlay();
-            Get.offAllNamed(Routes.home);
+            if(res.body['status']){
+              UserModel user = UserModel.fromJson(res.body['data']);
+              await UserStore.to.saveProfile(user.id!);
+              LoadingOverlay.hideOverlay();
+              Get.offAllNamed(Routes.home);
+            }else{
+              LoadingOverlay.hideOverlay();
+              customSnackBar(
+                type: AnimatedSnackBarType.info,
+                message: 'No user found with this credentials please register yourself',
+              );
+            }
           },
           onError: (err){
             LoadingOverlay.hideOverlay();
@@ -158,8 +166,16 @@ class AuthServices extends GetxController {
       await ApiClient.to.addUserData(
         user.toJson(),
         onSuccess: (res) async {
-          await UserStore.to.saveProfile(user.id!);
-          Get.offAllNamed(Routes.home);
+          if(res.body['status']){
+            await UserStore.to.saveProfile(user.id!);
+            Get.offAllNamed(Routes.home);
+          }else{
+            await FirebaseAuth.instance.currentUser!.delete();
+            customSnackBar(
+              type: AnimatedSnackBarType.warning,
+              message: '${res.body['message']}',
+            );
+          }
         },
         onError: (err) {
           customSnackBar(
