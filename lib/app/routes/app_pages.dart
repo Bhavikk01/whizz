@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:whizz/app/screens/auth/bindings/auth_binding.dart';
 import 'package:whizz/app/screens/auth/sign_up_screen.dart';
+import 'package:whizz/app/screens/auth/sign_up_user_detail_screen.dart';
 
 import '../screens/auth/bindings/sign_up_binding.dart';
 import '../screens/auth/forgot_password.dart';
@@ -48,5 +49,7 @@ class AppPages {
       page: () => const HomeView(),
       binding: HomeBinding(),
     ),
+
+    GetPage(name: Routes.signUpDetails, page: ()=>const SignUpUserDetails())
   ];
 }
