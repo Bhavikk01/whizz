@@ -49,6 +49,8 @@ class SignUpUserDetails extends GetView<SignUpController> {
                 icon: Icons.calendar_month,
                 onTap: controller.dobOnTap,
                 readOnly: true),
+            getTextField(hintText: "Gender  "),
+
             getTextField(hintText: "Address"),
             ElevatedButton(
               onPressed: () {},
