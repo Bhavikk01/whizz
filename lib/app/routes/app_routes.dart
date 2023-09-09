@@ -7,6 +7,7 @@ abstract class Routes {
   static const loginWithPhone = '/loginWithPhone';
   static const forgotPassword = '/forgotPassword';
   static const signUp = '/signUp';
+  static const signUpDetails = '/signUpDetails';
   static const loginWithEmail = '/loginWithEmail';
 
   /* Home Route */
