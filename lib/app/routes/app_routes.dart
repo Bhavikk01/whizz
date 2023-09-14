@@ -12,4 +12,7 @@ abstract class Routes {
 
   /* Home Route */
   static const home = '/home';
+
+  /* Health Center screen */
+  static const healthCenterScreen = '/healthCenterScreen';
 }

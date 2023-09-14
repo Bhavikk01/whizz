@@ -4,11 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:whizz/app/services/auth_services.dart';
 import 'package:whizz/app/utils/app_theme.dart';
+import 'package:whizz/app/utils/constants.dart';
 
 import 'app/API/api_client.dart';
 import 'app/routes/app_pages.dart';
+import 'app/screens/healthcare_center_detail_screen/healthcare_center_detail_screen.dart';
 import 'app/services/storage.dart';
 import 'app/services/user.dart';
+import 'app/utils/scale_utility.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -30,15 +33,52 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ConstantData().loadData(context);
     return GetMaterialApp(
       theme: AppTheme.appTheme,
       title: "Application",
-      initialRoute: Routes.home,
+      // initialRoute: Routes.home,
+      home: const SplashScreen(),
       getPages: AppPages.routes,
       debugShowCheckedModeBanner: false,
     );
   }
 }
+
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({Key? key}) : super(key: key);
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+
+  @override
+  void initState() {
+    Future.delayed(const Duration(seconds: 8), () {
+      Get.offAllNamed(UserStore.to.uid.isNotEmpty
+          ? Routes.home
+          : Routes.loginWithEmail
+      );
+    });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    ScalingUtility scale = ScalingUtility(context: Get.context!)..setCurrentDeviceSize();
+    return Scaffold(
+      body: Center(
+        child: Image.asset(
+          'assets/animated_gif/without_reverse_whzz.gif'
+        ),
+      ),
+    );
+  }
+}
+
+
 /*
 * UserStore.to.uid.isNotEmpty
           ? Routes.home

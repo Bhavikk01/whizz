@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
+import 'constants.dart';
+
 class LoadingOverlay {
 
   static showOverlay() {
@@ -10,16 +12,15 @@ class LoadingOverlay {
       barrierDismissible: false,
       traversalEdgeBehavior: TraversalEdgeBehavior.leaveFlutterView,
       builder: (context) => WillPopScope(
-        onWillPop: () async => false,
+        onWillPop: () async => true,
         child: Material(
           type: MaterialType.transparency,
           child: CircleAvatar(
             backgroundColor: Colors.transparent,
-            child: Lottie.asset(
-              'assets/icons/loading_icon.json',
-              height: 120,
-              width: 120,
-              repeat: true
+            child: Image.asset(
+              ConstantData.loadingIcon,
+              height: 180,
+              width: 180,
             ),
           ),
         ),
