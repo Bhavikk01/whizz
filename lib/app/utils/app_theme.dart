@@ -64,11 +64,13 @@ class AppTheme {
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
         borderSide: BorderSide(
-          color: ColorsUtil.blueColor,
+          color: ColorsUtil.darkContainerColor,
           width: 2,
         ),
       ),
       filled: true,
+      suffixIconColor: ColorsUtil.darkContainerColor,
+      prefixIconColor: ColorsUtil.darkContainerColor,
       fillColor: ColorsUtil.textFieldColor,
       hintStyle: GoogleFonts.atkinsonHyperlegible(
         fontSize: 16,
@@ -94,7 +96,7 @@ class AppTheme {
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(
-            color: ColorsUtil.blueColor,
+            color: ColorsUtil.darkContainerColor,
             width: 2,
           ),
         ),

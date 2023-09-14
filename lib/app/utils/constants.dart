@@ -600,9 +600,10 @@ class ConstantData {
     log('This is the city map: $cityMap');
   }
 
-
   /* Icons Asset */
   static const backArrow = 'assets/icons/back_icon.png';
+  static const appSplash = 'assets/icons/whizz.gif';
+  static const searchIcon = 'assets/icons/search_icon.png';
   static const loadingIcon = 'assets/icons/loading_icon.gif';
   static const appLogo = 'assets/images/app_logo.png';
   static const googleIcon = 'assets/images/google_icon.png';

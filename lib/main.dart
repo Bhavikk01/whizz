@@ -57,10 +57,10 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 8), () {
+    Future.delayed(const Duration(seconds: 5), () {
       Get.offAllNamed(UserStore.to.uid.isNotEmpty
           ? Routes.home
-          : Routes.loginWithEmail
+          : Routes.healthCenterScreen
       );
     });
     super.initState();
@@ -70,9 +70,19 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     ScalingUtility scale = ScalingUtility(context: Get.context!)..setCurrentDeviceSize();
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Center(
-        child: Image.asset(
-          'assets/animated_gif/without_reverse_whzz.gif'
+        child: Container(
+          height: 350,
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            image: DecorationImage(
+              image: AssetImage(
+                ConstantData.appSplash,
+              ),
+              fit: BoxFit.cover
+            )
+          ),
         ),
       ),
     );
