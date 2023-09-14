@@ -41,23 +41,26 @@ class CustomIconButton extends StatelessWidget {
       child: Container(
         height: height ?? 0,
         width: width ?? 0,
-        padding: padding ?? scale.getPadding(all: 0),
+        padding: padding ?? scale.getPadding(all: 9),
         margin: margin ?? scale.getMargin(all: 4),
         decoration: BoxDecoration(
           color: color ?? Colors.white,
           borderRadius: borderRadius ?? BorderRadius.circular(15),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.2),
-              blurRadius: 3,
-              offset: const Offset(-2, 0),
-            ),
-            BoxShadow(
-              color: Colors.black.withOpacity(0.2),
-              blurRadius: 3,
-              offset: const Offset(0, 2),
-            ),
-          ],
+          // boxShadow: [
+          //   BoxShadow(
+          //     color: Colors.black.withOpacity(0.2),
+          //     blurRadius: 3,
+          //     offset: const Offset(-2, 0),
+          //   ),
+          //   BoxShadow(
+          //     color: Colors.black.withOpacity(0.2),
+          //     blurRadius: 3,
+          //     offset: const Offset(0, 2),
+          //   ),
+          // ],
+          border: Border.all(
+            color: const Color(0xffE0DFE7),
+          )
         ),
         child: Image.asset(
           image ?? '',

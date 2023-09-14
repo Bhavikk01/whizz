@@ -416,6 +416,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.0"
+  math_utils:
+    dependency: "direct main"
+    description:
+      name: math_utils
+      sha256: cb300ca34072921bfd844f4ec01b03f4d72d9ec65cf1aaa482001bf1095da19a
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.3"
   meta:
     dependency: transitive
     description:

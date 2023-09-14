@@ -13,7 +13,7 @@ class AppTheme {
       ),
       titleMedium: GoogleFonts.atkinsonHyperlegible(
         fontSize: 20,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w600,
         color: Colors.black,
       ),
       titleSmall: GoogleFonts.atkinsonHyperlegible(
@@ -24,6 +24,10 @@ class AppTheme {
       bodySmall: GoogleFonts.atkinsonHyperlegible(
         fontSize: 14,
         fontWeight: FontWeight.w400,
+      ),
+      bodyLarge: GoogleFonts.atkinsonHyperlegible(
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
       ),
       labelLarge: GoogleFonts.atkinsonHyperlegible(
         fontSize: 16,
