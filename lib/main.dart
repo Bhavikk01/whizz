@@ -33,11 +33,13 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       theme: AppTheme.appTheme,
       title: "Application",
-      initialRoute: UserStore.to.uid.isNotEmpty
-          ? Routes.home
-          : Routes.loginWithEmail,
+      initialRoute: Routes.home,
       getPages: AppPages.routes,
       debugShowCheckedModeBanner: false,
     );
   }
 }
+/*
+* UserStore.to.uid.isNotEmpty
+          ? Routes.home
+          : Routes.loginWithEmail*/
