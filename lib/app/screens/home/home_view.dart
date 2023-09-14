@@ -9,7 +9,6 @@ import 'controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
   HomeView({Key? key}) : super(key: key);
-  DraggableScrollableController draggableScrollableController = DraggableScrollableController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +28,7 @@ class HomeView extends GetView<HomeController> {
           ),
         ),
         DraggableScrollableSheet(
-          controller: draggableScrollableController,
+          controller: controller.draggableScrollableController,
           initialChildSize: 0.15,
           minChildSize: 0.15,
           maxChildSize: 0.95,
@@ -50,7 +49,7 @@ class HomeView extends GetView<HomeController> {
                     SizedBox(height: 10,),
 
                     TextFormField(onTap: (){
-                      draggableScrollableController.animateTo(1, duration: Duration(milliseconds: 500), curve: Curves.easeIn);
+                      controller.draggableScrollableController.animateTo(1, duration: Duration(milliseconds: 500), curve: Curves.easeIn);
 
 
                       },decoration: InputDecoration(hintText: "Hospital name"),),

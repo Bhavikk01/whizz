@@ -3,11 +3,13 @@ import 'package:get/get.dart';
 
 class HomeController extends GetxController {
   // var isExpanded
+  late DraggableScrollableController draggableScrollableController ;
+
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    // draggableScrollableController = DraggableScrollableController().obx;
+    draggableScrollableController = DraggableScrollableController();
   }
 
 }

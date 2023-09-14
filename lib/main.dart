@@ -38,8 +38,8 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       theme: AppTheme.appTheme,
       title: "Application",
-      // initialRoute: Routes.home,
-      home: HomeView(),//const SplashScreen(),
+      initialRoute: Routes.home,
+      // home:const SplashScreen(),
       getPages: AppPages.routes,
       debugShowCheckedModeBanner: false,
     );
