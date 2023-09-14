@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:whizz/app/screens/home/home_view.dart';
 import 'package:whizz/app/services/auth_services.dart';
 import 'package:whizz/app/utils/app_theme.dart';
 import 'package:whizz/app/utils/constants.dart';
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.appTheme,
       title: "Application",
       // initialRoute: Routes.home,
-      home: const SplashScreen(),
+      home: HomeView(),//const SplashScreen(),
       getPages: AppPages.routes,
       debugShowCheckedModeBanner: false,
     );
