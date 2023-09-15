@@ -12,6 +12,7 @@ import '../../routes/app_pages.dart';
 import '../../utils/colors.dart';
 import '../../utils/constants.dart';
 import '../../utils/scale_utility.dart';
+import '../../widgets/address_picker.dart';
 
 class SignUpUserDetails extends GetView<SignUpController> {
   const SignUpUserDetails({Key? key}) : super(key: key);
@@ -118,23 +119,24 @@ class SignUpUserDetails extends GetView<SignUpController> {
                       backgroundColor: Colors.transparent,
                       backgroundImage: controller.userProfile.value != ''
                           ? controller.userProfile.value.startsWith('http')
-                          ? NetworkImage(controller.userProfile.value) as ImageProvider
-                          : FileImage(File(controller.userProfile.value))
+                              ? NetworkImage(controller.userProfile.value) as ImageProvider
+                              : FileImage(File(controller.userProfile.value))
                           : null,
-                      child: controller.userProfile.value == '' ?
-                      Stack(
-                        children: [
-                          Positioned(
-                            bottom: scale.getScaledHeight(10),
-                            right: scale.getScaledWidth(50),
-                            child: const Icon(Icons.add_circle),
-                          ),
-                          Lottie.asset(
-                            "assets/profile.json",
-                            fit: BoxFit.fill,
-                          ),
-                        ],
-                      ) : null,
+                      child: controller.userProfile.value == ''
+                          ? Stack(
+                              children: [
+                                Positioned(
+                                  bottom: scale.getScaledHeight(10),
+                                  right: scale.getScaledWidth(50),
+                                  child: const Icon(Icons.add_circle),
+                                ),
+                                Lottie.asset(
+                                  "assets/profile.json",
+                                  fit: BoxFit.fill,
+                                ),
+                              ],
+                            )
+                          : null,
                     ),
                   ),
                 ),
@@ -229,90 +231,13 @@ class SignUpUserDetails extends GetView<SignUpController> {
                           ),
                         ),
                       ),
-                      Container(
-                        padding: scale.getPadding(left: 8, right: 8, top: 4),
-                        child: CustomDropdown(
-                          hintText: 'Country*',
-                          fillColor: ColorsUtil.darkContainerColor,
-                          hintStyle: Theme.of(context).textTheme.labelLarge,
-                          listItemStyle: Theme.of(context).textTheme.labelLarge,
-                          selectedStyle: Theme.of(context).textTheme.titleSmall,
-                          excludeSelected: true,
-                          items: ConstantData.stateMap.keys.toList(),
-                          controller: controller.userCountryController,
-                          onChanged: (value) {
-                            log('Hello world $value');
-                            controller.userCountry.value = value;
-                            controller.userState.value = '';
-                            controller.userCity.value = '';
-                            controller.userStateController.text = '';
-                            controller.userCityController.text = '';
-                          },
+                      Obx(
+                        () => AddressPicker(
+                          controller: controller,
+                          userCountry: controller.userCountry.value,
+                          userState: controller.userState.value,
+                          userCity: controller.userCity.value,
                         ),
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Container(
-                              padding: scale.getPadding(
-                                  left: 8, right: 2, bottom: 4, top: 8),
-                              child: Obx(
-                                () => CustomDropdown(
-                                  hintText: 'State*',
-                                  fillColor: ColorsUtil.darkContainerColor,
-                                  hintStyle: Theme.of(context).textTheme.labelLarge,
-                                  listItemStyle: Theme.of(context).textTheme.labelLarge,
-                                  selectedStyle: Theme.of(context).textTheme.titleSmall,
-                                  excludeSelected: true,
-                                  items: controller.userCountry.value != '' ?
-                                  ConstantData.stateMap[controller.userCountry.value]?.map((e) => e['name'] as String).toList() :
-                                  ['Select Country First'],
-                                  controller: controller.userStateController,
-                                  onChanged: (value) {
-                                    log('Hello world $value');
-                                    if (value != 'Select Country First') {
-                                      controller.userState.value = value;
-                                      controller.userCity.value = '';
-                                      controller.userCityController.text = '';
-                                    } else {
-                                      controller.userStateController.text = '';
-                                    }
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              padding: scale.getPadding(
-                                  left: 2, right: 8, bottom: 4, top: 8),
-                              child: Obx(
-                                () => CustomDropdown(
-                                  hintText: 'City',
-                                  fillColor: ColorsUtil.darkContainerColor,
-                                  hintStyle: Theme.of(context).textTheme.labelLarge,
-                                  listItemStyle: Theme.of(context).textTheme.labelLarge,
-                                  selectedStyle: Theme.of(context).textTheme.titleSmall,
-                                  excludeSelected: true,
-                                  items: controller.userState.value != '' ?
-                                  ConstantData.cityMap[controller.userState.value]!.isNotEmpty ?
-                                  ConstantData.cityMap[controller.userState.value]?.map((e) => e['name'] as String).toList() :
-                                  ['City Not Available'] :
-                                  ['Select State First'],
-                                  controller: controller.userCityController,
-                                  onChanged: (value) {
-                                    log('Hello world $value');
-                                    if (value != 'Select State First' && value != 'City Not Available') {
-                                      controller.userCity.value = value;
-                                    } else {
-                                      controller.userCityController.text = '';
-                                    }
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
                       ),
                     ],
                   ),
@@ -332,7 +257,7 @@ class SignUpUserDetails extends GetView<SignUpController> {
             Get.toNamed(Routes.healthCenterScreen);
           },
           child: Text(
-            "Continue",
+            ConstantData.continueText,
             style: Theme.of(context).textTheme.labelLarge!.copyWith(
               color: ColorsUtil.lightTextColor,
               fontWeight: FontWeight.w500,

@@ -30,7 +30,7 @@ class SignUpScreen extends GetView<SignUpController> {
                     height: scale.getScaledHeight(45),
                   ),
                   Text(
-                    "Sign up to Whizz",
+                    "Sign up to ${ConstantData.appName}",
                     style: TextStyle(
                       fontSize: scale.getScaledFont(18),
                       fontWeight: FontWeight.w700,
@@ -55,7 +55,7 @@ class SignUpScreen extends GetView<SignUpController> {
                           Get.offAndToNamed(Routes.loginWithEmail);
                         },
                         child: Text(
-                          "Login",
+                          ConstantData.loginInText,
                           style: TextStyle(
                             fontSize: scale.getScaledFont(14),
                             fontWeight: FontWeight.w700,
@@ -155,11 +155,11 @@ class SignUpScreen extends GetView<SignUpController> {
                   ElevatedButton(
                     onPressed: () {
                       if(formKey.currentState!.validate()){
-                        Get.toNamed(Routes.signUpDetails);
+                        controller.uploadUserData(scale, context);
                       }
                     },
                     child: Text(
-                      "Continue",
+                      ConstantData.continueText,
                       style: Theme.of(context).textTheme.labelLarge!.copyWith(
                         color: ColorsUtil.lightTextColor,
                         fontWeight: FontWeight.w500,

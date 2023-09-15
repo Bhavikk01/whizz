@@ -31,13 +31,13 @@ class LoginWithEmail extends GetView<AuthController> {
                     fit: BoxFit.cover,
                   ),
                   Text(
-                    'Welcome to Whizz!👋',
+                    'Welcome to ${ConstantData.appName}!👋',
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   SizedBox(height: scale.getScaledHeight(10)),
                   SizedBox(height: scale.getScaledHeight(30)),
                   Text(
-                    'Sign In',
+                    ConstantData.signInText,
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   SizedBox(height: scale.getScaledHeight(20)),
@@ -74,7 +74,7 @@ class LoginWithEmail extends GetView<AuthController> {
                   SizedBox(height: scale.getScaledHeight(20)),
                   ElevatedButton(
                     child: Text(
-                      'Login',
+                      ConstantData.loginInText,
                       style: Theme.of(context).textTheme.labelLarge!.copyWith(
                         color: ColorsUtil.lightTextColor,
                       ),
@@ -99,7 +99,7 @@ class LoginWithEmail extends GetView<AuthController> {
                           Get.toNamed(Routes.signUp);
                         },
                         child: Text(
-                          'Sign Up Now',
+                          ConstantData.signUpText,
                           style: TextStyle(
                             color: ColorsUtil.darkTextColor,
                             fontWeight: FontWeight.w700,

@@ -1,14 +1,15 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 
 import 'package:get/get.dart';
+import 'package:whizz/app/screens/home/home_view.dart';
 import 'package:whizz/app/services/auth_services.dart';
 import 'package:whizz/app/utils/app_theme.dart';
 import 'package:whizz/app/utils/constants.dart';
 
 import 'app/API/api_client.dart';
 import 'app/routes/app_pages.dart';
-import 'app/screens/healthcare_center_detail_screen/healthcare_center_detail_screen.dart';
 import 'app/services/storage.dart';
 import 'app/services/user.dart';
 import 'app/utils/scale_utility.dart';
@@ -58,7 +59,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(const Duration(seconds: 5), () {
       Get.offAllNamed(UserStore.to.uid.isNotEmpty
           ? Routes.home
-          : Routes.healthCenterScreen
+          : Routes.loginWithEmail
       );
     });
     super.initState();
@@ -86,4 +87,3 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 }
-

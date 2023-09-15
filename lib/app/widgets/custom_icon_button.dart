@@ -39,8 +39,8 @@ class CustomIconButton extends StatelessWidget {
         }
       },
       child: Container(
-        height: height ?? 0,
-        width: width ?? 0,
+        height: height ?? scale.getScaledHeight(40),
+        width: width ?? scale.getScaledWidth(40),
         padding: padding ?? scale.getPadding(all: 9),
         margin: margin ?? scale.getMargin(all: 4),
         decoration: BoxDecoration(
@@ -64,6 +64,9 @@ class CustomIconButton extends StatelessWidget {
         ),
         child: Image.asset(
           image ?? '',
+          height: height != null? height!-5 : scale.getScaledHeight(35),
+          width: width != null? width!-5 : scale.getScaledWidth(35),
+          fit: BoxFit.cover,
         ),
       ),
     );

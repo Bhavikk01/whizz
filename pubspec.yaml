@@ -20,9 +20,13 @@ dependencies:
   lottie: ^2.6.0
   animated_custom_dropdown: ^1.5.0
   intl: ^0.18.1
+  google_maps_flutter: ^2.5.0
+  super_tooltip: ^2.0.5
+  pin_code_fields: ^7.4.0
+  simple_tooltip: ^1.2.0
   flutter_rating_bar: ^4.0.1
   image_picker: ^1.0.4
-  math_utils: ^1.0.3
+  geolocator: ^10.0.1
 
 dev_dependencies: 
   flutter_lints: ^2.0.0

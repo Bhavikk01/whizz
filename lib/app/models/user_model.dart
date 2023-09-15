@@ -72,46 +72,46 @@ class UserModel {
 class UserAddress {
   final String? country;
   final String? state;
-  final String? district;
+  final String? city;
   final double? longitude;
-  final double? latitute;
+  final double? latitude;
 
   UserAddress({
     this.country,
     this.state,
-    this.district,
+    this.city,
     this.longitude,
-    this.latitute,
+    this.latitude,
   });
 
   UserAddress copyWith({
     String? country,
     String? state,
-    String? district,
+    String? city,
     double? longitude,
-    double? latitute,
+    double? latitude,
   }) {
     return UserAddress(
       country: country ?? this.country,
       state: state ?? this.state,
-      district: district ?? this.district,
+      city: city ?? this.city,
       longitude: longitude ?? this.longitude,
-      latitute: latitute ?? this.latitute,
+      latitude: latitude ?? this.latitude,
     );
   }
 
   UserAddress.fromJson(Map<String, dynamic> json)
       : country = json['country'] as String?,
         state = json['state'] as String?,
-        district = json['district'] as String?,
+        city = json['city'] as String?,
         longitude = json['longitude'] as double?,
-        latitute = json['latitute'] as double?;
+        latitude = json['latitude'] as double?;
 
   Map<String, dynamic> toJson() => {
     'country' : country,
     'state' : state,
-    'district' : district,
+    'city' : city,
     'longitude' : longitude,
-    'latitute' : latitute
+    'latitude' : latitude
   };
 }

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
@@ -10,7 +12,6 @@ import 'user.dart';
 
 class AuthServices extends GetxController {
   static AuthServices get to => Get.find();
-  // FirebaseAuth auth = FirebaseAuth.instance;
   String otp = '';
   int? resendToken;
 
@@ -39,12 +40,14 @@ class AuthServices extends GetxController {
     }
   }
 
-  registerPhoneNumber(String phoneNumber) async {
+  Future<bool> registerPhoneNumber(String phoneNumber) async {
     if(await checkUserByPhone(phoneNumber) == null){
+      log('Here is the function');
       await FirebaseAuth.instance.verifyPhoneNumber(
         phoneNumber: '+91$phoneNumber',
         verificationCompleted: (PhoneAuthCredential credential) async {
           otp = credential.smsCode!;
+          log('This is the otp: $otp');
         },
         verificationFailed: (FirebaseAuthException e) {},
         codeSent: (String verificationId, int? forceResendingToken) {
@@ -54,11 +57,15 @@ class AuthServices extends GetxController {
         codeAutoRetrievalTimeout: (String verificationId) {},
         timeout: const Duration(seconds: 60),
       );
+      return true;
     }else{
+      log('Here is the flow');
+      LoadingOverlay.hideOverlay();
       customSnackBar(
         type: AnimatedSnackBarType.error,
         message: 'This number is already linked with other user',
       );
+      return false;
     }
   }
 
@@ -88,10 +95,18 @@ class AuthServices extends GetxController {
 
   verifyRegistrationOtp(String phoneNumber, String otp, UserModel user) async {
     try {
+      LoadingOverlay.showOverlay();
       if(this.otp == otp){
         await handleSignUp(user);
+      }else{
+        customSnackBar(
+          type: AnimatedSnackBarType.error,
+          message: 'Please enter the correct OTP',
+        );
+        LoadingOverlay.hideOverlay();
       }
     } catch (err) {
+      LoadingOverlay.hideOverlay();
       customSnackBar(
         type: AnimatedSnackBarType.error,
         message: '$err',
@@ -148,7 +163,6 @@ class AuthServices extends GetxController {
           type: AnimatedSnackBarType.error,
           message: 'User does not exist with this credentials',
         );
-        return false;
       }
     } catch (err) {
       LoadingOverlay.hideOverlay();
@@ -156,7 +170,6 @@ class AuthServices extends GetxController {
         type: AnimatedSnackBarType.error,
         message: '$err',
       );
-      return false;
     }
   }
 
@@ -164,6 +177,35 @@ class AuthServices extends GetxController {
     var value = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: user.email!, password: user.password!);
     if (value.user != null) {
       await ApiClient.to.addUserData(
+        user.toJson(),
+        onSuccess: (res) async {
+          if(res.body['status']){
+            await UserStore.to.saveProfile(user.id!);
+            LoadingOverlay.hideOverlay();
+            Get.offAllNamed(Routes.signUpDetails);
+          }else{
+            await FirebaseAuth.instance.currentUser!.delete();
+            LoadingOverlay.hideOverlay();
+            customSnackBar(
+              type: AnimatedSnackBarType.warning,
+              message: '${res.body['message']}',
+            );
+          }
+        },
+        onError: (err) async {
+          await FirebaseAuth.instance.currentUser!.delete();
+          LoadingOverlay.hideOverlay();
+          customSnackBar(
+            type: AnimatedSnackBarType.error,
+            message: '${err.body['error']}',
+          );
+        }
+      );
+    }
+  }
+
+  uploadUserData(UserModel user) async {
+    await ApiClient.to.addUserData(
         user.toJson(),
         onSuccess: (res) async {
           if(res.body['status']){
@@ -183,8 +225,6 @@ class AuthServices extends GetxController {
             message: '${err.body['error']}',
           );
         }
-      );
-    }
+    );
   }
-
 }

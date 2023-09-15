@@ -14,5 +14,6 @@ abstract class Routes {
   static const home = '/home';
 
   /* Health Center screen */
+  static const searchHealthCenterScreen = '/searchHealthCenterScreen';
   static const healthCenterScreen = '/healthCenterScreen';
 }

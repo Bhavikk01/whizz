@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:whizz/app/utils/constants.dart';
 
 import '../../routes/app_pages.dart';
 import '../../utils/custom_bottom_snackbar.dart';
@@ -53,7 +54,7 @@ class LoginWithPhone extends GetView<AuthController> {
             margin: EdgeInsets.symmetric(horizontal: 20),
             alignment: Alignment.topLeft,
             child: Text(
-              'Login',
+              ConstantData.loginInText,
               style: GoogleFonts.atkinsonHyperlegible(
                 fontSize: 20,
                 fontWeight: FontWeight.w500,
@@ -82,7 +83,7 @@ class LoginWithPhone extends GetView<AuthController> {
               shape: const StadiumBorder(),
               minimumSize: const Size(179, 45),
             ),
-            child: const Text('Login'),
+            child: const Text(ConstantData.loginInText),
             onPressed: () {
               if(controller.validatePhoneNumber()){
                 controller.handleSignInWithPhone();
@@ -112,7 +113,7 @@ class LoginWithPhone extends GetView<AuthController> {
                   Get.toNamed(Routes.signUp);
                 },
                 child: Text(
-                  'Sign Up Now',
+                  ConstantData.signUpText,
                   style: GoogleFonts.poppins(
                     fontSize: 13,
                     fontWeight: FontWeight.w400,
