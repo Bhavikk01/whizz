@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:geolocator/geolocator.dart';
 
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -9,25 +12,46 @@ import 'controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
   HomeView({Key? key}) : super(key: key);
+
+  Future<CameraPosition> getLocation()async{
+    Position position =await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    CameraPosition cameraPosition = CameraPosition(target:LatLng(position.latitude,position.longitude) );
+    return cameraPosition;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
             child: Stack(
       children: [
-        SingleChildScrollView(
-          child: InteractiveViewer(
-            minScale: 0.4,
-            maxScale: 0.5,
-            boundaryMargin: EdgeInsets.all(20.0),
-            child: Image.network(
-              "https://i.stack.imgur.com/HILmr.png",
-              height: Get.height,
-              fit: BoxFit.fitHeight,
-            ),
-          ),
+        GoogleMap(
+            initialCameraPosition:CameraPosition(target: LatLng(0,0)),
+          myLocationEnabled: true,
+          myLocationButtonEnabled: true,
+          zoomControlsEnabled: false,
+
+          onMapCreated: (GoogleMapController controller)async{
+              Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+              log(position.toString());
+          },
+
+
+
         ),
-        DraggableScrollableSheet(
+        // SingleChildScrollView(
+        //   child: InteractiveViewer(
+        //     minScale: 0.4,
+        //     maxScale: 0.5,
+        //     boundaryMargin: EdgeInsets.all(20.0),
+        //     child: Image.network(
+        //       "https://i.stack.imgur.com/HILmr.png",
+        //       height: Get.height,
+        //       fit: BoxFit.fitHeight,
+        //     ),
+        //   ),
+        // ),
+          DraggableScrollableSheet(
           controller: controller.draggableScrollableController,
           initialChildSize: 0.15,
           minChildSize: 0.15,

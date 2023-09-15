@@ -24,7 +24,7 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.example.whizz"
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion 33
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -65,4 +65,6 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+dependencies {
+
+}

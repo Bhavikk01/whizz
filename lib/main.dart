@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 
 import 'package:get/get.dart';
 import 'package:whizz/app/screens/home/home_view.dart';
@@ -25,6 +26,8 @@ Future<void> main() async {
   Get.put<ApiClient>(ApiClient());
   Get.put<UserStore>(UserStore());
   Get.put<AuthServices>(AuthServices());
+  await Geolocator.checkPermission();
+  await Geolocator.requestPermission();
   runApp(const MyApp());
 }
 
