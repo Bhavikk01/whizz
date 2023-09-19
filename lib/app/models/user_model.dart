@@ -46,7 +46,7 @@ class UserModel {
   }
 
   UserModel.fromJson(Map<String, dynamic> json)
-      : id = json['_id'] as String?,
+      : id = json['id'] as String?,
         fullName = json['full_name'] as String?,
         email = json['email'] as String?,
         mobile = json['mobile'] as String?,
@@ -57,7 +57,7 @@ class UserModel {
         userProfile = json['userProfile'] as String?;
 
   Map<String, dynamic> toJson() => {
-    '_id' : id,
+    'id' : id,
     'full_name' : fullName,
     'email' : email,
     'mobile' : mobile,

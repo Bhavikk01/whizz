@@ -9,8 +9,6 @@ import '../utils/constants.dart';
 import 'custom_icon_button.dart';
 
 
-
-
 class CustomDrawer extends GetView<CustomDrawerController> {
   const CustomDrawer({Key? key}) : super(key: key);
 
