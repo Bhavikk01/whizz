@@ -33,6 +33,7 @@ class SearchHealthcareController extends GetxController {
   Future<void> onInit() async {
     super.onInit();
     draggableScrollableController = DraggableScrollableController();
+
     await Geolocator.requestPermission();
     await getLocation();
     if(UserStore.to.profile.userAddress != null){
@@ -75,7 +76,7 @@ class SearchHealthcareController extends GetxController {
   getNearByHealthcare() async {
     await ApiClient.to.getNearByHealthcare(
       searchBy.value,
-      userAddress: userAddress.value!,
+      userAddress: userAddress.value,
       onSuccess: (res) {
 
       },

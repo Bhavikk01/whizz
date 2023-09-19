@@ -40,8 +40,8 @@ class SearchHealthcareScreen extends GetView<SearchHealthcareController> {
             ),
             DraggableScrollableSheet(
               controller: controller.draggableScrollableController,
-              initialChildSize: 0.15,
-              minChildSize: 0.15,
+              initialChildSize: 0.16,
+              minChildSize: 0.16,
               maxChildSize: 0.95,
               snap: true,
               builder: (BuildContext context, ScrollController scrollController) {

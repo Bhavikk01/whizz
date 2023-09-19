@@ -12,6 +12,8 @@ abstract class Routes {
 
   /* Home Route */
   static const home = '/home';
+  static String userProfile = '/userProfile';
+  static String reminderScreen = '/reminderScreen';
 
   /* Health Center screen */
   static const searchHealthCenterScreen = '/searchHealthCenterScreen';

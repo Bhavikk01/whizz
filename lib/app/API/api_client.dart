@@ -1,9 +1,13 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:whizz/app/API/api_routes.dart';
 import 'package:whizz/app/models/enum/searchByAddress.dart';
+import 'package:whizz/app/services/user.dart';
 
 import '../models/user_model.dart';
+import '../utils/constants.dart';
 
 class ApiClient extends GetConnect implements GetxService {
   static ApiClient get to => Get.find();
@@ -100,8 +104,12 @@ class ApiClient extends GetConnect implements GetxService {
       required UserAddress userAddress}) async {
     try{
       if (searchMode == SearchByAddress.city) {
+        var countryCode = ConstantData.countryMap[userAddress.country];
+        var cityCode = ConstantData.cityMap[userAddress.state]!.firstWhere((element) => element['name'] == userAddress.city);
+        var stateCode = ConstantData.stateMap[userAddress.country]!.firstWhere((element) => element['name'] == userAddress.state);
+
         Response res = await httpClient.get(
-          '${ApiRoutes.baseUrl}nearbyHealthcare?city=${userAddress.city}',
+          '${ApiRoutes.baseUrl}nearbyHealthcare?country=$countryCode&state=${stateCode['state_code']}&city=${cityCode['id']}',
         );
         if (validateResponse(res)) {
           onSuccess(res);
@@ -114,8 +122,10 @@ class ApiClient extends GetConnect implements GetxService {
           );
         }
       } else if (searchMode == SearchByAddress.state) {
+        var countryCode = ConstantData.countryMap[userAddress.country];
+        var stateCode = ConstantData.stateMap[userAddress.country]!.firstWhere((element) => element['name'] == userAddress.state);
         Response res = await httpClient.get(
-          '${ApiRoutes.baseUrl}nearbyHealthcare?state=${userAddress.state}',
+          '${ApiRoutes.baseUrl}nearbyHealthcare?country=$countryCode&state=${stateCode['state_code']}',
         );
         if (validateResponse(res)) {
           onSuccess(res);
@@ -128,8 +138,9 @@ class ApiClient extends GetConnect implements GetxService {
           );
         }
       }else{
+        var countryCode = ConstantData.countryMap[userAddress.country];
         Response res = await httpClient.get(
-          '${ApiRoutes.baseUrl}nearbyHealthcare?country=${userAddress.country}',
+          '${ApiRoutes.baseUrl}nearbyHealthcare?country=$countryCode',
         );
         if (validateResponse(res)) {
           onSuccess(res);
@@ -141,6 +152,34 @@ class ApiClient extends GetConnect implements GetxService {
             ),
           );
         }
+      }
+    }catch(err){
+      onError(
+        Response(
+          statusCode: 404,
+          body: {'error': '$err'},
+        ),
+      );
+    }
+  }
+
+  getAllPillsReminder({required Function(Response res) onSuccess,
+        required Function(Response error) onError}) async {
+    try{
+      log('--------------Calling API---------------');
+      Response res = await httpClient.get(
+        '${ApiRoutes.baseUrl}user/getUserPills/${UserStore.to.uid}',
+      );
+      log('----------Finishing API Call------------');
+      if (validateResponse(res)) {
+        onSuccess(res);
+      } else {
+        onError(
+          Response(
+            statusCode: res.statusCode,
+            body: {'error': 'Unhealthy Response'},
+          ),
+        );
       }
     }catch(err){
       onError(

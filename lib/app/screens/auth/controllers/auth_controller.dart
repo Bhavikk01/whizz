@@ -25,6 +25,6 @@ class AuthController extends GetxController {
 
   handleSignInWithPhone() async {
     LoadingOverlay.showOverlay();
-    await AuthServices.to.verifyPhoneNumber(phoneController.text);
+    // await AuthServices.to.verifyPhoneNumber(phoneController.text);
   }
 }

@@ -418,7 +418,7 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
             Text(
               textAlign: TextAlign.justify,
               "The Apollo Hospitals, Indore is a joint venture between Apollo Hospitals Enterprises Limited (AHEL) & Rajshree Hospital & Research Centre Pvt. Ltd.\n\nIt offers high-end tertiary care across various medical disciplines, with a special focus on Cardiology & Cardiothoracic Surgery, Neurology, and Neurosurgery, Nephrology, and Urology, Orthopaedics, Gastroenterology, Emergency & Trauma. The 180 bedded hospital's strength lies in the perfect balance of excellent infrastructure, latest technology, and dedicated manpower, all orchestrated to provide patient services to the highest standards. Centres of Excellence Apollo Hospitals.\n\nIndore has established Centres of Excellence across various key specialties. The goal of each Centre of Excellence is to ensure that care of the highest possible standards is offered whilst also forging ahead in research, meeting and surpassing benchmarks set by the world's best healthcare providers, tracking and standardizing best practices, and achieving excellence in academics.",
-              style: AppTheme.appTheme.textTheme.bodyLarge,
+              style: AppTheme.appTheme.textTheme.bodyMedium,
             ),
             SizedBox(
               height: scale.getScaledHeight(13),
@@ -445,7 +445,7 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
                   'Mon - Fri',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: AppTheme.appTheme.textTheme.bodyLarge!.copyWith(
+                  style: AppTheme.appTheme.textTheme.bodyMedium!.copyWith(
                     fontWeight: FontWeight.w500,
                     fontSize: scale.getScaledFont(15),
                   ),
@@ -459,7 +459,7 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
               '${DateFormat('hh : mm a').format(DateTime.now())} - ${DateFormat('hh : mm a').format(DateTime.now())}',
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: AppTheme.appTheme.textTheme.bodyLarge!.copyWith(
+              style: AppTheme.appTheme.textTheme.bodyMedium!.copyWith(
                 fontSize: scale.getScaledFont(14),
               ),
             ),
@@ -588,7 +588,7 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
             RichText(
               text: TextSpan(
                   text: 'Total Stock: ',
-                  style: AppTheme.appTheme.textTheme.bodyLarge!
+                  style: AppTheme.appTheme.textTheme.bodyMedium!
                       .copyWith(fontSize: scale.getScaledFont(16)),
                   children: [
                     TextSpan(
@@ -610,7 +610,7 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
                     child: Text(
                       'S.No',
                       maxLines: 1,
-                      style: AppTheme.appTheme.textTheme.bodyLarge!.copyWith(
+                      style: AppTheme.appTheme.textTheme.bodyMedium!.copyWith(
                         fontSize: scale.getScaledFont(14),
                       ),
                     ),
@@ -620,7 +620,7 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
                     width: scale.getScaledWidth(90),
                     child: Text(
                       'Name',
-                      style: AppTheme.appTheme.textTheme.bodyLarge!.copyWith(
+                      style: AppTheme.appTheme.textTheme.bodyMedium!.copyWith(
                         fontSize: scale.getScaledFont(14),
                       ),
                       maxLines: 1,
@@ -632,7 +632,7 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
                     child: Text(
                       'Dosage',
                       maxLines: 1,
-                      style: AppTheme.appTheme.textTheme.bodyLarge!.copyWith(
+                      style: AppTheme.appTheme.textTheme.bodyMedium!.copyWith(
                         fontSize: scale.getScaledFont(14),
                       ),
                     ),
@@ -643,7 +643,7 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
                     child: Text(
                       'Category',
                       maxLines: 1,
-                      style: AppTheme.appTheme.textTheme.bodyLarge!.copyWith(
+                      style: AppTheme.appTheme.textTheme.bodyMedium!.copyWith(
                         fontSize: scale.getScaledFont(14),
                       ),
                     ),
@@ -681,7 +681,7 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
                             padding: scale.getPadding(horizontal: 1),
                             child: Text(
                               '${index + 1}.',
-                              style: AppTheme.appTheme.textTheme.bodyLarge!
+                              style: AppTheme.appTheme.textTheme.bodyMedium!
                                   .copyWith(
                                 fontSize: scale.getScaledFont(14),
                               ),
@@ -695,7 +695,7 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
                             padding: scale.getPadding(horizontal: 1),
                             child: Text(
                               'Nemusolite',
-                              style: AppTheme.appTheme.textTheme.bodyLarge!
+                              style: AppTheme.appTheme.textTheme.bodyMedium!
                                   .copyWith(
                                 fontSize: scale.getScaledFont(14),
                               ),
@@ -709,7 +709,7 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
                             padding: scale.getPadding(horizontal: 1),
                             child: Text(
                               '650 MG',
-                              style: AppTheme.appTheme.textTheme.bodyLarge!
+                              style: AppTheme.appTheme.textTheme.bodyMedium!
                                   .copyWith(
                                 fontSize: scale.getScaledFont(14),
                               ),
@@ -723,7 +723,7 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
                             padding: scale.getPadding(horizontal: 1),
                             child: Text(
                               'Azithromycin',
-                              style: AppTheme.appTheme.textTheme.bodyLarge!
+                              style: AppTheme.appTheme.textTheme.bodyMedium!
                                   .copyWith(
                                 fontSize: scale.getScaledFont(14),
                               ),
@@ -771,7 +771,7 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
                 ),
                 Text(
                   '3.5/5 ',
-                  style: AppTheme.appTheme.textTheme.bodyLarge!.copyWith(
+                  style: AppTheme.appTheme.textTheme.bodyMedium!.copyWith(
                     fontSize: scale.getScaledFont(17),
                   ),
                 ),
@@ -968,7 +968,7 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
                               'Aortic Anuerysm Surgery / Endovascular Repair',
                               overflow: TextOverflow.ellipsis,
                               maxLines: 2,
-                              style: AppTheme.appTheme.textTheme.bodyLarge,
+                              style: AppTheme.appTheme.textTheme.bodyMedium,
                             ),
                           ),
                         ],
@@ -991,5 +991,4 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
       ),
     );
   }
-
 }

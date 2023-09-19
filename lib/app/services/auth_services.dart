@@ -13,32 +13,8 @@ import 'user.dart';
 class AuthServices extends GetxController {
   static AuthServices get to => Get.find();
   String otp = '';
+  String verificationId = '';
   int? resendToken;
-
-  verifyPhoneNumber(String phoneNumber) async {
-    if(await checkUserByPhone(phoneNumber) != null){
-      await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber: '+91$phoneNumber',
-        verificationCompleted: (PhoneAuthCredential credential) async {
-          otp = credential.smsCode!;
-        },
-        verificationFailed: (FirebaseAuthException e) {},
-        codeSent: (String verificationId, int? forceResendingToken) {
-          resendToken = forceResendingToken;
-        },
-        forceResendingToken: resendToken,
-        codeAutoRetrievalTimeout: (String verificationId) {},
-        timeout: const Duration(seconds: 60),
-      );
-      LoadingOverlay.hideOverlay();
-    }else{
-      LoadingOverlay.hideOverlay();
-      customSnackBar(
-        type: AnimatedSnackBarType.error,
-        message: 'No user exist with this number',
-      );
-    }
-  }
 
   Future<bool> registerPhoneNumber(String phoneNumber) async {
     if(await checkUserByPhone(phoneNumber) == null){
@@ -46,12 +22,12 @@ class AuthServices extends GetxController {
       await FirebaseAuth.instance.verifyPhoneNumber(
         phoneNumber: '+91$phoneNumber',
         verificationCompleted: (PhoneAuthCredential credential) async {
-          otp = credential.smsCode!;
-          log('This is the otp: $otp');
+
         },
         verificationFailed: (FirebaseAuthException e) {},
         codeSent: (String verificationId, int? forceResendingToken) {
           resendToken = forceResendingToken;
+          this.verificationId = verificationId;
         },
         forceResendingToken: resendToken,
         codeAutoRetrievalTimeout: (String verificationId) {},
@@ -69,34 +45,15 @@ class AuthServices extends GetxController {
     }
   }
 
-  verifyOtp(String phoneNumber, String otp) async {
-    try {
-      LoadingOverlay.showOverlay();
-      if(this.otp == otp){
-        UserModel? user = await checkUserByPhone(phoneNumber);
-        if(user != null){
-          await handleSignInByEmail(user.email!, user.password!);
-        }else{
-          LoadingOverlay.hideOverlay();
-          customSnackBar(
-            type: AnimatedSnackBarType.error,
-            message: 'NO user exist with this phone number',
-          );
-        }
-      }
-    } catch (err) {
-      LoadingOverlay.hideOverlay();
-      customSnackBar(
-        type: AnimatedSnackBarType.error,
-        message: '$err',
-      );
-    }
-  }
-
   verifyRegistrationOtp(String phoneNumber, String otp, UserModel user) async {
     try {
       LoadingOverlay.showOverlay();
-      if(this.otp == otp){
+      final credential = PhoneAuthProvider.credential(
+        smsCode: otp,
+        verificationId: verificationId,
+      );
+      final value = await FirebaseAuth.instance.signInWithCredential(credential);
+      if(value.user != null){
         await handleSignUp(user);
       }else{
         customSnackBar(
@@ -106,6 +63,7 @@ class AuthServices extends GetxController {
         LoadingOverlay.hideOverlay();
       }
     } catch (err) {
+      log('Here I am');
       LoadingOverlay.hideOverlay();
       customSnackBar(
         type: AnimatedSnackBarType.error,
@@ -174,16 +132,16 @@ class AuthServices extends GetxController {
   }
 
   handleSignUp(UserModel user) async {
-    var value = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: user.email!, password: user.password!);
-    if (value.user != null) {
-      await ApiClient.to.addUserData(
-        user.toJson(),
-        onSuccess: (res) async {
-          if(res.body['status']){
+    try{
+      var emailCredential = EmailAuthProvider.credential(email: user.email!, password: user.password!);
+      var value = await FirebaseAuth.instance.currentUser!.linkWithCredential(emailCredential);
+      if (value.user != null) {
+        await ApiClient.to.addUserData(user.toJson(), onSuccess: (res) async {
+          if (res.body['status']) {
             await UserStore.to.saveProfile(user.id!);
             LoadingOverlay.hideOverlay();
             Get.offAllNamed(Routes.signUpDetails);
-          }else{
+          } else {
             await FirebaseAuth.instance.currentUser!.delete();
             LoadingOverlay.hideOverlay();
             customSnackBar(
@@ -191,15 +149,20 @@ class AuthServices extends GetxController {
               message: '${res.body['message']}',
             );
           }
-        },
-        onError: (err) async {
+        }, onError: (err) async {
           await FirebaseAuth.instance.currentUser!.delete();
           LoadingOverlay.hideOverlay();
           customSnackBar(
             type: AnimatedSnackBarType.error,
             message: '${err.body['error']}',
           );
-        }
+        });
+      }
+    }catch(err){
+      LoadingOverlay.hideOverlay();
+      customSnackBar(
+        type: AnimatedSnackBarType.error,
+        message: '$err',
       );
     }
   }

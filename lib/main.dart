@@ -1,14 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 
 import 'package:get/get.dart';
-import 'package:whizz/app/screens/home/home_view.dart';
+import 'package:whizz/app/global_controllers/drawer_controller.dart';
 import 'package:whizz/app/services/auth_services.dart';
 import 'package:whizz/app/utils/app_theme.dart';
 import 'package:whizz/app/utils/constants.dart';
 
 import 'app/API/api_client.dart';
+import 'app/global_controllers/bottom_nav_controller.dart';
 import 'app/routes/app_pages.dart';
 import 'app/services/storage.dart';
 import 'app/services/user.dart';
@@ -25,6 +25,8 @@ Future<void> main() async {
   Get.put<ApiClient>(ApiClient());
   Get.put<UserStore>(UserStore());
   Get.put<AuthServices>(AuthServices());
+  Get.put(CustomDrawerController());
+  Get.put(BottomNavBarController());
   runApp(const MyApp());
 }
 
@@ -59,7 +61,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(const Duration(seconds: 5), () {
       Get.offAllNamed(UserStore.to.uid.isNotEmpty
           ? Routes.home
-          : Routes.loginWithEmail
+          : Routes.home
       );
     });
     super.initState();
@@ -77,7 +79,7 @@ class _SplashScreenState extends State<SplashScreen> {
             color: Colors.white,
             image: DecorationImage(
               image: AssetImage(
-                ConstantData.appSplash,
+                ConstantData.loadingIcon,
               ),
               fit: BoxFit.cover
             )

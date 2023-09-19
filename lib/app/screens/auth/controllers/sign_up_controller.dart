@@ -82,15 +82,16 @@ class SignUpController extends GetxController {
                     icon: const Icon(Icons.close),
                   ),
                 ),
-                SizedBox(
-                  height: scale.getScaledHeight(15),
-                ),
                 Text(
                   ConstantData.verifyOtpText,
                   style: AppTheme.appTheme.textTheme.titleLarge,
                 ),
+                Text(
+                  'OTP sent on +91XXXXXX${phoneController.text.substring(6,10)}',
+                  style: AppTheme.appTheme.textTheme.bodyMedium,
+                ),
                 SizedBox(
-                  height: scale.getScaledHeight(30),
+                  height: scale.getScaledHeight(10),
                 ),
                 PinCodeTextField(
                   autoDisposeControllers: false,
@@ -126,8 +127,12 @@ class SignUpController extends GetxController {
 
                   },
                 ),
+                Text(
+                  'Retry in 0:56',
+                  style: AppTheme.appTheme.textTheme.bodyMedium,
+                ),
                 SizedBox(
-                  height: scale.getScaledHeight(30),
+                  height: scale.getScaledHeight(15),
                 ),
                 ElevatedButton(
                   onPressed: () async {

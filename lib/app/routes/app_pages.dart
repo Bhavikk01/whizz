@@ -13,6 +13,7 @@ import '../screens/auth/login_with_phone.dart';
 import '../screens/health_care/search_healthcare/search_healthcare_screen.dart';
 import '../screens/home/bindings/home_binding.dart';
 import '../screens/home/home_view.dart';
+import '../widgets/bottom_nav_bar.dart';
 
 part 'app_routes.dart';
 
@@ -54,9 +55,19 @@ class AppPages {
 
     GetPage(
       name: Routes.home,
-      page: () => const HomeView(),
+      page: () => const BottomNavBarScreen(),
       binding: HomeBinding(),
     ),
+    // GetPage(
+    //   name: Routes.reminderScreen,
+    //   page: () => const HomeView(),
+    //   binding: HomeBinding(),
+    // ),
+    // GetPage(
+    //   name: Routes.userProfile,
+    //   page: () => const HomeView(),
+    //   binding: HomeBinding(),
+    // ),
 
     /* Healthcare Screen */
     GetPage(
