@@ -13,7 +13,8 @@ class LoginWithEmail extends GetView<AuthController> {
 
   @override
   Widget build(BuildContext context) {
-    ScalingUtility scale = ScalingUtility(context: Get.context!)..setCurrentDeviceSize();
+    ScalingUtility scale = ScalingUtility(context: Get.context!)
+      ..setCurrentDeviceSize();
     final formKey = GlobalKey<FormState>();
 
     return Scaffold(
@@ -23,6 +24,7 @@ class LoginWithEmail extends GetView<AuthController> {
           child: Form(
             key: formKey,
             child: SingleChildScrollView(
+              controller: controller.controller,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
@@ -30,6 +32,7 @@ class LoginWithEmail extends GetView<AuthController> {
                     ConstantData.appLogo,
                     fit: BoxFit.cover,
                   ),
+                  SizedBox(height: scale.getScaledHeight(10),),
                   Text(
                     'Welcome to ${ConstantData.appName}!👋',
                     style: Theme.of(context).textTheme.titleLarge,
@@ -42,14 +45,21 @@ class LoginWithEmail extends GetView<AuthController> {
                   ),
                   SizedBox(height: scale.getScaledHeight(20)),
                   TextFormField(
+                    onTap: () {
+                      Future.delayed(Duration(milliseconds: 500), () {
+                        controller.controller.animateTo(Get.height/2.5,
+                            duration: Duration(milliseconds: 500),
+                            curve: Curves.bounceIn);
+                      });
+                    },
                     controller: controller.emailController,
                     style: Theme.of(context).textTheme.titleSmall,
                     decoration: const InputDecoration(
                       prefixIcon: Icon(Icons.person_2_outlined),
                       hintText: 'Email or phone number',
                     ),
-                    validator: (value){
-                      if(GetUtils.isEmail(value!)){
+                    validator: (value) {
+                      if (GetUtils.isEmail(value!)) {
                         return null;
                       }
                       return 'Enter a valid Email';
@@ -64,8 +74,8 @@ class LoginWithEmail extends GetView<AuthController> {
                       prefixIcon: Icon(Icons.password),
                       hintText: 'Password',
                     ),
-                    validator: (value){
-                      if(value!.length < 6){
+                    validator: (value) {
+                      if (value!.length < 6) {
                         return 'Password length should be more then 6';
                       }
                       return null;
@@ -76,11 +86,11 @@ class LoginWithEmail extends GetView<AuthController> {
                     child: Text(
                       ConstantData.loginInText,
                       style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                        color: ColorsUtil.lightTextColor,
-                      ),
+                            color: ColorsUtil.lightTextColor,
+                          ),
                     ),
                     onPressed: () async {
-                      if(formKey.currentState!.validate()){
+                      if (formKey.currentState!.validate()) {
                         await controller.signInByEmail();
                       }
                     },
@@ -106,6 +116,8 @@ class LoginWithEmail extends GetView<AuthController> {
                           ),
                         ),
                       ),
+                      SizedBox(height: scale.getScaledHeight(10),),
+
                     ],
                   ),
                 ],

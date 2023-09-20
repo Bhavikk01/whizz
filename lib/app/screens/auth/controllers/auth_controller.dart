@@ -13,6 +13,8 @@ class AuthController extends GetxController {
   TextEditingController otpController = TextEditingController();
   TextEditingController otpForgotPasswordController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  ScrollController controller = ScrollController();
+
 
   signInByEmail() async {
     await AuthServices.to.handleSignInByEmail(emailController.text, passwordController.text);
