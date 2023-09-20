@@ -7,7 +7,7 @@ import warnings
 import time
 import os
 
-model_path="data"
+model_path="api\data"
 warnings.filterwarnings("ignore")
 precaution=pickle.load(open(os.path.join(model_path,"precaution_dict.pkl"),"rb"))
 description=pickle.load(open(os.path.join(model_path,"description_dict.pkl"),"rb"))
@@ -171,7 +171,9 @@ class recommend(Resource):
         
         return {"symptoms":send}
 
-api.add_resource(ask,"/ask/")
+api.add_resource(recommend,"/ask/")
 
 if __name__ == '__main__':
-    app.run(host = '192.168.118.27',port = 5000, debug=True)
+    #uncomment this when using with flutter
+    # app.run(host = '192.168.118.27',port = 5000, debug=True)
+    app.run(debug=True)
