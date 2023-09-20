@@ -17,26 +17,30 @@ class AuthServices extends GetxController {
   int? resendToken;
 
   Future<bool> registerPhoneNumber(String phoneNumber) async {
-    if(await checkUserByPhone(phoneNumber) == null){
-      log('Here is the function');
-      await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber: '+91$phoneNumber',
-        verificationCompleted: (PhoneAuthCredential credential) async {
-
-        },
-        verificationFailed: (FirebaseAuthException e) {},
-        codeSent: (String verificationId, int? forceResendingToken) {
-          resendToken = forceResendingToken;
-          this.verificationId = verificationId;
-        },
-        forceResendingToken: resendToken,
-        codeAutoRetrievalTimeout: (String verificationId) {},
-        timeout: const Duration(seconds: 60),
-      );
-      return true;
-    }else{
-      log('Here is the flow');
-      LoadingOverlay.hideOverlay();
+    try{
+      if (await checkUserByPhone(phoneNumber) == null) {
+        log('Here is the function');
+        await FirebaseAuth.instance.verifyPhoneNumber(
+          phoneNumber: '+91$phoneNumber',
+          verificationCompleted: (PhoneAuthCredential credential) async {},
+          verificationFailed: (FirebaseAuthException e) {},
+          codeSent: (String verificationId, int? forceResendingToken) {
+            resendToken = forceResendingToken;
+            this.verificationId = verificationId;
+          },
+          forceResendingToken: resendToken,
+          codeAutoRetrievalTimeout: (String verificationId) {},
+          timeout: const Duration(seconds: 60),
+        );
+        return true;
+      } else {
+        customSnackBar(
+          type: AnimatedSnackBarType.error,
+          message: 'This number is already linked with other user',
+        );
+        return false;
+      }
+    }catch(err){
       customSnackBar(
         type: AnimatedSnackBarType.error,
         message: 'This number is already linked with other user',
@@ -136,9 +140,9 @@ class AuthServices extends GetxController {
       var emailCredential = EmailAuthProvider.credential(email: user.email!, password: user.password!);
       var value = await FirebaseAuth.instance.currentUser!.linkWithCredential(emailCredential);
       if (value.user != null) {
-        await ApiClient.to.addUserData(user.toJson(), onSuccess: (res) async {
+        await ApiClient.to.addUserData(user.copyWith(id: value.user!.uid).toJson(), onSuccess: (res) async {
           if (res.body['status']) {
-            await UserStore.to.saveProfile(user.id!);
+            await UserStore.to.saveProfile(value.user!.uid);
             LoadingOverlay.hideOverlay();
             Get.offAllNamed(Routes.signUpDetails);
           } else {

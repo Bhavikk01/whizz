@@ -71,13 +71,16 @@ class by_id(Resource):
         data = list(collection.find({"id":id}))
         if data:
             del data[0]["_id"]
-            return jsonify(data[0])
+            return jsonify({
+                "status": True,
+                "data": data[0]
+            })
         else:
             return jsonify({
                 "status": False,
                 "message": "user not found"
             })
-api.add_resource(by_id, "/user/id/<string:id>")
+api.add_resource(by_id, "/user/<string:id>")
 
 class by_email(Resource):
     def get(self, email):
@@ -85,7 +88,10 @@ class by_email(Resource):
         if data:
 
             del data[0]["_id"]
-            return jsonify(data[0])
+            return jsonify({
+                "status": True,
+                "data": data[0]
+            })
         else:
             return jsonify({
                 "status": False,
@@ -98,7 +104,10 @@ class by_phone(Resource):
         data = list(collection.find({"mobile":mobile}))
         if data:
             del data[0]["_id"]
-            return jsonify(data[0])
+            return jsonify({
+                "status": True,
+                "data": data[0]
+            })
         else:
             return jsonify({
                 "status": False,
@@ -165,4 +174,4 @@ class recommend(Resource):
 api.add_resource(ask,"/ask/")
 
 if __name__ == '__main__':
-    app.run(debug=True)  
+    app.run(host = '192.168.118.27',port = 5000, debug=True)

@@ -63,123 +63,123 @@ class SignUpController extends GetxController {
 
   uploadUserData(ScalingUtility scale, context) async {
     try{
-      LoadingOverlay.showOverlay();
       if(await AuthServices.to.registerPhoneNumber(phoneController.text)){
-        LoadingOverlay.hideOverlay();
-        Get.bottomSheet(
-          Container(
-            margin: scale.getMargin(horizontal: 15, vertical: 10),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Align(
-                  alignment: Alignment.topRight,
-                  child: IconButton(
-                    onPressed: () {
-                      Get.back();
-                    },
-                    icon: const Icon(Icons.close),
-                  ),
-                ),
-                Text(
-                  ConstantData.verifyOtpText,
-                  style: AppTheme.appTheme.textTheme.titleLarge,
-                ),
-                Text(
-                  'OTP sent on +91XXXXXX${phoneController.text.substring(6,10)}',
-                  style: AppTheme.appTheme.textTheme.bodyMedium,
-                ),
-                SizedBox(
-                  height: scale.getScaledHeight(10),
-                ),
-                PinCodeTextField(
-                  autoDisposeControllers: false,
-                  autoFocus: false,
-                  length: 6,
-                  obscureText: false,
-                  animationType: AnimationType.none,
-                  keyboardType: TextInputType.number,
-                  cursorColor: Colors.black,
-                  backgroundColor: Colors.white,
-                  enableActiveFill: true,
-                  pinTheme: PinTheme(
-                    fieldOuterPadding: scale.getPadding(horizontal: 2),
-                    inactiveColor: Colors.white,
-                    selectedColor: Colors.white,
-                    selectedFillColor: ColorsUtil.lightContainerColor,
-                    activeColor: ColorsUtil.darkContainerColor,
-                    activeFillColor: ColorsUtil.lightContainerColor,
-                    inactiveFillColor: ColorsUtil.darkContainerColor,
-                    errorBorderColor: null,
-                    shape: PinCodeFieldShape.box,
-                    borderRadius: BorderRadius.circular(10),
-                    fieldHeight: scale.getScaledHeight(50),
-                    fieldWidth: scale.getScaledWidth(40),
-                  ),
-                  animationDuration: const Duration(milliseconds: 200),
-                  beforeTextPaste: (text) {
-                    return true;
-                  },
-                  controller: otpController,
-                  appContext: context,
-                  onChanged: (String value) {
-
-                  },
-                ),
-                Text(
-                  'Retry in 0:56',
-                  style: AppTheme.appTheme.textTheme.bodyMedium,
-                ),
-                SizedBox(
-                  height: scale.getScaledHeight(15),
-                ),
-                ElevatedButton(
-                  onPressed: () async {
-                    await AuthServices.to.verifyRegistrationOtp(
-                      phoneController.text,
-                      otpController.text,
-                      UserModel(
-                        userAddress: UserAddress(
-                          country: userCountry.value,
-                          state: userState.value,
-                          city: userCity.value,
-                          longitude: 0,
-                          latitude: 0,
-                        ),
-                        dOB: dobController.text,
-                        age: 0,
-                        email: emailController.text,
-                        password: confirmPasswordController.text,
-                        fullName: nameController.text,
-                        mobile: phoneController.text,
-                      ),
-                    );
-                    otpController.text = '';
-                  },
-                  child: Text(
-                    ConstantData.continueText,
-                    style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                      color: ColorsUtil.lightTextColor,
-                      fontWeight: FontWeight.w500,
+        Future.delayed(const Duration(milliseconds: 500), () {
+          Get.bottomSheet(
+            Container(
+              margin: scale.getMargin(horizontal: 15, vertical: 10),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: IconButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      icon: const Icon(Icons.close),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: scale.getScaledHeight(15),
-                ),
-              ],
+                  Text(
+                    ConstantData.verifyOtpText,
+                    style: AppTheme.appTheme.textTheme.titleLarge,
+                  ),
+                  Text(
+                    'OTP sent on +91XXXXXX${phoneController.text.substring(6,10)}',
+                    style: AppTheme.appTheme.textTheme.bodyMedium,
+                  ),
+                  SizedBox(
+                    height: scale.getScaledHeight(10),
+                  ),
+                  PinCodeTextField(
+                    autoDisposeControllers: false,
+                    autoFocus: false,
+                    length: 6,
+                    obscureText: false,
+                    animationType: AnimationType.none,
+                    keyboardType: TextInputType.number,
+                    cursorColor: Colors.black,
+                    backgroundColor: Colors.white,
+                    enableActiveFill: true,
+                    pinTheme: PinTheme(
+                      fieldOuterPadding: scale.getPadding(horizontal: 2),
+                      inactiveColor: Colors.white,
+                      selectedColor: Colors.white,
+                      selectedFillColor: ColorsUtil.lightContainerColor,
+                      activeColor: ColorsUtil.darkContainerColor,
+                      activeFillColor: ColorsUtil.lightContainerColor,
+                      inactiveFillColor: ColorsUtil.darkContainerColor,
+                      errorBorderColor: null,
+                      shape: PinCodeFieldShape.box,
+                      borderRadius: BorderRadius.circular(10),
+                      fieldHeight: scale.getScaledHeight(50),
+                      fieldWidth: scale.getScaledWidth(40),
+                    ),
+                    animationDuration: const Duration(milliseconds: 200),
+                    beforeTextPaste: (text) {
+                      return true;
+                    },
+                    controller: otpController,
+                    appContext: context,
+                    onChanged: (String value) {
+
+                    },
+                  ),
+                  Text(
+                    'Retry in 0:56',
+                    style: AppTheme.appTheme.textTheme.bodyMedium,
+                  ),
+                  SizedBox(
+                    height: scale.getScaledHeight(15),
+                  ),
+                  ElevatedButton(
+                    onPressed: () async {
+                      await AuthServices.to.verifyRegistrationOtp(
+                        phoneController.text,
+                        otpController.text,
+                        UserModel(
+                          userAddress: UserAddress(
+                            country: userCountry.value,
+                            state: userState.value,
+                            city: userCity.value,
+                            longitude: 0,
+                            latitude: 0,
+                          ),
+                          dOB: dobController.text,
+                          age: 0,
+                          email: emailController.text,
+                          password: confirmPasswordController.text,
+                          fullName: nameController.text,
+                          mobile: phoneController.text,
+                        ),
+                      );
+                      otpController.text = '';
+                    },
+                    child: Text(
+                      ConstantData.continueText,
+                      style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                        color: ColorsUtil.lightTextColor,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: scale.getScaledHeight(15),
+                  ),
+                ],
+              ),
             ),
-          ),
-          backgroundColor: Colors.white,
-          shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(18),
-                topRight: Radius.circular(18),
-              )
-          ),
-          isDismissible: false,
-        );
+            backgroundColor: Colors.white,
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(18),
+                  topRight: Radius.circular(18),
+                )
+            ),
+            isDismissible: false,
+          );
+        });
       }
     }catch(err){
       LoadingOverlay.hideOverlay();
