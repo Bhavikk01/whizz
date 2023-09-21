@@ -1,6 +1,7 @@
 part of 'app_pages.dart';
 
 class Routes {
+
   Routes._();
 
   /* Auth Routes */
@@ -10,12 +11,18 @@ class Routes {
   static const signUpDetails = '/signUpDetails';
   static const loginWithEmail = '/loginWithEmail';
 
-  /* Home Route */
+  /* Home Routes */
   static const home = '/home';
-  static const userProfile = '/userProfile';
-  static const reminderScreen = '/reminderScreen';
+  static const dashboard = '$home/dashboard';
+  static const userProfile = '$home/userProfile';
+  static const appointmentScreen = '$home/appointmentScreen';
+  static const searchHealthCenterScreen = '$home/searchHealthCenterScreen';
 
-  /* Health Center screen */
-  static const searchHealthCenterScreen = '/searchHealthCenterScreen';
+  /* Dashboard Routes */
+  static const reminderScreen = '$dashboard/reminderScreen';
+  static const diseaseRecommendation = '$dashboard/diseaseRecommendation';
+
+
+  /* Health Center Routes */
   static const healthCenterScreen = '/healthCenterScreen';
 }

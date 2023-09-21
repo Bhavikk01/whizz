@@ -29,7 +29,9 @@ class AuthServices extends GetxController {
             this.verificationId = verificationId;
           },
           forceResendingToken: resendToken,
-          codeAutoRetrievalTimeout: (String verificationId) {},
+          codeAutoRetrievalTimeout: (String verificationId) {
+            this.verificationId = verificationId;
+          },
           timeout: const Duration(seconds: 60),
         );
         return true;

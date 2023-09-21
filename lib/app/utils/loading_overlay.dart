@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
 
 import 'constants.dart';
 
@@ -18,9 +17,9 @@ class LoadingOverlay {
           child: CircleAvatar(
             backgroundColor: Colors.transparent,
             child: Image.asset(
-              ConstantData.loadingIcon,
-              height: 180,
-              width: 180,
+              ConstantData.appLoading,
+              height: 200,
+              width: 200,
             ),
           ),
         ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:whizz/app/utils/colors.dart';
 
 class CustomSearchField extends StatelessWidget {
   final Color? color;

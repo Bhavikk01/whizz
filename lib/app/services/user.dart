@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:animated_snack_bar/animated_snack_bar.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../API/api_client.dart';

@@ -1,5 +1,5 @@
 enum NestedNavigation {
-  homeScreen,
+  dashboardScreen,
   userProfileScreen,
   appointmentScreen,
   searchHealthcareScreen,
@@ -8,7 +8,7 @@ enum NestedNavigation {
 extension NestedNavID on NestedNavigation {
   int? get navID {
     switch(this){
-      case NestedNavigation.homeScreen:
+      case NestedNavigation.dashboardScreen:
         return 1;
       case NestedNavigation.searchHealthcareScreen:
         return 2;

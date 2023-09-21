@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -84,8 +83,7 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
                 ),
                 AnimatedSwitcher(
                   duration: const Duration(milliseconds: 400),
-                  child: true
-                      ? Padding(
+                  child: Padding(
                           padding: scale.getPadding(left: 20, right: 20),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -151,7 +149,6 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
                             ],
                           ),
                         )
-                      : Container(),
                 ),
                 SizedBox(
                   height: scale.getScaledHeight(15),
@@ -207,9 +204,7 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
                     children: [
                       AnimatedContainer(
                         duration: const Duration(milliseconds: 200),
-                        height: true
-                            ? MediaQuery.of(context).size.height * 0.70
-                            : MediaQuery.of(context).size.height * 0.79,
+                        height: MediaQuery.of(context).size.height * 0.70,
                         child: TabBarView(
                           children: [
                             _basicDetailsTab(scale, context),

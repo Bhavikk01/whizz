@@ -19,13 +19,27 @@ class HomeScreen extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    NestedNavigation nestedNavigation = NestedNavigation.homeScreen;
+    NestedNavigation nestedNavigation = NestedNavigation.dashboardScreen;
     return Scaffold(
       body: Navigator(
         key: Get.nestedKey(nestedNavigation.navID!),
-        initialRoute: Routes.searchHealthCenterScreen,
+        initialRoute: Routes.dashboard,
         onGenerateRoute: (settings){
           switch(settings.name){
+            case Routes.dashboard:
+              return GetPageRoute(
+                page: () => const UserProfileScreen(),
+                binding: UserProfileBinding(),
+                maintainState: true,
+                transition: Transition.fade,
+              );
+            case Routes.appointmentScreen:
+              return GetPageRoute(
+                page: () => const UserProfileScreen(),
+                binding: UserProfileBinding(),
+                maintainState: true,
+                transition: Transition.fade,
+              );
             case Routes.userProfile:
               return GetPageRoute(
                 page: () => const UserProfileScreen(),
@@ -50,12 +64,12 @@ class HomeScreen extends GetView<HomeController> {
           currentIndex: bottomNavController.currentIndex.value,
           onTap: (index){
             bottomNavController.currentIndex.value = index;
-            if(index == 1){
+            if(index == 0){
+              Get.toNamed(Routes.dashboard, id: nestedNavigation.navID!);
+            }else if(index == 1){
               Get.toNamed(Routes.searchHealthCenterScreen, id: nestedNavigation.navID!);
             }else if(index == 2){
-              Get.toNamed(Routes.searchHealthCenterScreen, id: nestedNavigation.navID!);
-            }else if(index == 3){
-              Get.toNamed(Routes.userProfile, id: nestedNavigation.navID!);
+              Get.toNamed(Routes.appointmentScreen, id: nestedNavigation.navID!);
             }else{
               Get.toNamed(Routes.userProfile, id: nestedNavigation.navID!);
             }
@@ -65,7 +79,7 @@ class HomeScreen extends GetView<HomeController> {
               icon: SvgPicture.asset(
                 ConstantData.homeIcon,
                 color: bottomNavController.currentIndex.value == 0
-                    ? ColorsUtil.darkContainerColor
+                    ? ColorsUtil.brandColor
                     : Colors.black45,
               ),
               label: 'Home',
@@ -74,7 +88,7 @@ class HomeScreen extends GetView<HomeController> {
                 icon: SvgPicture.asset(
                   ConstantData.searchIcon,
                   color: bottomNavController.currentIndex.value == 1
-                      ? ColorsUtil.darkContainerColor
+                      ? ColorsUtil.brandColor
                       : Colors.black45,
                 ),
                 label: 'Search'
@@ -83,7 +97,7 @@ class HomeScreen extends GetView<HomeController> {
                 icon: SvgPicture.asset(
                   ConstantData.appointmentIcon,
                   color: bottomNavController.currentIndex.value == 2
-                      ? ColorsUtil.darkContainerColor
+                      ? ColorsUtil.brandColor
                       : Colors.black45,
                 ),
                 label: 'Appointment'
@@ -92,7 +106,7 @@ class HomeScreen extends GetView<HomeController> {
               icon: SvgPicture.asset(
                 ConstantData.profileIcon,
                 color: bottomNavController.currentIndex.value == 3
-                    ? ColorsUtil.darkContainerColor
+                    ? ColorsUtil.brandColor
                     : Colors.black45,
               ),
               label: 'Profile'
