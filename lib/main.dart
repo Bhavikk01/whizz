@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:whizz/app/global_controllers/drawer_controller.dart';
+import 'package:whizz/app/screens/auth/new_login_screen.dart';
+import 'package:whizz/app/screens/auth/sign_up_screen.dart';
 import 'package:whizz/app/services/auth_services.dart';
 import 'package:whizz/app/utils/app_theme.dart';
 import 'package:whizz/app/utils/constants.dart';
@@ -10,6 +12,8 @@ import 'package:whizz/app/utils/constants.dart';
 import 'app/API/api_client.dart';
 import 'app/global_controllers/bottom_nav_controller.dart';
 import 'app/routes/app_pages.dart';
+import 'app/screens/auth/new_signup_screen.dart';
+import 'app/screens/user_profile/new_profile_screen.dart';
 import 'app/services/storage.dart';
 import 'app/services/user.dart';
 import 'app/utils/scale_utility.dart';
@@ -40,7 +44,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       theme: AppTheme.appTheme,
       title: "Application",
-      home: const SplashScreen(),
+      home: const NewLoginScreen(),
       getPages: AppPages.routes,
       debugShowCheckedModeBanner: false,
     );

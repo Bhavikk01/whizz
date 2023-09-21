@@ -2,6 +2,13 @@
 import 'package:flutter/material.dart';
 
 class ColorsUtil{
+
+  static Color brandColor = const Color(0xff2B447C);
+
+
+
+
+
   static Color blueColor = const Color(0xff6688FF);
   static Color darkTextColor = const Color(0xff1F1A3D);
   static Color lightTextColor = const Color(0xffffffff) ;
