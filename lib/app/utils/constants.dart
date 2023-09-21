@@ -29,15 +29,20 @@ class ConstantData {
   }
 
   /* Icons Asset */
+
+  ///Bottom Navigation Icon
+
+  static const homeIcon = 'assets/icons/home_icon.svg';
+  static const appointmentIcon = 'assets/icons/appointment_icon.svg';
+  static const searchIcon = 'assets/icons/search_icon.svg';
+  static const profileIcon = 'assets/icons/profile_icon.svg';
+
   static const appLogo = 'assets/images/app_logo.png';
   static const backArrow = 'assets/icons/back_icon.png';
-  static const searchIcon = 'assets/icons/search_icon.png';
   static const filterIcon = 'assets/icons/filter_icon.png';
   static const googleIcon = 'assets/images/google_icon.png';
   static const userAvatar = 'assets/images/user_avatar.png';
   static const menuIcon = 'assets/icons/menu_icon.png';
-  static const appointmentIcon = 'assets/icons/appointment_icon.png';
-  static const medicalReport = 'assets/icons/medical_report.png';
   static const navigationIcon = 'assets/icons/navigation_icon.png';
 
   static const appSplash = 'assets/icons/whizz.gif';

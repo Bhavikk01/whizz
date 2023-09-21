@@ -61,7 +61,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(const Duration(seconds: 5), () {
       Get.offAllNamed(UserStore.to.uid.isNotEmpty
           ? Routes.home
-          : Routes.loginWithEmail
+          : Routes.home
       );
     });
     super.initState();

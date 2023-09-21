@@ -1,6 +1,6 @@
 part of 'app_pages.dart';
 
-abstract class Routes {
+class Routes {
   Routes._();
 
   /* Auth Routes */
@@ -12,8 +12,8 @@ abstract class Routes {
 
   /* Home Route */
   static const home = '/home';
-  static String userProfile = '/userProfile';
-  static String reminderScreen = '/reminderScreen';
+  static const userProfile = '/userProfile';
+  static const reminderScreen = '/reminderScreen';
 
   /* Health Center screen */
   static const searchHealthCenterScreen = '/searchHealthCenterScreen';

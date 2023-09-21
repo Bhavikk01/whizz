@@ -202,11 +202,7 @@ class UserProfileScreen extends GetView<UserProfileController> {
                           ),
                           child: Column(
                             children: [
-                              Image.asset(
-                                ConstantData.medicalReport,
-                                height: 70,
-                                fit: BoxFit.cover,
-                              ),
+
                               SizedBox(
                                 height: scale.getScaledHeight(10),
                               ),

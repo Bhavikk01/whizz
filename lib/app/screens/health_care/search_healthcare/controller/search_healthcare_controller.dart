@@ -12,7 +12,7 @@ import 'package:whizz/app/models/user_model.dart';
 import 'package:whizz/app/services/user.dart';
 class SearchHealthcareController extends GetxController {
 
-  late DraggableScrollableController draggableScrollableController ;
+  late DraggableScrollableController draggableScrollableController;
   late GoogleMapController mapController;
   Rx<SearchByAddress> searchBy = SearchByAddress.state.obs;
   SuperTooltipController toolTipController = SuperTooltipController();
@@ -32,8 +32,6 @@ class SearchHealthcareController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    draggableScrollableController = DraggableScrollableController();
-
     await Geolocator.requestPermission();
     await getLocation();
     if(UserStore.to.profile.userAddress != null){

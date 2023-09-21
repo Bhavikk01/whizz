@@ -63,12 +63,12 @@ class ApiClient extends GetConnect implements GetxService {
         );
       }
     } catch (err) {
-      Get.snackbar(
-        'Auth',
-        '$err',
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      onError(
+        Response(
+          statusCode: 404,
+          body: {'error': '$err'},
+        ),
       );
-      return Response(statusCode: 404, body: {'error': '$err'});
     }
   }
 

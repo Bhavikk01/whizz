@@ -5,6 +5,7 @@ import 'package:whizz/app/screens/auth/sign_up_user_detail_screen.dart';
 import 'package:whizz/app/screens/health_care/healthcare_center_detail_screen/binding/healthcare_binding.dart';
 import 'package:whizz/app/screens/health_care/healthcare_center_detail_screen/healthcare_center_detail_screen.dart';
 import 'package:whizz/app/screens/health_care/search_healthcare/binding/search_healthcare_binding.dart';
+import 'package:whizz/app/screens/user_profile/user_profile_screen.dart';
 
 import '../screens/auth/bindings/sign_up_binding.dart';
 import '../screens/auth/forgot_password.dart';
@@ -12,8 +13,7 @@ import '../screens/auth/login_with_email.dart';
 import '../screens/auth/login_with_phone.dart';
 import '../screens/health_care/search_healthcare/search_healthcare_screen.dart';
 import '../screens/home/bindings/home_binding.dart';
-import '../screens/home/home_view.dart';
-import '../widgets/bottom_nav_bar.dart';
+import '../screens/home/home_screen.dart';
 
 part 'app_routes.dart';
 
@@ -52,29 +52,13 @@ class AppPages {
     ),
 
     /* Home Page */
-
     GetPage(
       name: Routes.home,
-      page: () => const BottomNavBarScreen(),
+      page: () => HomeScreen(),
       binding: HomeBinding(),
     ),
-    // GetPage(
-    //   name: Routes.reminderScreen,
-    //   page: () => const HomeView(),
-    //   binding: HomeBinding(),
-    // ),
-    // GetPage(
-    //   name: Routes.userProfile,
-    //   page: () => const HomeView(),
-    //   binding: HomeBinding(),
-    // ),
 
     /* Healthcare Screen */
-    GetPage(
-      name: Routes.searchHealthCenterScreen,
-      page: ()=> const SearchHealthcareScreen(),
-      binding: SearchHealthcareBinding(),
-    ),
     GetPage(
       name: Routes.healthCenterScreen,
       page: ()=>const HealthcareCenterDetailScreen(),

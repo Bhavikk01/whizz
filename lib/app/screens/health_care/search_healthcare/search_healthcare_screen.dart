@@ -20,9 +20,9 @@ class SearchHealthcareScreen extends GetView<SearchHealthcareController> {
 
   @override
   Widget build(BuildContext context) {
+    controller.draggableScrollableController = DraggableScrollableController();
     ScalingUtility scale = ScalingUtility(context: context)
       ..setCurrentDeviceSize();
-
     return Scaffold(
       body: SafeArea(
         child: Stack(
