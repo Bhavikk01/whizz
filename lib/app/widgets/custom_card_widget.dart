@@ -32,8 +32,6 @@ class CustomCardWidget extends StatelessWidget {
       onTap: () {
         if(onTap != null){
           onTap!();
-        }else{
-          log('No OnTap');
         }
       },
       child: Container(

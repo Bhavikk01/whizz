@@ -94,4 +94,4 @@ class create(Resource):
 api.add_resource(create, "/user/create")
 
 if __name__ == '__main__':
-    app.run(host = '192.168.29.218',port = 5000, debug=True)
+    app.run(host = '192.168.118.27',port = 5000, debug=True)

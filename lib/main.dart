@@ -28,11 +28,6 @@ Future<void> main() async {
   Get.put<UserStore>(UserStore());
   Get.put<AuthServices>(AuthServices());
   Get.put(BottomNavBarController());
-
-
-  Get.put(SearchHealthcareController());
-
-
   runApp(const MyApp());
 }
 
@@ -45,7 +40,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       theme: AppTheme.appTheme,
       title: "Application",
-      home: SearchHealthcareScreen(),
+      home: const SplashScreen(),
       getPages: AppPages.routes,
       debugShowCheckedModeBanner: false,
     );
