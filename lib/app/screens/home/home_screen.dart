@@ -49,7 +49,7 @@ class HomeScreen extends GetView<HomeController> {
               );
             case Routes.searchHealthCenterScreen:
               return GetPageRoute(
-                page: () => const SearchHealthcareScreen(),
+                page: () => SearchHealthcareScreen(),
                 binding: SearchHealthcareBinding(),
                 maintainState: true,
                 transition: Transition.fade,

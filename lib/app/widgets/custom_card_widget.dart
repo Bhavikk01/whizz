@@ -39,7 +39,7 @@ class CustomCardWidget extends StatelessWidget {
       child: Container(
         height: height,
         width: width,
-        padding: padding ?? scale.getPadding(all: 0),
+        padding: padding ?? scale.getPadding(top: 10),
         margin: margin ?? scale.getMargin(all: 4),
         decoration: BoxDecoration(
           color: color ?? Colors.black,

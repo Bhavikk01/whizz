@@ -11,6 +11,8 @@ import 'package:whizz/app/utils/constants.dart';
 import 'app/API/api_client.dart';
 import 'app/global_controllers/bottom_nav_controller.dart';
 import 'app/routes/app_pages.dart';
+import 'app/screens/health_care/search_healthcare/controller/search_healthcare_controller.dart';
+import 'app/screens/health_care/search_healthcare/search_healthcare_screen.dart';
 import 'app/services/storage.dart';
 import 'app/services/user.dart';
 import 'app/utils/scale_utility.dart';
@@ -28,6 +30,11 @@ Future<void> main() async {
   Get.put<AuthServices>(AuthServices());
   Get.put(CustomDrawerController());
   Get.put(BottomNavBarController());
+
+
+  Get.put(SearchHealthcareController());
+
+
   runApp(const MyApp());
 }
 
@@ -41,7 +48,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       theme: AppTheme.appTheme,
       title: "Application",
-      home: const SplashScreen(),
+      home: SearchHealthcareScreen(),
       getPages: AppPages.routes,
       debugShowCheckedModeBanner: false,
     );
