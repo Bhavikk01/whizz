@@ -335,7 +335,8 @@ class SearchHealthcareScreen extends GetView<SearchHealthcareController> {
                                         borderRadius: BorderRadius.circular(10),
                                         child: Image.network(
                                           "https://t3.ftcdn.net/jpg/00/45/20/70/360_F_45207005_oWfbp8uUsuEV74nNLbGS4HyrybFXQek4.jpg",
-                                          height: 40,
+                                          height: scale.getScaledHeight(45),
+                                          width: scale.getScaledWidth(45),
                                           fit: BoxFit.fill,
                                         ),
                                       ),
