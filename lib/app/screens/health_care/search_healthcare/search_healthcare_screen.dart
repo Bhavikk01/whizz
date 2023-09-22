@@ -392,6 +392,7 @@ class SearchHealthcareScreen extends GetView<SearchHealthcareController> {
                                               ),
                                             ],
                                           ),
+                                          SizedBox(height: scale.getScaledHeight(5),),
                                           Text(
                                             'open 24 hours',
                                             style: TextStyle(
