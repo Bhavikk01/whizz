@@ -209,6 +209,8 @@ class ReportCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ScalingUtility scale = ScalingUtility(context: context)
+      ..setCurrentDeviceSize();
     return Card(
       margin: EdgeInsets.only(left: 15, right: 15, top: 5),
       shape: RoundedRectangleBorder(),
@@ -221,7 +223,7 @@ class ReportCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 20),
+            SizedBox(height: scale.getScaledHeight(20)),
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               // mainAxisSize: MainAxisSize.min,
@@ -237,7 +239,7 @@ class ReportCard extends StatelessWidget {
                 ),
                 SizedBox(height: 5),
                 Text("23 Sept 2023", style: TextStyle(fontSize: 10,color: ColorsUtil.greyTextColor),),
-               SizedBox(height: 8),
+               SizedBox(height: ),
               ],
             )
           ],
