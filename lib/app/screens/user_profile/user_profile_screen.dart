@@ -14,6 +14,7 @@ class UserProfileScreen extends StatelessWidget {
       ..setCurrentDeviceSize();
 
     return Scaffold(
+      backgroundColor: ColorsUtil.brandColor,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -34,6 +35,9 @@ class UserProfileScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  SizedBox(
+                    height: scale.getScaledHeight(15),
+                  ),
                   CircleAvatar(
                     backgroundColor: Colors.white,
                     radius: 60,
@@ -73,28 +77,19 @@ class UserProfileScreen extends StatelessWidget {
               ),
             ),
             pinned: true,
-            bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(0),
-              child: Container(
-                width: Get.width,
-                decoration: ShapeDecoration(
-                  color: ColorsUtil.brandWhite,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30),
-                    ),
-                  ),
-                ),
-                child: SizedBox(
-                  height: scale.getScaledHeight(15),
-                ),
-              ),
-            ),
           ),
           SliverToBoxAdapter(
             child: Container(
-              padding: scale.getPadding(horizontal: 15),
+              padding: scale.getPadding(horizontal: 15, vertical: 10),
+              decoration: ShapeDecoration(
+                color: ColorsUtil.brandWhite,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                  ),
+                ),
+              ),
               child: Column(
                 children: [
                   Text(
