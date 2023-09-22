@@ -12,6 +12,7 @@ from collections import Counter
 
 
 data_path="api/data"
+# data_path="data"
 warnings.filterwarnings("ignore")
 with open(os.path.join(data_path,"data.json"), "r") as json_file:
     loaded_data = json.load(json_file)
@@ -21,6 +22,7 @@ description=loaded_data["description"]
 all_symp=loaded_data["all_symp"]
 relsymp=loaded_data["relsymp"]
 disease_dict=loaded_data["disease_dict"]
+severity=loaded_data["severity"]
 
 forest=pickle.load(open(os.path.join(data_path,"randomforest.pkl"),"rb"))
 
@@ -74,6 +76,23 @@ def build_trie(word_list):
 def complete_words(trie, user_input):
     completions = trie.keys(prefix=user_input)
     return completions
+
+def calculate_disease_severity(symptoms):
+    relevant_scores = [severity.get(symptom, 0) for symptom in symptoms]
+    severity_sum = sum(relevant_scores)
+
+    min_severity = min(relevant_scores, default=1) 
+    max_severity = max(relevant_scores, default=1)
+    
+    if min_severity == max_severity:
+        normalized_severity = min_severity
+    else:
+        normalized_severity = (severity_sum - min_severity) / (max_severity - min_severity) * (5 - 1) + 1
+    
+    severity_rounded = round(normalized_severity)
+    
+    return max(1, min(severity_rounded, 5))
+
 
 trie = build_trie(all_symp)
 
@@ -165,7 +184,7 @@ class predict(Resource):
         args=predict_Arg.parse_args()
         symptoms=args["symptoms"].split("-")
         pred=classify(symptoms)
-        return {"disease":pred,"symptoms":symptoms,"description":description[pred],"precaution":precaution[pred]}
+        return {"disease":pred,"symptoms":symptoms,"description":description[pred],"precaution":precaution[pred],"severity":calculate_disease_severity(symptoms)}
 
 api.add_resource(predict,"/predict/")
 
