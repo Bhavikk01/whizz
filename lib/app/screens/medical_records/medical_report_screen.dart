@@ -1,3 +1,5 @@
+
+
 import 'package:Whizz/app/screens/medical_records/controllers/medical_report_controller.dart';
 import 'package:Whizz/app/utils/colors.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -20,9 +22,9 @@ class MedicalReportScreen extends GetView<MedicalReportController> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            pinned: false,
-            floating: true,
+            pinned: true,
               leading: Icon(Icons.arrow_back),
+              collapsedHeight: scale.getScaledHeight(100),
               expandedHeight: Get.height / 4.2,
               backgroundColor: Colors.white,
               flexibleSpace: LayoutBuilder(
@@ -45,11 +47,9 @@ class MedicalReportScreen extends GetView<MedicalReportController> {
                   );
                 },
               )),
-          SliverFillRemaining(
-            child: ListView.builder(itemBuilder: (context, index) {
-              return ReportCard();
-            }, itemCount: 10),
-          )
+         SliverList(delegate: SliverChildBuilderDelegate( childCount: 10,(context, index) {
+           return ReportCard();
+         },))
         ],
       ),
         floatingActionButton: GestureDetector(
