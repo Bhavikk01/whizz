@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:whizz/app/utils/colors.dart';
+import 'package:Whizz/app/utils/colors.dart';
 
 class TabIndicator extends BoxDecoration {
   final BoxPainter _painter;

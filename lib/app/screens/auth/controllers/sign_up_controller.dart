@@ -4,11 +4,10 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:whizz/app/services/auth_services.dart';
-import 'package:whizz/app/utils/app_theme.dart';
-import 'package:whizz/app/utils/colors.dart';
-import 'package:whizz/app/utils/loading_overlay.dart';
-import 'package:whizz/app/utils/scale_utility.dart';
+import 'package:Whizz/app/services/auth_services.dart';
+import 'package:Whizz/app/utils/app_theme.dart';
+import 'package:Whizz/app/utils/colors.dart';
+import 'package:Whizz/app/utils/scale_utility.dart';
 
 import '../../../models/user_model.dart';
 import '../../../utils/constants.dart';
@@ -64,7 +63,7 @@ class SignUpController extends GetxController {
   uploadUserData(ScalingUtility scale, context) async {
     try{
       if(await AuthServices.to.registerPhoneNumber(phoneController.text)){
-        Future.delayed(const Duration(milliseconds: 500), () {
+        Future.delayed(const Duration(milliseconds: 1000), () {
           Get.bottomSheet(
             Container(
               margin: scale.getMargin(horizontal: 15, vertical: 10),
@@ -87,10 +86,12 @@ class SignUpController extends GetxController {
                   ),
                   Text(
                     'OTP sent on +91XXXXXX${phoneController.text.substring(6,10)}',
-                    style: AppTheme.appTheme.textTheme.bodyMedium,
+                    style: AppTheme.appTheme.textTheme.bodyMedium!.copyWith(
+                      color: Colors.black45,
+                    ),
                   ),
                   SizedBox(
-                    height: scale.getScaledHeight(10),
+                    height: scale.getScaledHeight(15),
                   ),
                   PinCodeTextField(
                     autoDisposeControllers: false,
@@ -104,12 +105,12 @@ class SignUpController extends GetxController {
                     enableActiveFill: true,
                     pinTheme: PinTheme(
                       fieldOuterPadding: scale.getPadding(horizontal: 2),
-                      inactiveColor: Colors.white,
-                      selectedColor: Colors.white,
-                      selectedFillColor: ColorsUtil.lightContainerColor,
-                      activeColor: ColorsUtil.darkContainerColor,
-                      activeFillColor: ColorsUtil.lightContainerColor,
-                      inactiveFillColor: ColorsUtil.darkContainerColor,
+                      inactiveColor: ColorsUtil.brandColor,
+                      selectedColor: ColorsUtil.brandColor,
+                      selectedFillColor: ColorsUtil.brandWhite,
+                      activeColor: ColorsUtil.brandWhite,
+                      activeFillColor: ColorsUtil.brandWhite,
+                      inactiveFillColor: ColorsUtil.brandWhite,
                       errorBorderColor: null,
                       shape: PinCodeFieldShape.box,
                       borderRadius: BorderRadius.circular(10),
@@ -128,10 +129,12 @@ class SignUpController extends GetxController {
                   ),
                   Text(
                     'Retry in 0:56',
-                    style: AppTheme.appTheme.textTheme.bodyMedium,
+                    style: AppTheme.appTheme.textTheme.bodyMedium!.copyWith(
+                      color: Colors.black45,
+                    ),
                   ),
                   SizedBox(
-                    height: scale.getScaledHeight(15),
+                    height: scale.getScaledHeight(20),
                   ),
                   ElevatedButton(
                     onPressed: () async {
@@ -149,7 +152,7 @@ class SignUpController extends GetxController {
                           dOB: dobController.text,
                           age: 0,
                           email: emailController.text,
-                          password: confirmPasswordController.text,
+                          password: passwordController.text,
                           fullName: nameController.text,
                           mobile: phoneController.text,
                         ),
@@ -182,7 +185,6 @@ class SignUpController extends GetxController {
         });
       }
     }catch(err){
-      LoadingOverlay.hideOverlay();
       customSnackBar(
         type: AnimatedSnackBarType.error,
         message: '$err',

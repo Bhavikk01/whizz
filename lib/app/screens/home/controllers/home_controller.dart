@@ -1,12 +1,11 @@
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:get/get.dart';
-import 'package:whizz/app/utils/loading_overlay.dart';
+import 'package:Whizz/app/utils/loading_overlay.dart';
 
 import '../../../API/api_client.dart';
 import '../../../models/history_model/history_model.dart';
 import '../../../models/pills_models/pills_model.dart';
 import '../../../services/internet_status_service.dart';
-import '../../../services/user.dart';
 import '../../../utils/custom_bottom_snackbar.dart';
 class HomeController extends GetxController {
   RxList<HistoryData> historyList = <HistoryData>[].obs;
@@ -21,7 +20,7 @@ class HomeController extends GetxController {
   Future<void> onInit() async {
     haveInternet.value = await InternetService().checkInternetSourceStatus();
     if(haveInternet.value){
-      await getUserData();
+      // await getUserData();
     }
     super.onInit();
   }
@@ -65,7 +64,6 @@ class HomeController extends GetxController {
         );
       }
     );
-    LoadingOverlay.hideOverlay();
   }
 
   String checkDue() {

@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:whizz/app/services/auth_services.dart';
+import 'package:Whizz/app/services/auth_services.dart';
 
 import '../../../utils/loading_overlay.dart';
 
@@ -13,6 +13,8 @@ class AuthController extends GetxController {
   TextEditingController otpController = TextEditingController();
   TextEditingController otpForgotPasswordController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  ScrollController controller = ScrollController();
+
 
   signInByEmail() async {
     await AuthServices.to.handleSignInByEmail(emailController.text, passwordController.text);

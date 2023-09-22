@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/material.dart';
-import 'package:whizz/app/utils/scale_utility.dart';
+import 'package:Whizz/app/utils/scale_utility.dart';
 
 import '../utils/colors.dart';
 import '../utils/constants.dart';
@@ -25,7 +25,7 @@ class AddressPicker extends StatelessWidget {
           padding: scale.getPadding(top: 4),
           child: CustomDropdown(
             hintText: 'Country*',
-            fillColor: ColorsUtil.darkContainerColor,
+            fillColor: ColorsUtil.fieldColor,
             hintStyle: Theme.of(context).textTheme.labelLarge,
             listItemStyle: Theme.of(context).textTheme.labelLarge,
             selectedStyle: Theme.of(context).textTheme.titleSmall,
@@ -49,7 +49,7 @@ class AddressPicker extends StatelessWidget {
                 padding: scale.getPadding(right: 2, bottom: 4, top: 8),
                 child: CustomDropdown(
                   hintText: 'State*',
-                  fillColor: ColorsUtil.darkContainerColor,
+                  fillColor: ColorsUtil.fieldColor,
                   hintStyle: Theme.of(context).textTheme.labelLarge,
                   listItemStyle: Theme.of(context).textTheme.labelLarge,
                   selectedStyle: Theme.of(context).textTheme.titleSmall,
@@ -76,7 +76,7 @@ class AddressPicker extends StatelessWidget {
                 padding: scale.getPadding(left: 2, bottom: 4, top: 8),
                 child: CustomDropdown(
                   hintText: 'City',
-                  fillColor: ColorsUtil.darkContainerColor,
+                  fillColor: ColorsUtil.fieldColor,
                   hintStyle: Theme.of(context).textTheme.labelLarge,
                   listItemStyle: Theme.of(context).textTheme.labelLarge,
                   selectedStyle: Theme.of(context).textTheme.titleSmall,

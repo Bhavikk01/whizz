@@ -2,14 +2,16 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:whizz/app/global_controllers/drawer_controller.dart';
-import 'package:whizz/app/services/auth_services.dart';
-import 'package:whizz/app/utils/app_theme.dart';
-import 'package:whizz/app/utils/constants.dart';
+import 'package:Whizz/app/services/auth_services.dart';
+import 'package:Whizz/app/utils/app_theme.dart';
+import 'package:Whizz/app/utils/colors.dart';
+import 'package:Whizz/app/utils/constants.dart';
 
 import 'app/API/api_client.dart';
 import 'app/global_controllers/bottom_nav_controller.dart';
 import 'app/routes/app_pages.dart';
+import 'app/screens/health_care/search_healthcare/controller/search_healthcare_controller.dart';
+import 'app/screens/health_care/search_healthcare/search_healthcare_screen.dart';
 import 'app/services/storage.dart';
 import 'app/services/user.dart';
 import 'app/utils/scale_utility.dart';
@@ -25,11 +27,9 @@ Future<void> main() async {
   Get.put<ApiClient>(ApiClient());
   Get.put<UserStore>(UserStore());
   Get.put<AuthServices>(AuthServices());
-  Get.put(CustomDrawerController());
   Get.put(BottomNavBarController());
   runApp(const MyApp());
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -58,7 +58,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 5), () {
+    Future.delayed(const Duration(seconds: 7), () {
       Get.offAllNamed(UserStore.to.uid.isNotEmpty
           ? Routes.home
           : Routes.loginWithEmail
@@ -72,17 +72,21 @@ class _SplashScreenState extends State<SplashScreen> {
     ScalingUtility scale = ScalingUtility(context: Get.context!)..setCurrentDeviceSize();
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Center(
-        child: Container(
-          height: 350,
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            image: DecorationImage(
-              image: AssetImage(
-                ConstantData.loadingIcon,
-              ),
-              fit: BoxFit.cover
-            )
+      body: Container(
+        height: scale.fh,
+        width: scale.fw,
+        decoration: BoxDecoration(
+          color: ColorsUtil.brandColor,
+          image: const DecorationImage(
+            image: AssetImage(
+              ConstantData.backgroundImage,
+            ),
+            fit: BoxFit.cover
+          ),
+        ),
+        child: Center(
+          child: Image.asset(
+            ConstantData.appSplash,
           ),
         ),
       ),

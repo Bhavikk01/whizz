@@ -1,7 +1,39 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:whizz/app/utils/colors.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+
+class TextController extends GetxController {
+  final textEditingController = TextEditingController();
+  final isTextFieldEmpty = true.obs;
+
+  @override
+  void onInit() {
+    textEditingController.addListener(_checkIfTextFieldEmpty);
+    super.onInit();
+  }
+
+  void _checkIfTextFieldEmpty() {
+    isTextFieldEmpty.value = textEditingController.text.isEmpty;
+  }
+
+  void clearTextField() {
+    textEditingController.clear();
+    // isTextFieldEmpty.value = true;
+  }
+
+  @override
+  void onClose() {
+    textEditingController.removeListener(_checkIfTextFieldEmpty);
+    textEditingController.dispose();
+    super.onClose();
+  }
+}
 
 class CustomSearchField extends StatelessWidget {
+  final TextController textController = Get.put(TextController());
+
   final Color? color;
   final double? height;
   final double? width;
@@ -10,31 +42,57 @@ class CustomSearchField extends StatelessWidget {
   final EdgeInsetsGeometry? margin;
   final BorderRadiusGeometry? borderRadius;
   final Function(String)? onChange;
+  final Function()? onTap;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
-  const CustomSearchField({
-    this.prefixIcon,
-    this.suffixIcon,
-    Key? key,
-    this.hintText,
-    this.color,
-    this.height,
-    this.width,
-    this.onChange,
-    this.padding,
-    this.margin,
-    this.borderRadius}) : super(key: key);
+  final FocusNode? focusNode;
+
+  CustomSearchField(
+      {this.prefixIcon,
+      this.suffixIcon,
+      Key? key,
+      this.hintText,
+      this.color,
+      this.height,
+      this.width,
+      this.onChange,
+      this.onTap,
+      this.padding,
+      this.margin,
+      this.borderRadius,
+      this.focusNode
+      })
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: height?? 30,
-      width: width?? 200,
+      height: height ?? 30,
+      // width: width?? 200,
       child: TextFormField(
+        controller: textController.textEditingController,
+        minLines: 1,
+        onTap: onTap,
+        onChanged: onChange,
         decoration: InputDecoration(
           hintText: hintText,
-          suffixIcon: suffixIcon,
+          hintStyle: const TextStyle(fontSize: 15),
+          filled: true,
+          fillColor: const Color(0x192B447C),
+          suffixIcon: Obx(() {
+            if (textController.isTextFieldEmpty.value) {
+              log("Empty");
+              return const Icon(null);
+            } else {
+              return IconButton(
+                  onPressed: textController.clearTextField,
+                  icon: SvgPicture.asset("assets/icons/close_svg.svg"));
+            }
+          }),
           prefixIcon: prefixIcon,
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide.none),
         ),
       ),
     );

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../utils/scale_utility.dart';
 
@@ -32,9 +33,9 @@ class CustomIconButton extends StatelessWidget {
       ..setCurrentDeviceSize();
     return GestureDetector(
       onTap: () {
-        if(onTap != null){
+        if (onTap != null) {
           onTap!();
-        }else{
+        } else {
           log('No OnTap');
         }
       },
@@ -44,30 +45,36 @@ class CustomIconButton extends StatelessWidget {
         padding: padding ?? scale.getPadding(all: 9),
         margin: margin ?? scale.getMargin(all: 4),
         decoration: BoxDecoration(
-          color: color ?? Colors.white,
-          borderRadius: borderRadius ?? BorderRadius.circular(15),
-          // boxShadow: [
-          //   BoxShadow(
-          //     color: Colors.black.withOpacity(0.2),
-          //     blurRadius: 3,
-          //     offset: const Offset(-2, 0),
-          //   ),
-          //   BoxShadow(
-          //     color: Colors.black.withOpacity(0.2),
-          //     blurRadius: 3,
-          //     offset: const Offset(0, 2),
-          //   ),
-          // ],
-          border: Border.all(
-            color: const Color(0xffE0DFE7),
-          )
+            color: color ?? Colors.white,
+            borderRadius: borderRadius ?? BorderRadius.circular(15),
+            // boxShadow: [
+            //   BoxShadow(
+            //     color: Colors.black.withOpacity(0.2),
+            //     blurRadius: 3,
+            //     offset: const Offset(-2, 0),
+            //   ),
+            //   BoxShadow(
+            //     color: Colors.black.withOpacity(0.2),
+            //     blurRadius: 3,
+            //     offset: const Offset(0, 2),
+            //   ),
+            // ],
+            border: Border.all(
+              color: Colors.transparent,
+            )
         ),
-        child: Image.asset(
+        child: SvgPicture.asset(
+          image ?? '',
+          height: height != null ? height! - 5 : scale.getScaledHeight(35),
+          width: width != null ? width! - 5 : scale.getScaledWidth(35),
+          fit: BoxFit.cover,
+        ),
+        /*      Image.asset(
           image ?? '',
           height: height != null? height!-5 : scale.getScaledHeight(35),
           width: width != null? width!-5 : scale.getScaledWidth(35),
           fit: BoxFit.cover,
-        ),
+        ),*/
       ),
     );
   }

@@ -3,8 +3,8 @@ import 'dart:developer';
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:whizz/app/API/api_client.dart';
-import 'package:whizz/app/models/user_model.dart';
+import 'package:Whizz/app/API/api_client.dart';
+import 'package:Whizz/app/models/user_model.dart';
 import '../routes/app_pages.dart';
 import '../utils/custom_bottom_snackbar.dart';
 import '../utils/loading_overlay.dart';
@@ -29,7 +29,9 @@ class AuthServices extends GetxController {
             this.verificationId = verificationId;
           },
           forceResendingToken: resendToken,
-          codeAutoRetrievalTimeout: (String verificationId) {},
+          codeAutoRetrievalTimeout: (String verificationId) {
+            this.verificationId = verificationId;
+          },
           timeout: const Duration(seconds: 60),
         );
         return true;
@@ -144,7 +146,7 @@ class AuthServices extends GetxController {
           if (res.body['status']) {
             await UserStore.to.saveProfile(value.user!.uid);
             LoadingOverlay.hideOverlay();
-            Get.offAllNamed(Routes.signUpDetails);
+            Get.offAllNamed(Routes.home);
           } else {
             await FirebaseAuth.instance.currentUser!.delete();
             LoadingOverlay.hideOverlay();

@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:whizz/app/screens/health_care/search_healthcare/controller/search_healthcare_controller.dart';
+import 'package:Whizz/app/screens/health_care/search_healthcare/controller/search_healthcare_controller.dart';
 
 import '../../user_profile/controller/user_controller.dart';
 import '../controllers/home_controller.dart';

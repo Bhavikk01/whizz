@@ -6,42 +6,50 @@ import 'colors.dart';
 class AppTheme {
   static ThemeData appTheme = ThemeData(
     textTheme: TextTheme(
-      titleLarge: GoogleFonts.atkinsonHyperlegible(
+      titleLarge: GoogleFonts.roboto(
         fontWeight: FontWeight.w700,
         fontSize: 24,
-        color: ColorsUtil.darkTextColor,
+        color: ColorsUtil.brandColor,
+          letterSpacing: 0.02
       ),
-      titleMedium: GoogleFonts.atkinsonHyperlegible(
+      titleMedium: GoogleFonts.roboto(
         fontSize: 20,
-        fontWeight: FontWeight.w600,
-        color: Colors.black,
-      ),
-      titleSmall: GoogleFonts.atkinsonHyperlegible(
-        fontSize: 16,
         fontWeight: FontWeight.w400,
         color: Colors.black,
+        letterSpacing: 0.01,
+
       ),
-      bodyMedium: GoogleFonts.atkinsonHyperlegible(
-        fontSize: 16,
-        fontWeight: FontWeight.w500,
-      ),
-      bodySmall: GoogleFonts.atkinsonHyperlegible(
-        fontSize: 14,
-        fontWeight: FontWeight.w400,
-      ),
-      bodyLarge: GoogleFonts.atkinsonHyperlegible(
+      titleSmall: GoogleFonts.roboto(
         fontSize: 18,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w400,
+        color: Colors.black,
       ),
-      labelLarge: GoogleFonts.atkinsonHyperlegible(
+      bodyMedium: GoogleFonts.roboto(
+        fontSize: 15,
+        fontWeight: FontWeight.w500,
+        letterSpacing: 0.01,
+
+      ),
+      bodySmall: GoogleFonts.roboto(
+        fontSize: 12,
+        fontWeight: FontWeight.w400,
+      ),
+      bodyLarge: GoogleFonts.roboto(
+        fontSize: 18,
+        fontWeight: FontWeight.w600,
+        letterSpacing: 0.02,
+
+      ),
+      labelLarge: GoogleFonts.roboto(
         fontSize: 16,
         fontWeight: FontWeight.w400,
       ),
+
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
         shape: MaterialStateProperty.all(const StadiumBorder()),
-        backgroundColor: MaterialStateProperty.all(ColorsUtil.blueColor),
+        backgroundColor: MaterialStateProperty.all(ColorsUtil.brandColor),
         foregroundColor: MaterialStateProperty.all(ColorsUtil.brandWhite),
         padding: MaterialStateProperty.all(
           const EdgeInsets.symmetric(vertical: 14),
@@ -52,37 +60,6 @@ class AppTheme {
             fontWeight: FontWeight.w700,
           ),
         ),
-      ),
-    ),
-    inputDecorationTheme: InputDecorationTheme(
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(
-          color: Colors.transparent,
-          width: 0,
-        ),
-      ),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(
-          color: Colors.transparent,
-          width: 0,
-        ),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide(
-          color: ColorsUtil.darkContainerColor,
-          width: 2,
-        ),
-      ),
-      filled: true,
-      suffixIconColor: ColorsUtil.darkContainerColor,
-      prefixIconColor: ColorsUtil.darkContainerColor,
-      fillColor: ColorsUtil.textFieldColor,
-      hintStyle: GoogleFonts.atkinsonHyperlegible(
-        fontSize: 16,
-        fontWeight: FontWeight.w400,
       ),
     ),
     dropdownMenuTheme: DropdownMenuThemeData(

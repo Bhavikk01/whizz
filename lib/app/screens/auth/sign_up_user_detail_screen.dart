@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:animated_custom_dropdown/custom_dropdown.dart';
@@ -6,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
-import 'package:whizz/app/screens/auth/controllers/sign_up_controller.dart';
+import 'package:Whizz/app/screens/auth/controllers/sign_up_controller.dart';
 
 import '../../routes/app_pages.dart';
 import '../../utils/colors.dart';

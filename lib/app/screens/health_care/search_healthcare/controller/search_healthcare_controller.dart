@@ -1,18 +1,23 @@
 import 'dart:developer';
 
+import 'package:Whizz/app/utils/loading_overlay.dart';
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:super_tooltip/super_tooltip.dart';
-import 'package:whizz/app/API/api_client.dart';
-import 'package:whizz/app/models/enum/searchByAddress.dart';
-import 'package:whizz/app/models/user_model.dart';
-import 'package:whizz/app/services/user.dart';
+import 'package:Whizz/app/API/api_client.dart';
+import 'package:Whizz/app/models/enum/searchByAddress.dart';
+import 'package:Whizz/app/models/user_model.dart';
+import 'package:Whizz/app/services/user.dart';
+
+import '../../../../utils/custom_bottom_snackbar.dart';
 class SearchHealthcareController extends GetxController {
 
-  late DraggableScrollableController draggableScrollableController ;
+  late DraggableScrollableController draggableScrollableController;
+  var isLoading = false.obs;
   late GoogleMapController mapController;
   Rx<SearchByAddress> searchBy = SearchByAddress.state.obs;
   SuperTooltipController toolTipController = SuperTooltipController();
@@ -32,8 +37,6 @@ class SearchHealthcareController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    draggableScrollableController = DraggableScrollableController();
-
     await Geolocator.requestPermission();
     await getLocation();
     if(UserStore.to.profile.userAddress != null){
@@ -54,7 +57,6 @@ class SearchHealthcareController extends GetxController {
     userCountry = '${userAddress.value.country}'.obs;
     userState = '${userAddress.value.state}'.obs;
     userCity = '${userAddress.value.city}'.obs;
-
     await getNearByHealthcare();
   }
 
@@ -74,19 +76,26 @@ class SearchHealthcareController extends GetxController {
   }
 
   getNearByHealthcare() async {
+    isLoading.value = true;
     await ApiClient.to.getNearByHealthcare(
       searchBy.value,
       userAddress: userAddress.value,
       onSuccess: (res) {
 
+        isLoading.value = false;
       },
-      onError: (error){
-
+      onError: (err){
+        isLoading.value = false;
+        customSnackBar(
+          type: AnimatedSnackBarType.error,
+          message: '${err.body['error']}',
+        );
       }
     );
   }
 
   applyFilter() async {
+    isLoading.value = true;
     userAddress = UserAddress(
       country: userCountry.value,
       state: userState.value,

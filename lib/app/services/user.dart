@@ -1,11 +1,12 @@
 import 'dart:developer';
 
-import 'package:flutter/material.dart';
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:get/get.dart';
 
 import '../API/api_client.dart';
 import '../models/user_model.dart';
 import '../routes/app_pages.dart';
+import '../utils/custom_bottom_snackbar.dart';
 import 'storage.dart';
 
 class UserStore extends GetxController {
@@ -40,10 +41,9 @@ class UserStore extends GetxController {
             _profile(UserModel.fromJson(res.body['data']));
           },
           onError: (err) {
-            Get.snackbar(
-              'Auth',
-              '$err',
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            customSnackBar(
+              type: AnimatedSnackBarType.info,
+              message: err.body['error'],
             );
           },
         );

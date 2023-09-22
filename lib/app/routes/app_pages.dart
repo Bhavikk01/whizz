@@ -1,19 +1,19 @@
+import 'package:Whizz/app/screens/dashboard/disease_prediction_screens/binding/disease_prediction_binding.dart';
+import 'package:Whizz/app/screens/dashboard/disease_prediction_screens/disease_prediction_screen.dart';
 import 'package:get/get.dart';
-import 'package:whizz/app/screens/auth/bindings/auth_binding.dart';
-import 'package:whizz/app/screens/auth/sign_up_screen.dart';
-import 'package:whizz/app/screens/auth/sign_up_user_detail_screen.dart';
-import 'package:whizz/app/screens/health_care/healthcare_center_detail_screen/binding/healthcare_binding.dart';
-import 'package:whizz/app/screens/health_care/healthcare_center_detail_screen/healthcare_center_detail_screen.dart';
-import 'package:whizz/app/screens/health_care/search_healthcare/binding/search_healthcare_binding.dart';
+import 'package:Whizz/app/screens/auth/bindings/auth_binding.dart';
+import 'package:Whizz/app/screens/auth/sign_up_screen.dart';
+import 'package:Whizz/app/screens/auth/sign_up_user_detail_screen.dart';
+import 'package:Whizz/app/screens/health_care/healthcare_center_detail_screen/binding/healthcare_binding.dart';
+import 'package:Whizz/app/screens/health_care/healthcare_center_detail_screen/healthcare_center_detail_screen.dart';
 
 import '../screens/auth/bindings/sign_up_binding.dart';
 import '../screens/auth/forgot_password.dart';
 import '../screens/auth/login_with_email.dart';
-import '../screens/auth/login_with_phone.dart';
-import '../screens/health_care/search_healthcare/search_healthcare_screen.dart';
+import '../screens/dashboard/reports/binding/user_reports_binding.dart';
+import '../screens/dashboard/reports/user_reports_screen.dart';
 import '../screens/home/bindings/home_binding.dart';
-import '../screens/home/home_view.dart';
-import '../widgets/bottom_nav_bar.dart';
+import '../screens/home/home_screen.dart';
 
 part 'app_routes.dart';
 
@@ -24,16 +24,11 @@ class AppPages {
 
   static final routes = [
 
-    /* Authentication pages */
-
+    /// Authentication pages
     GetPage(
       name: Routes.loginWithEmail,
       page: () => const LoginWithEmail(),
       binding: AuthBinding(),
-    ),
-    GetPage(
-      name: Routes.loginWithPhone,
-      page: () => const LoginWithPhone(),
     ),
     GetPage(
       name: Routes.signUp,
@@ -51,30 +46,31 @@ class AppPages {
       binding: SignUpBinding(),
     ),
 
-    /* Home Page */
-
+    /// Home Page
     GetPage(
       name: Routes.home,
-      page: () => const BottomNavBarScreen(),
+      page: () => HomeScreen(),
       binding: HomeBinding(),
     ),
-    // GetPage(
-    //   name: Routes.reminderScreen,
-    //   page: () => const HomeView(),
-    //   binding: HomeBinding(),
-    // ),
-    // GetPage(
-    //   name: Routes.userProfile,
-    //   page: () => const HomeView(),
-    //   binding: HomeBinding(),
-    // ),
 
-    /* Healthcare Screen */
+    /// Dashboard
     GetPage(
-      name: Routes.searchHealthCenterScreen,
-      page: ()=> const SearchHealthcareScreen(),
-      binding: SearchHealthcareBinding(),
+      name: Routes.reminderScreen,
+      page: () => const SignUpScreen(),
+      binding: SignUpBinding(),
     ),
+    GetPage(
+      name: Routes.userReports,
+      page: () => const UserReportsScreen(),
+      binding: UserReportsBinding(),
+    ),
+    GetPage(
+      name: Routes.diseaseRecommendation,
+      page: ()=> const DiseasePredictionScreen(),
+      binding: DiseasePredictionBinding(),
+    ),
+
+    /// Healthcare Screen
     GetPage(
       name: Routes.healthCenterScreen,
       page: ()=>const HealthcareCenterDetailScreen(),
