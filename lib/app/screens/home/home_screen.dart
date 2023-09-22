@@ -31,28 +31,28 @@ class HomeScreen extends GetView<HomeController> {
                 page: () => const UserProfileScreen(),
                 binding: UserProfileBinding(),
                 maintainState: true,
-                transition: Transition.fade,
+                transition: Transition.fadeIn,
               );
             case Routes.appointmentScreen:
               return GetPageRoute(
                 page: () => const UserProfileScreen(),
                 binding: UserProfileBinding(),
                 maintainState: true,
-                transition: Transition.fade,
+                transition: Transition.fadeIn,
               );
             case Routes.userProfile:
               return GetPageRoute(
                 page: () => const UserProfileScreen(),
                 binding: UserProfileBinding(),
                 maintainState: true,
-                transition: Transition.fade,
+                transition: Transition.fadeIn,
               );
             case Routes.searchHealthCenterScreen:
               return GetPageRoute(
                 page: () => SearchHealthcareScreen(),
                 binding: SearchHealthcareBinding(),
                 maintainState: true,
-                transition: Transition.fade,
+                transition: Transition.fadeIn,
               );
             default:
               return null;
