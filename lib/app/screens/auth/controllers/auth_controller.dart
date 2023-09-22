@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:whizz/app/services/auth_services.dart';
+import 'package:Whizz/app/services/auth_services.dart';
 
 import '../../../utils/loading_overlay.dart';
 

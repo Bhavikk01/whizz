@@ -4,10 +4,10 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:whizz/app/services/auth_services.dart';
-import 'package:whizz/app/utils/app_theme.dart';
-import 'package:whizz/app/utils/colors.dart';
-import 'package:whizz/app/utils/scale_utility.dart';
+import 'package:Whizz/app/services/auth_services.dart';
+import 'package:Whizz/app/utils/app_theme.dart';
+import 'package:Whizz/app/utils/colors.dart';
+import 'package:Whizz/app/utils/scale_utility.dart';
 
 import '../../../models/user_model.dart';
 import '../../../utils/constants.dart';

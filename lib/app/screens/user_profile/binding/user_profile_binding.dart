@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:whizz/app/screens/user_profile/controller/user_controller.dart';
+import 'package:Whizz/app/screens/user_profile/controller/user_controller.dart';
 
 class UserProfileBinding implements Bindings {
 

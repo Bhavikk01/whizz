@@ -2,11 +2,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:whizz/app/global_controllers/drawer_controller.dart';
-import 'package:whizz/app/services/auth_services.dart';
-import 'package:whizz/app/utils/app_theme.dart';
-import 'package:whizz/app/utils/colors.dart';
-import 'package:whizz/app/utils/constants.dart';
+import 'package:Whizz/app/services/auth_services.dart';
+import 'package:Whizz/app/utils/app_theme.dart';
+import 'package:Whizz/app/utils/colors.dart';
+import 'package:Whizz/app/utils/constants.dart';
 
 import 'app/API/api_client.dart';
 import 'app/global_controllers/bottom_nav_controller.dart';
@@ -26,11 +25,9 @@ Future<void> main() async {
   Get.put<ApiClient>(ApiClient());
   Get.put<UserStore>(UserStore());
   Get.put<AuthServices>(AuthServices());
-  Get.put(CustomDrawerController());
   Get.put(BottomNavBarController());
   runApp(const MyApp());
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);

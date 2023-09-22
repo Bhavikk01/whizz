@@ -4,13 +4,13 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:super_tooltip/super_tooltip.dart';
-import 'package:whizz/app/models/enum/searchByAddress.dart';
-import 'package:whizz/app/utils/app_theme.dart';
-import 'package:whizz/app/utils/colors.dart';
-import 'package:whizz/app/utils/constants.dart';
-import 'package:whizz/app/utils/scale_utility.dart';
-import 'package:whizz/app/widgets/address_picker.dart';
-import 'package:whizz/app/widgets/custom_icon_button.dart';
+import 'package:Whizz/app/models/enum/searchByAddress.dart';
+import 'package:Whizz/app/utils/app_theme.dart';
+import 'package:Whizz/app/utils/colors.dart';
+import 'package:Whizz/app/utils/constants.dart';
+import 'package:Whizz/app/utils/scale_utility.dart';
+import 'package:Whizz/app/widgets/address_picker.dart';
+import 'package:Whizz/app/widgets/custom_icon_button.dart';
 
 import 'controller/search_healthcare_controller.dart';
 

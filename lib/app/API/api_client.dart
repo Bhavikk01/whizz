@@ -2,9 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:whizz/app/API/api_routes.dart';
-import 'package:whizz/app/models/enum/searchByAddress.dart';
-import 'package:whizz/app/services/user.dart';
+import 'package:Whizz/app/API/api_routes.dart';
+import 'package:Whizz/app/models/enum/searchByAddress.dart';
+import 'package:Whizz/app/services/user.dart';
 
 import '../models/user_model.dart';
 import '../utils/constants.dart';
@@ -14,13 +14,13 @@ class ApiClient extends GetConnect implements GetxService {
 
   Future<Response> checkUserByPhone(String phoneNumber) async {
     try {
-      log('--------------Calling API: ${ApiRoutes.baseUrl}user/phone/$phoneNumber ---------------');
+      log('=============== Calling API: ${ApiRoutes.baseUrl}user/phone/$phoneNumber ================');
       Response res = await httpClient.get(
         '${ApiRoutes.baseUrl}user/phone/$phoneNumber',
       );
-      log('--------------Data Received---------------');
+      log('================================ Data Received ==========================================');
       log(res.body.toString());
-      log('----------Finishing API Call------------');
+      log('================================ Finishing API Call =====================================');
       if (validateResponse(res)) {
         return res;
       } else {
@@ -43,15 +43,15 @@ class ApiClient extends GetConnect implements GetxService {
       {required Function(Response res) onSuccess,
       required Function(Response error) onError}) async {
     try {
-      log('--------------Calling API: ${ApiRoutes.baseUrl}user/$id ---------------');
-      log('--------------Data Sending---------------');
+      log('===================== Calling API: ${ApiRoutes.baseUrl}user/$id ==============');
+      log('================================ Data Sending ===========================================');
       log(id);
       Response res = await httpClient.get(
         '${ApiRoutes.baseUrl}user/$id',
       );
-      log('--------------Data Received---------------');
+      log('================================ Data Received ==========================================');
       log(res.body.toString());
-      log('----------Finishing API Call------------');
+      log('================================ Finishing API Call =====================================');
       if (validateResponse(res)) {
         onSuccess(res);
       } else {
@@ -85,15 +85,15 @@ class ApiClient extends GetConnect implements GetxService {
       required Function(Response error) onError}) async {
     try {
       log('--------------Calling API: ${ApiRoutes.baseUrl}user/create ---------------');
-      log('--------------Data Sending---------------');
+      log('================================ Data Sending ==========================================');
       log(user.toString());
       Response res = await httpClient.post(
         '${ApiRoutes.baseUrl}user/create',
         body: user,
       );
-      log('--------------Data Received---------------');
+      log('================================ Data Received ==========================================');
       log(res.body.toString());
-      log('----------Finishing API Call------------');
+      log('================================ Finishing API Call =====================================');
       if (validateResponse(res)) {
         onSuccess(res);
       } else {
@@ -127,9 +127,9 @@ class ApiClient extends GetConnect implements GetxService {
         Response res = await httpClient.get(
           '${ApiRoutes.baseUrl}nearbyHealthcare?country=$countryCode&state=${stateCode['state_code']}&city=${cityCode['id']}',
         );
-        log('--------------Data Received---------------');
+        log('================================ Data Received ==========================================');
         log(res.body.toString());
-        log('----------Finishing API Call------------');
+        log('================================ Finishing API Call =====================================');
         if (validateResponse(res)) {
           onSuccess(res);
         } else {
@@ -147,9 +147,9 @@ class ApiClient extends GetConnect implements GetxService {
         Response res = await httpClient.get(
           '${ApiRoutes.baseUrl}nearbyHealthcare?country=$countryCode&state=${stateCode['state_code']}',
         );
-        log('--------------Data Received---------------');
+        log('================================ Data Received ==========================================');
         log(res.body.toString());
-        log('----------Finishing API Call------------');
+        log('================================ Finishing API Call =====================================');
         if (validateResponse(res)) {
           onSuccess(res);
         } else {
@@ -166,9 +166,9 @@ class ApiClient extends GetConnect implements GetxService {
         Response res = await httpClient.get(
           '${ApiRoutes.baseUrl}nearbyHealthcare?country=$countryCode',
         );
-        log('--------------Data Received---------------');
+        log('================================ Data Received ==========================================');
         log(res.body.toString());
-        log('----------Finishing API Call------------');
+        log('================================ Finishing API Call =====================================');
         if (validateResponse(res)) {
           onSuccess(res);
         } else {
@@ -197,9 +197,9 @@ class ApiClient extends GetConnect implements GetxService {
       Response res = await httpClient.get(
         '${ApiRoutes.baseUrl}user/getUserPills/${UserStore.to.uid}',
       );
-      log('--------------Data Received---------------');
+      log('================================ Data Received ==========================================');
       log(res.body.toString());
-      log('----------Finishing API Call------------');
+      log('================================ Finishing API Call =====================================');
       if (validateResponse(res)) {
         onSuccess(res);
       } else {

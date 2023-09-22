@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/material.dart';
-import 'package:whizz/app/utils/scale_utility.dart';
+import 'package:Whizz/app/utils/scale_utility.dart';
 
 import '../utils/colors.dart';
 import '../utils/constants.dart';

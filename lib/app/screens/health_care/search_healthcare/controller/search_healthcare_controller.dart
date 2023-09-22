@@ -6,10 +6,10 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:super_tooltip/super_tooltip.dart';
-import 'package:whizz/app/API/api_client.dart';
-import 'package:whizz/app/models/enum/searchByAddress.dart';
-import 'package:whizz/app/models/user_model.dart';
-import 'package:whizz/app/services/user.dart';
+import 'package:Whizz/app/API/api_client.dart';
+import 'package:Whizz/app/models/enum/searchByAddress.dart';
+import 'package:Whizz/app/models/user_model.dart';
+import 'package:Whizz/app/services/user.dart';
 class SearchHealthcareController extends GetxController {
 
   late DraggableScrollableController draggableScrollableController;
@@ -32,7 +32,7 @@ class SearchHealthcareController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    await Geolocator.requestPermission();
+    // await Geolocator.requestPermission();
     await getLocation();
     if(UserStore.to.profile.userAddress != null){
       userAddress = UserStore.to.profile.userAddress!.obs;

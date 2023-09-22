@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:whizz/app/screens/auth/controllers/auth_controller.dart';
-import 'package:whizz/app/utils/colors.dart';
-import 'package:whizz/app/utils/constants.dart';
+import 'package:Whizz/app/screens/auth/controllers/auth_controller.dart';
+import 'package:Whizz/app/utils/colors.dart';
+import 'package:Whizz/app/utils/constants.dart';
 
 import '../../routes/app_pages.dart';
 import '../../utils/scale_utility.dart';

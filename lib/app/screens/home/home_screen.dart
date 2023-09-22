@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:whizz/app/global_controllers/bottom_nav_controller.dart';
-import 'package:whizz/app/models/enum/nested_navigation.dart';
-import 'package:whizz/app/screens/health_care/search_healthcare/binding/search_healthcare_binding.dart';
-import 'package:whizz/app/screens/health_care/search_healthcare/search_healthcare_screen.dart';
-import 'package:whizz/app/screens/home/controllers/home_controller.dart';
-import 'package:whizz/app/screens/user_profile/user_profile_screen.dart';
-import 'package:whizz/app/utils/colors.dart';
-import 'package:whizz/app/utils/constants.dart';
+import 'package:Whizz/app/global_controllers/bottom_nav_controller.dart';
+import 'package:Whizz/app/models/enum/nested_navigation.dart';
+import 'package:Whizz/app/screens/health_care/search_healthcare/binding/search_healthcare_binding.dart';
+import 'package:Whizz/app/screens/health_care/search_healthcare/search_healthcare_screen.dart';
+import 'package:Whizz/app/screens/home/controllers/home_controller.dart';
+import 'package:Whizz/app/screens/user_profile/user_profile_screen.dart';
+import 'package:Whizz/app/utils/colors.dart';
+import 'package:Whizz/app/utils/constants.dart';
 
 import '../../routes/app_pages.dart';
 import '../user_profile/binding/user_profile_binding.dart';

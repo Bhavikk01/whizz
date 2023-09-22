@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:whizz/app/utils/colors.dart';
-import 'package:whizz/app/utils/constants.dart';
-import 'package:whizz/app/utils/scale_utility.dart';
+import 'package:Whizz/app/utils/colors.dart';
+import 'package:Whizz/app/utils/constants.dart';
+import 'package:Whizz/app/utils/scale_utility.dart';
 
 class UserProfileScreen extends StatelessWidget {
   const UserProfileScreen({Key? key}) : super(key: key);
