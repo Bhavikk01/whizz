@@ -6,15 +6,20 @@ import numpy as np
 import warnings
 import time
 import os
+import json
 
-model_path="api\data"
+data_path="api\data"
 warnings.filterwarnings("ignore")
-precaution=pickle.load(open(os.path.join(model_path,"precaution_dict.pkl"),"rb"))
-description=pickle.load(open(os.path.join(model_path,"description_dict.pkl"),"rb"))
-forest=pickle.load(open(os.path.join(model_path,"randomforest.pkl"),"rb"))
-all_symp=list(pickle.load(open(os.path.join(model_path,"symptoms.pkl"),"rb")))
-relsymp=list(pickle.load(open(os.path.join(model_path,"rel-symp.pkl"),"rb")))
-disease_dict=pickle.load(open(os.path.join(model_path,"disease_dict.pkl"),"rb"))
+
+with open(os.path.join(data_path,"data.json"), "r") as json_file:
+    loaded_data = json.load(json_file)
+precaution=loaded_data["precaution"]
+description=loaded_data["description"]
+all_symp=loaded_data["all_symp"]
+relsymp=loaded_data["relsymp"]
+disease_dict=loaded_data["disease_dict"]
+
+forest=pickle.load(open(os.path.join(data_path,"randomforest.pkl"),"rb"))
 
 
 #DB and API initialization
