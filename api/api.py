@@ -8,6 +8,7 @@ import time
 import os
 import json
 from pytrie import StringTrie
+from collections import Counter
 
 
 data_path="api/data"
@@ -47,20 +48,12 @@ complete_arg.add_argument("user_input",type=str,help="none")
 
 
 def related_symptoms(symp):
-    result = []
-    for sublist in relsymp:
-        if any(items in sublist for items in symp):
-            result.append(sublist)
-    
-    unique_elements = set()
-    for sublist in result:
-        if isinstance(sublist, list):
-            for element in sublist:
-                unique_elements.add(element)
-        else:
-            unique_elements.add(sublist)
-
-    return list(unique_elements)
+    top_n=5
+    all_symptoms = [symptom for sublist in relsymp for symptom in sublist]
+    relevant_combinations = [combo for combo in relsymp if all(symptom in combo for symptom in symp)]
+    co_occurrence_counter = Counter(symptom for combo in relevant_combinations for symptom in combo if symptom not in symp)
+    top_co_occurrence = sorted([symptom for symptom, _ in co_occurrence_counter.most_common(top_n)])
+    return top_co_occurrence
 
 def classify(sample):
     testx=np.zeros(len(all_symp),dtype=int)
@@ -70,7 +63,8 @@ def classify(sample):
                 testx[all_symp.index(i)]=1
 
     cls=forest.predict([testx])   
-    return disease_dict[cls[0]]
+    print(cls[0])
+    return disease_dict[str(cls[0])]
 
 def build_trie(word_list):
     trie = StringTrie()
@@ -104,7 +98,7 @@ class by_id(Resource):
                 "status": False,
                 "message": "user not found"
             })
-api.add_resource(by_id, "/user/id/<string:id>")
+api.add_resource(by_id, "/user/<string:id>")
 
 class by_email(Resource):
     def get(self, email):
@@ -188,10 +182,6 @@ class recommend(Resource):
             symp=[symp]
         send=related_symptoms(symp)
  
-        if len(send)!=0:
-            for i in symp:
-                send.remove(i)
-        
         return {"symptoms":send}
 
 api.add_resource(recommend,"/ask/")
