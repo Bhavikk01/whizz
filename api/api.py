@@ -7,12 +7,15 @@ import warnings
 import time
 import os
 import json
+from pytrie import StringTrie
 
-data_path="api\data"
+
+data_path="api/data"
 warnings.filterwarnings("ignore")
 
 with open(os.path.join(data_path,"data.json"), "r") as json_file:
     loaded_data = json.load(json_file)
+
 precaution=loaded_data["precaution"]
 description=loaded_data["description"]
 all_symp=loaded_data["all_symp"]
@@ -39,6 +42,8 @@ predict_Arg=reqparse.RequestParser()
 predict_Arg.add_argument("symptoms",type=str,help="Send symptoms seperated by '-'")
 ask_arg=reqparse.RequestParser()
 ask_arg.add_argument("selection",type=str,help="none")
+complete_arg=reqparse.RequestParser()
+complete_arg.add_argument("user_input",type=str,help="none")
 
 
 def related_symptoms(symp):
@@ -67,6 +72,17 @@ def classify(sample):
     cls=forest.predict([testx])   
     return disease_dict[cls[0]]
 
+def build_trie(word_list):
+    trie = StringTrie()
+    for word in word_list:
+        trie[word] = True
+    return trie
+
+def complete_words(trie, user_input):
+    completions = trie.keys(prefix=user_input)
+    return completions
+
+trie = build_trie(all_symp)
 
 #User data methods
 class check(Resource):
@@ -180,7 +196,7 @@ class recommend(Resource):
 
 api.add_resource(recommend,"/ask/")
 
-
+#Search Healthcare centers
 class nearbyhealthcare(Resource):
     def get(self):
         country = request.args['country']
@@ -214,6 +230,16 @@ class nearbyhealthcare(Resource):
             }) 
 
 api.add_resource(nearbyhealthcare,"/nearbyhealthcare")
+
+class sympcomplete(Resource):
+    def post(self):
+        args=complete_arg.parse_args()
+        user_input=args["user_input"]
+        completions = complete_words(trie, user_input)
+        return {"completions":completions}
+
+
+api.add_resource(sympcomplete,"/sympcomplete")
 
 
 
