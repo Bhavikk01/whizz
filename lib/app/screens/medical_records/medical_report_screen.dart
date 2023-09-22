@@ -1,8 +1,12 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:Whizz/app/screens/medical_records/controllers/medical_report_controller.dart';
 import 'package:Whizz/app/utils/colors.dart';
 import 'package:Whizz/app/utils/constants.dart';
 import 'package:Whizz/app/widgets/upload_button.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -76,6 +80,7 @@ class MedicalReportScreen extends GetView<MedicalReportController> {
           onTap: () {
             showModalBottomSheet(
                 isScrollControlled: true,
+                isDismissible: false,
                 enableDrag: true,
                 useSafeArea: true,
                 useRootNavigator: true,
@@ -86,7 +91,7 @@ class MedicalReportScreen extends GetView<MedicalReportController> {
                 barrierColor: ColorsUtil.brandColor.withOpacity(0.5),
                 context: context,
                 builder: (context) {
-                  return const ReportBottomSheet();
+                  return ReportBottomSheet();
                 });
           },
         ));
@@ -176,14 +181,16 @@ class ReportCard extends StatelessWidget {
 }
 
 class ReportBottomSheet extends StatelessWidget {
-  const ReportBottomSheet({Key? key}) : super(key: key);
+  ReportBottomSheet({Key? key}) : super(key: key);
+
+  MedicalReportController controller = Get.find<MedicalReportController>();
 
   @override
   Widget build(BuildContext context) {
     ScalingUtility scale = ScalingUtility(context: context)
       ..setCurrentDeviceSize();
     return Container(
-      padding: EdgeInsets.only(left: 30, top: 30, right: 20, bottom: 50),
+      padding: EdgeInsets.only(top: 10),
       decoration: ShapeDecoration(
           color: ColorsUtil.brandWhite,
           shape: RoundedRectangleBorder(
@@ -195,77 +202,129 @@ class ReportBottomSheet extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            "Upload Report",
-            style: TextStyle(fontSize: 20),
-            textAlign: TextAlign.center,
+          AppBar(
+            leading: IconButton(
+              onPressed: () {
+
+                controller.filePath.value="";
+                Navigator.of(context).pop();
+              },
+              icon: Icon(Icons.arrow_back),
+            ),
+            iconTheme: IconThemeData(color: ColorsUtil.brandColor),
+            centerTitle: true,
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            title: Text(
+              "Upload Record",
+              style: TextStyle(color: Colors.black),
+            ),
+            titleTextStyle: TextStyle(
+                color: ColorsUtil.brandColor,
+                fontSize: 20,
+                fontWeight: FontWeight.w500),
           ),
-          SizedBox(
-            height: scale.getScaledHeight(30),
-          ),
-          TextFormField(
-            decoration: InputDecoration(hintText: "Report Type"),
-          ),
-          /*DropdownButtonFormField(
-                          isDense: true,
-                            value: ,
-                            menuMaxHeight: 10,
-                            items: [
-                              DropdownMenuItem(child: Text("PDF")),
-                              DropdownMenuItem(child: Text("PNG")),
-                        ],
-                            onChanged: (value) {}),*/
-          SizedBox(
-            height: scale.getScaledHeight(20),
-          ),
-          TextFormField(
-            decoration: InputDecoration(hintText: "Center Location"),
-          ),
-          SizedBox(
-            height: scale.getScaledHeight(30),
-          ),
-          GestureDetector(
-            onTap: () {},
-            child: DottedBorder(
-                borderType: BorderType.RRect,
-                radius: Radius.circular(20),
-                color: Colors.grey.shade500,
-                // borderPadding: EdgeInsets.all(10),
-                dashPattern: [1, 5],
-                strokeCap: StrokeCap.square,
-                child: Container(
-                  height: scale.fh / 7,
-                  width: double.infinity,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    // mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SvgPicture.asset(
-                        "assets/icons/cloud_upload.svg",
-                        height: scale.getScaledHeight(40),
-                      ),
-                      SizedBox(
-                        height: scale.getScaledHeight(30),
-                      ),
-                      Text(
-                        'choose file from your system',
-                        style: TextStyle(
-                          color: Color(0xFF4285F4),
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          height: 0.14,
-                        ),
-                      ),
-                    ],
+          Container(
+            padding: EdgeInsets.fromLTRB(30, 0, 30, 30),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: scale.getScaledHeight(30),
+                ),
+                SizedBox(
+                  height: scale.getScaledHeight(46),
+                  child: TextFormField(
+                    style: TextStyle(fontSize: 17),
+                    decoration: InputDecoration(hintText: "Report Type"),
                   ),
-                )),
-          ),
-          SizedBox(
-            height: scale.getScaledHeight(40),
-          ),
-          UploadButton(
-            onTap: () {},
+                ),
+                /*DropdownButtonFormField(
+                                isDense: true,
+                                  value: ,
+                                  menuMaxHeight: 10,
+                                  items: [
+                                    DropdownMenuItem(child: Text("PDF")),
+                                    DropdownMenuItem(child: Text("PNG")),
+                              ],
+                                  onChanged: (value) {}),*/
+                SizedBox(
+                  height: scale.getScaledHeight(20),
+                ),
+                TextFormField(
+                  decoration: InputDecoration(hintText: "Center Location"),
+                ),
+                SizedBox(
+                  height: scale.getScaledHeight(30),
+                ),
+                GestureDetector(
+                  onTap: () async {
+                    FilePickerResult? result =
+                        await FilePicker.platform.pickFiles();
+
+                    if (result != null) {
+                      File file = File(result.files.single.path!);
+                      controller.selectedFile = result.files.single;
+                      controller.filePath.value = file.path;
+                      log(
+                          name: "File uploaded",
+                          "File selected ${controller.selectedFile!.name}");
+                    } else {
+                      Get.snackbar("File Upload", "File upload failed");
+                    }
+                  },
+                  child: DottedBorder(
+                      borderType: BorderType.RRect,
+                      radius: Radius.circular(20),
+                      color: Colors.grey.shade500,
+                      // borderPadding: EdgeInsets.all(10),
+                      dashPattern: [1, 5],
+                      strokeCap: StrokeCap.square,
+                      child: Container(
+                        height: scale.fh / 7,
+                        width: double.infinity,
+                        child: Obx(
+                          () => Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            // mainAxisSize: MainAxisSize.min,
+                            children: [
+                              controller.filePath.isEmpty
+                                  ? SvgPicture.asset(
+                                      "assets/icons/cloud_upload.svg",
+                                      height: scale.getScaledHeight(40),
+                                    )
+                                  : SvgPicture.asset('assets/icons/file.svg',
+                                      height: scale.getScaledHeight(40)),
+                              SizedBox(
+                                height: scale.getScaledHeight(30),
+                              ),
+                              Text(
+                                controller.filePath.isEmpty
+                                    ? 'choose file from your system'
+                                    : '${controller.selectedFile!.name}',
+                                style: TextStyle(
+                                  color: Color(0xFF4285F4),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  height: 0.14,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )),
+                ),
+                SizedBox(
+                  height: scale.getScaledHeight(40),
+                ),
+                UploadButton(
+                  onTap: () {},
+                ),
+              ],
+            ),
           ),
         ],
       ),
