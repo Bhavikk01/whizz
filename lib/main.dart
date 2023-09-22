@@ -1,3 +1,5 @@
+import 'package:Whizz/app/screens/medical_records/controllers/medical_report_controller.dart';
+import 'package:Whizz/app/screens/medical_records/medical_report_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -30,7 +32,8 @@ Future<void> main() async {
   Get.put(BottomNavBarController());
 
 
-  Get.put(SearchHealthcareController());
+  Get.put(SearchHealthcareController());// todo wipe this later
+  Get.put(MedicalReportController());// todo wipe this later 
 
 
   runApp(const MyApp());
@@ -45,7 +48,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       theme: AppTheme.appTheme,
       title: "Application",
-      home: SearchHealthcareScreen(),
+      home: MedicalReportScreen(),
       getPages: AppPages.routes,
       debugShowCheckedModeBanner: false,
     );
