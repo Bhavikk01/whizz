@@ -1,0 +1,852 @@
+[
+  {
+    "name": "Apollo Hospital",
+    "id": "123456789",
+    "address": {
+      "country": "IND",
+      "city": "132166",
+      "state": "MP",
+      "street": "Scheme No. 74 C, Sector D, Vijay Nagar",
+      "latitude": 50.0000,
+      "longitude": 50.0000
+    },
+    "about": "Apollo Group constitutes the best hospital in India with over 10,000 beds across 73 hospitals, 5000+ pharmacies, over 300 clinics, 1100+ diagnostic centres and 200+ Telemedicine units.",
+    "timings": "24*7",
+    "services_and_reviews": [
+      {
+        "service": "Cardiology",
+        "reviews": [
+          {
+            "userid": "asdfghjkl",
+            "name": "Rahul",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "fdsdfghjkl",
+            "name": "Raj",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "aqwefghjkl",
+            "name": "Rajesh",
+            "rating": 4,
+            "review": "Good"
+          }
+        ]
+      },
+      {
+        "service": "Neurology",
+        "reviews": [
+          {
+            "userid": "asdrrhjkl",
+            "name": "bhavik",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Pancholi",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Daksh",
+            "rating": 4,
+            "review": "Good"
+          }
+        ]
+      },
+      {
+        "service": "Orthopedics",
+        "reviews": [
+          {
+            "userid": "asdfghjkl",
+            "name": "Bhumika",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Ayushi",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Arpit",
+            "rating": 4,
+            "review": "Good"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Apollo Hospital",
+    "id": "123456789",
+    "address": {
+      "country": "IND",
+      "city": "132040",
+      "state": "MP",
+      "street": "Scheme No. 74 C, Sector D, Vijay Nagar",
+      "latitude": 50.0000,
+      "longitude": 50.0000
+    },
+    "about": "Apollo Group constitutes the best hospital in India with over 10,000 beds across 73 hospitals, 5000+ pharmacies, over 300 clinics, 1100+ diagnostic centres and 200+ Telemedicine units.",
+    "timings": "24*7",
+    "services_and_reviews": [
+      {
+        "service": "Cardiology",
+        "reviews": [
+          {
+            "userid": "asdfghjkl",
+            "name": "Rahul",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "fdsdfghjkl",
+            "name": "Raj",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "aqwefghjkl",
+            "name": "Rajesh",
+            "rating": 4,
+            "review": "Good"
+          }
+        ]
+      },
+      {
+        "service": "Neurology",
+        "reviews": [
+          {
+            "userid": "asdrrhjkl",
+            "name": "bhavik",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Pancholi",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Daksh",
+            "rating": 4,
+            "review": "Good"
+          }
+        ]
+      },
+      {
+        "service": "Orthopedics",
+        "reviews": [
+          {
+            "userid": "asdfghjkl",
+            "name": "Bhumika",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Ayushi",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Arpit",
+            "rating": 4,
+            "review": "Good"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Apollo Hospital",
+    "id": "123456789",
+    "address": {
+      "country": "IND",
+      "city": "57606",
+      "state": "GJ",
+      "street": "Plot No.1A, Bhat GIDC Estate Dist. Airport Gandhinagar Road",
+      "latitude": 50.0000,
+      "longitude": 50.0000
+    },
+    "about": "Apollo Group constitutes the best hospital in India with over 10,000 beds across 73 hospitals, 5000+ pharmacies, over 300 clinics, 1100+ diagnostic centres and 200+ Telemedicine units.",
+    "timings": "24*7",
+    "services_and_reviews": [
+      {
+        "service": "Cardiology",
+        "reviews": [
+          {
+            "userid": "asdfghjkl",
+            "name": "Rahul",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "fdsdfghjkl",
+            "name": "Raj",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "aqwefghjkl",
+            "name": "Rajesh",
+            "rating": 4,
+            "review": "Good"
+          }
+        ]
+      },
+      {
+        "service": "Neurology",
+        "reviews": [
+          {
+            "userid": "asdrrhjkl",
+            "name": "bhavik",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Pancholi",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Daksh",
+            "rating": 4,
+            "review": "Good"
+          }
+        ]
+      },
+      {
+        "service": "Orthopedics",
+        "reviews": [
+          {
+            "userid": "asdfghjkl",
+            "name": "Bhumika",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Ayushi",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Arpit",
+            "rating": 4,
+            "review": "Good"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Apollo Hospital",
+    "id": "123456789",
+    "address": {
+      "country": "IND",
+      "city": "133210",
+      "state": "DL",
+      "street": "Sarita Vihar Delhi Mathura Road",
+      "latitude": 50.0000,
+      "longitude": 50.0000
+    },
+    "about": "Apollo Group constitutes the best hospital in India with over 10,000 beds across 73 hospitals, 5000+ pharmacies, over 300 clinics, 1100+ diagnostic centres and 200+ Telemedicine units.",
+    "timings": "24*7",
+    "services_and_reviews": [
+      {
+        "service": "Cardiology",
+        "reviews": [
+          {
+            "userid": "asdfghjkl",
+            "name": "Rahul",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "fdsdfghjkl",
+            "name": "Raj",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "aqwefghjkl",
+            "name": "Rajesh",
+            "rating": 4,
+            "review": "Good"
+          }
+        ]
+      },
+      {
+        "service": "Neurology",
+        "reviews": [
+          {
+            "userid": "asdrrhjkl",
+            "name": "bhavik",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Pancholi",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Daksh",
+            "rating": 4,
+            "review": "Good"
+          }
+        ]
+      },
+      {
+        "service": "Orthopedics",
+        "reviews": [
+          {
+            "userid": "asdfghjkl",
+            "name": "Bhumika",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Ayushi",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Arpit",
+            "rating": 4,
+            "review": "Good"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Fortis CDOC, Chirag Enclave",
+    "id": "123456789",
+    "address": {
+      "country": "IND",
+      "city": "132032",
+      "state": "HR",
+      "street": "Tower A, Unitech Business Park, Block - F, South City 1, Sector - 41",
+      "latitude": 50.0000,
+      "longitude": 50.0000
+    },
+    "about": "Fortis Hospital, Cunningham Road, Bengaluru, is a 119-bed facility, famed as one of the pioneers in the field of Cardiac Sciences in the city. It offers some of the most modern and latest technologies in diagnostics along with a multitude of advanced life-saving procedures and treatments. The facility is well equipped to provide quality care and treatment in the specialities of Neurology & Neurosurgery, Urology, Orthopaedics, Minimal Access & General Surgery, Gastroenterology, Pulmonology and 24/7 Emergency and Critical Care. Being accredited by NABH & NABL, the hospital adheres to the best practices in quality and patient care.",
+    "timings": "24*7",
+    "services_and_reviews": [
+      {
+        "service": "Cardiology",
+        "reviews": [
+          {
+            "userid": "asdfghjkl",
+            "name": "Rahul",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "fdsdfghjkl",
+            "name": "Raj",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "aqwefghjkl",
+            "name": "Rajesh",
+            "rating": 4,
+            "review": "Good"
+          }
+        ]
+      },
+      {
+        "service": "Neurology",
+        "reviews": [
+          {
+            "userid": "asdrrhjkl",
+            "name": "bhavik",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Pancholi",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Daksh",
+            "rating": 4,
+            "review": "Good"
+          }
+        ]
+      },
+      {
+        "service": "Orthopedics",
+        "reviews": [
+          {
+            "userid": "asdfghjkl",
+            "name": "Bhumika",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Ayushi",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Arpit",
+            "rating": 4,
+            "review": "Good"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Fortis Hospital",
+    "id": "123456789",
+    "address": {
+      "country": "IND",
+      "city": "57847",
+      "state": "KA",
+      "street": "Hospital, Cunningham Rd, Vasanth Nagar",
+      "latitude": 50.0000,
+      "longitude": 50.0000
+    },
+    "about": "Fortis Hospital, Cunningham Road, Bengaluru, is a 119-bed facility, famed as one of the pioneers in the field of Cardiac Sciences in the city. It offers some of the most modern and latest technologies in diagnostics along with a multitude of advanced life-saving procedures and treatments. The facility is well equipped to provide quality care and treatment in the specialities of Neurology & Neurosurgery, Urology, Orthopaedics, Minimal Access & General Surgery, Gastroenterology, Pulmonology and 24/7 Emergency and Critical Care. Being accredited by NABH & NABL, the hospital adheres to the best practices in quality and patient care.",
+    "timings": "24*7",
+    "services_and_reviews": [
+      {
+        "service": "Cardiology",
+        "reviews": [
+          {
+            "userid": "asdfghjkl",
+            "name": "Rahul",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "fdsdfghjkl",
+            "name": "Raj",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "aqwefghjkl",
+            "name": "Rajesh",
+            "rating": 4,
+            "review": "Good"
+          }
+        ]
+      },
+      {
+        "service": "Neurology",
+        "reviews": [
+          {
+            "userid": "asdrrhjkl",
+            "name": "bhavik",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Pancholi",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Daksh",
+            "rating": 4,
+            "review": "Good"
+          }
+        ]
+      },
+      {
+        "service": "Orthopedics",
+        "reviews": [
+          {
+            "userid": "asdfghjkl",
+            "name": "Bhumika",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Ayushi",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Arpit",
+            "rating": 4,
+            "review": "Good"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Fortis Hospital",
+    "id": "123456789",
+    "address": {
+      "country": "IND",
+      "city": "133210",
+      "state": "DL",
+      "street": "Sarita Vihar Delhi Mathura Road",
+      "latitude": 50.0000,
+      "longitude": 50.0000
+    },
+    "about": "Fortis Hospital, Cunningham Road, Bengaluru, is a 119-bed facility, famed as one of the pioneers in the field of Cardiac Sciences in the city. It offers some of the most modern and latest technologies in diagnostics along with a multitude of advanced life-saving procedures and treatments. The facility is well equipped to provide quality care and treatment in the specialities of Neurology & Neurosurgery, Urology, Orthopaedics, Minimal Access & General Surgery, Gastroenterology, Pulmonology and 24/7 Emergency and Critical Care. Being accredited by NABH & NABL, the hospital adheres to the best practices in quality and patient care.",
+    "timings": "24*7",
+    "services_and_reviews": [
+      {
+        "service": "Cardiology",
+        "reviews": [
+          {
+            "userid": "asdfghjkl",
+            "name": "Rahul",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "fdsdfghjkl",
+            "name": "Raj",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "aqwefghjkl",
+            "name": "Rajesh",
+            "rating": 4,
+            "review": "Good"
+          }
+        ]
+      },
+      {
+        "service": "Neurology",
+        "reviews": [
+          {
+            "userid": "asdrrhjkl",
+            "name": "bhavik",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Pancholi",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Daksh",
+            "rating": 4,
+            "review": "Good"
+          }
+        ]
+      },
+      {
+        "service": "Orthopedics",
+        "reviews": [
+          {
+            "userid": "asdfghjkl",
+            "name": "Bhumika",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Ayushi",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Arpit",
+            "rating": 4,
+            "review": "Good"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Shalby Hospital",
+    "id": "123456789",
+    "address": {
+      "country": "IND",
+      "city": "133210",
+      "state": "DL",
+      "street": "B-301/302,Mondeal Heights, S. G. Highway,",
+      "latitude": 50.0000,
+      "longitude": 50.0000
+    },
+    "about": "Shalby Hospitals is one of the largest chains of multispecialty hospitals and tertiary care centers in the country today. Envisioned by its founder, Dr. Vikram I Shah back in 1994 as a Joint Replacement Center, today Shalby Hospitals is a chain of 12 multispecialty hospitals, offering treatment in over 35+ medical disciplines, holding an aggregate capacity of over 2062 beds with more than 500 active physicians, and 3000+ employees.",
+    "timings": "24*7",
+    "services_and_reviews": [
+      {
+        "service": "Cardiology",
+        "reviews": [
+          {
+            "userid": "asdfghjkl",
+            "name": "Rahul",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "fdsdfghjkl",
+            "name": "Raj",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "aqwefghjkl",
+            "name": "Rajesh",
+            "rating": 4,
+            "review": "Good"
+          }
+        ]
+      },
+      {
+        "service": "Neurology",
+        "reviews": [
+          {
+            "userid": "asdrrhjkl",
+            "name": "bhavik",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Pancholi",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Daksh",
+            "rating": 4,
+            "review": "Good"
+          }
+        ]
+      },
+      {
+        "service": "Orthopedics",
+        "reviews": [
+          {
+            "userid": "asdfghjkl",
+            "name": "Bhumika",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Ayushi",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Arpit",
+            "rating": 4,
+            "review": "Good"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Shalby Medicare",
+    "id": "123456789",
+    "address": {
+      "country": "IND",
+      "city": "132032",
+      "state": "HR",
+      "street": "B-301/302,Mondeal Heights, S. G. Highway,",
+      "latitude": 50.0000,
+      "longitude": 50.0000
+    },
+    "about": "Shalby Hospitals is one of the largest chains of multispecialty hospitals and tertiary care centers in the country today. Envisioned by its founder, Dr. Vikram I Shah back in 1994 as a Joint Replacement Center, today Shalby Hospitals is a chain of 12 multispecialty hospitals, offering treatment in over 35+ medical disciplines, holding an aggregate capacity of over 2062 beds with more than 500 active physicians, and 3000+ employees.",
+    "timings": "24*7",
+    "services_and_reviews": [
+      {
+        "service": "Cardiology",
+        "reviews": [
+          {
+            "userid": "asdfghjkl",
+            "name": "Rahul",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "fdsdfghjkl",
+            "name": "Raj",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "aqwefghjkl",
+            "name": "Rajesh",
+            "rating": 4,
+            "review": "Good"
+          }
+        ]
+      },
+      {
+        "service": "Neurology",
+        "reviews": [
+          {
+            "userid": "asdrrhjkl",
+            "name": "bhavik",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Pancholi",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Daksh",
+            "rating": 4,
+            "review": "Good"
+          }
+        ]
+      },
+      {
+        "service": "Orthopedics",
+        "reviews": [
+          {
+            "userid": "asdfghjkl",
+            "name": "Bhumika",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Ayushi",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Arpit",
+            "rating": 4,
+            "review": "Good"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Shalby Hospital",
+    "id": "123456789",
+    "address": {
+      "country": "IND",
+      "city": "57847",
+      "state": "KA",
+      "street": "B-301/302,Mondeal Heights, S. G. Highway,",
+      "latitude": 50.0000,
+      "longitude": 50.0000
+    },
+    "about": "Shalby Hospitals is one of the largest chains of multispecialty hospitals and tertiary care centers in the country today. Envisioned by its founder, Dr. Vikram I Shah back in 1994 as a Joint Replacement Center, today Shalby Hospitals is a chain of 12 multispecialty hospitals, offering treatment in over 35+ medical disciplines, holding an aggregate capacity of over 2062 beds with more than 500 active physicians, and 3000+ employees.",
+    "timings": "24*7",
+    "services_and_reviews": [
+      {
+        "service": "Cardiology",
+        "reviews": [
+          {
+            "userid": "asdfghjkl",
+            "name": "Rahul",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "fdsdfghjkl",
+            "name": "Raj",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "aqwefghjkl",
+            "name": "Rajesh",
+            "rating": 4,
+            "review": "Good"
+          }
+        ]
+      },
+      {
+        "service": "Neurology",
+        "reviews": [
+          {
+            "userid": "asdrrhjkl",
+            "name": "bhavik",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Pancholi",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Daksh",
+            "rating": 4,
+            "review": "Good"
+          }
+        ]
+      },
+      {
+        "service": "Orthopedics",
+        "reviews": [
+          {
+            "userid": "asdfghjkl",
+            "name": "Bhumika",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Ayushi",
+            "rating": 4,
+            "review": "Good"
+          },
+          {
+            "userid": "asdfghjkl",
+            "name": "Arpit",
+            "rating": 4,
+            "review": "Good"
+          }
+        ]
+      }
+    ]
+  }
+]
