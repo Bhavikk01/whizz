@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 class ScalingUtility {
   ScalingUtility({required this.context});
   final BuildContext context;
-  Size figmaPhonePort = const Size(360, 640);
+  Size figmaPhonePort = const Size(360, 800);
+  // Size figmaPhonePort = const Size(360, 640);
   Size desktopViewPort = const Size(1366, 768);
   late Size currentDeviceSize;
   late Orientation orientation;
