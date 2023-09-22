@@ -76,13 +76,13 @@ class CustomSearchField extends StatelessWidget {
         onChanged: onChange,
         decoration: InputDecoration(
           hintText: hintText,
-          hintStyle: TextStyle(fontSize: 15),
+          hintStyle: const TextStyle(fontSize: 15),
           filled: true,
-          fillColor: Color(0x192B447C),
+          fillColor: const Color(0x192B447C),
           suffixIcon: Obx(() {
             if (textController.isTextFieldEmpty.value) {
               log("Empty");
-              return Icon(null);
+              return const Icon(null);
             } else {
               return IconButton(
                   onPressed: textController.clearTextField,

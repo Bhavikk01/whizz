@@ -4,25 +4,26 @@ class Routes {
 
   Routes._();
 
-  /* Auth Routes */
+  /// Auth Routes
   static const loginWithPhone = '/loginWithPhone';
   static const forgotPassword = '/forgotPassword';
   static const signUp = '/signUp';
   static const signUpDetails = '/signUpDetails';
   static const loginWithEmail = '/loginWithEmail';
 
-  /* Home Routes */
+  /// Home Routes
   static const home = '/home';
   static const dashboard = '$home/dashboard';
   static const userProfile = '$home/userProfile';
   static const appointmentScreen = '$home/appointmentScreen';
   static const searchHealthCenterScreen = '$home/searchHealthCenterScreen';
 
-  /* Dashboard Routes */
+  /// Dashboard Routes
   static const reminderScreen = '$dashboard/reminderScreen';
+  static const userReports = '$dashboard/userReports';
   static const diseaseRecommendation = '$dashboard/diseaseRecommendation';
 
 
-  /* Health Center Routes */
+  /// Health Center Routes
   static const healthCenterScreen = '/healthCenterScreen';
 }

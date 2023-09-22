@@ -62,37 +62,6 @@ class AppTheme {
         ),
       ),
     ),
-    /*inputDecorationTheme: InputDecorationTheme(
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(
-          color: Colors.transparent,
-          width: 0,
-        ),
-      ),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(
-          color: Colors.transparent,
-          width: 0,
-        ),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide(
-          color: ColorsUtil.darkContainerColor,
-          width: 2,
-        ),
-      ),
-      filled: true,
-      suffixIconColor: ColorsUtil.darkContainerColor,
-      prefixIconColor: ColorsUtil.darkContainerColor,
-      fillColor: ColorsUtil.textFieldColor,
-      hintStyle: GoogleFonts.atkinsonHyperlegible(
-        fontSize: 16,
-        fontWeight: FontWeight.w400,
-      ),
-    ),*/
     dropdownMenuTheme: DropdownMenuThemeData(
       inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(

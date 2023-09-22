@@ -28,6 +28,8 @@ class LoadingOverlay {
   }
 
   static hideOverlay() {
-    Get.back();
+    Future.delayed(const Duration(milliseconds: 500), () {
+      Get.back();
+    });
   }
 }

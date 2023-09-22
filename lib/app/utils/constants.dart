@@ -34,23 +34,22 @@ class ConstantData {
   static const backgroundTile = 'assets/images/background_tile.png';
   static const backgroundImage = 'assets/images/background_screen.png';
 
-  ///Bottom Navigation Icon
+  ///Bottom Navigation Icons
   static const homeIcon = 'assets/icons/home_icon.svg';
   static const appointmentIcon = 'assets/icons/appointment_icon.svg';
   static const searchIcon = 'assets/icons/search_icon.svg';
   static const profileIcon = 'assets/icons/profile_icon.svg';
+
+  ///Other Icons
   static const filterIcon = 'assets/icons/filter_svg.svg';
   static const locationIcon = 'assets/icons/location.svg';
   static const timeIcon = 'assets/icons/time_svg.svg';
   static const hospitalIcon = 'assets/icons/hospital_svg.svg';
-
-
-
   static const backArrow = 'assets/icons/back_icon.png';
   static const googleIcon = 'assets/images/google_icon.png';
   static const userAvatar = 'assets/images/user_avatar.png';
   static const menuIcon = 'assets/icons/menu_icon.png';
-  static const navigationIcon = 'assets/icons/navigation_icon.png';
+  static const navigationIcon = 'assets/icons/navigation_icon.svg';
 
   /* String Constants */
   static const appName = 'Whizz';

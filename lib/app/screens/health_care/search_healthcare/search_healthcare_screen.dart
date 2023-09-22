@@ -1,7 +1,11 @@
+import 'dart:developer';
+
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:super_tooltip/super_tooltip.dart';
 import 'package:Whizz/app/models/enum/searchByAddress.dart';
 import 'package:Whizz/app/utils/app_theme.dart';
@@ -13,6 +17,7 @@ import 'package:Whizz/app/widgets/custom_card_widget.dart';
 import 'package:Whizz/app/widgets/custom_icon_button.dart';
 import 'package:Whizz/app/widgets/custom_search_field.dart';
 
+import '../../../utils/custom_bottom_snackbar.dart';
 import 'controller/search_healthcare_controller.dart';
 
 class SearchHealthcareScreen extends GetView<SearchHealthcareController> {
@@ -38,7 +43,6 @@ class SearchHealthcareScreen extends GetView<SearchHealthcareController> {
                   controller.mapController = googleMapController;
                 },
                 onTap: (value) {
-                  // focusNode.nextFocus();
                   controller.draggableScrollableController.animateTo(
                     0,
                     duration: const Duration(milliseconds: 200),
@@ -53,382 +57,373 @@ class SearchHealthcareScreen extends GetView<SearchHealthcareController> {
               minChildSize: 0.164,
               maxChildSize: 0.90,
               snap: true,
-              // expand: true,
-              builder:
-                  (BuildContext context, ScrollController scrollController) {
+              builder: (BuildContext context, ScrollController scrollController) {
                 return Container(
-                  padding: scale.getPadding(horizontal: 12, vertical: 10),
-                  decoration: BoxDecoration(
-                    color: ColorsUtil.brandWhite,
-                    borderRadius: const BorderRadius.only(
-                      topRight: Radius.circular(20),
-                      topLeft: Radius.circular(20),
+                    padding: scale.getPadding(horizontal: 12, vertical: 10),
+                    decoration: BoxDecoration(
+                      color: ColorsUtil.brandWhite,
+                      borderRadius: const BorderRadius.only(
+                        topRight: Radius.circular(20),
+                        topLeft: Radius.circular(20),
+                      ),
                     ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      GestureDetector(
-                        onTap: () {},
-                        child: Divider(
-                          color: Colors.grey,
-                          thickness: 2,
-                          indent: 140,
-                          endIndent: 140,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        GestureDetector(
+                          onTap: () {},
+                          child: const Divider(
+                            color: Colors.grey,
+                            thickness: 2,
+                            indent: 140,
+                            endIndent: 140,
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        height: scale.getScaledHeight(10),
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: SizedBox(
+                        SizedBox(
+                          height: scale.getScaledHeight(10),
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: SizedBox(
                                 height: scale.getScaledHeight(40),
                                 child: CustomSearchField(
                                   hintText: "Search Hospital",
                                   onTap: () {
-                                    controller.draggableScrollableController
-                                        .animateTo(
+                                    controller.draggableScrollableController.animateTo(
                                       1,
-                                      duration:
-                                          const Duration(milliseconds: 200),
+                                      duration: const Duration(milliseconds: 200),
                                       curve: Curves.easeIn,
                                     );
                                   },
                                   focusNode: focusNode,
-                                )),
-                          ),
-                          SizedBox(
-                            width: scale.getScaledWidth(10),
-                          ),
-                          SuperTooltip(
-                            content: Material(
-                              type: MaterialType.transparency,
-                              child: Container(
-                                height: scale.getScaledHeight(240),
-                                padding: scale.getPadding(
-                                    horizontal: 5, vertical: 5),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          'Search By',
-                                          style: AppTheme
-                                              .appTheme.textTheme.titleMedium,
-                                        ),
-                                        GestureDetector(
-                                          onTap: () async {
-                                            await controller.applyFilter();
-                                            controller.toolTipController
-                                                .hideTooltip();
-                                          },
-                                          child: Container(
-                                            width: scale.getScaledWidth(80),
-                                            height: scale.getScaledHeight(30),
-                                            alignment: Alignment.center,
-                                            decoration: BoxDecoration(
-                                              color: ColorsUtil.brandColor,
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            child: Text(
-                                              'Apply',
-                                              style: AppTheme.appTheme.textTheme
-                                                  .titleSmall!
-                                                  .copyWith(
-                                                color:
-                                                    ColorsUtil.lightTextColor,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Expanded(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          GestureDetector(
-                                            onTap: () {
-                                              controller.searchBy.value =
-                                                  SearchByAddress.state;
-                                            },
-                                            child: Obx(
-                                              () => Container(
-                                                width: scale.getScaledWidth(80),
-                                                height:
-                                                    scale.getScaledHeight(45),
-                                                alignment: Alignment.center,
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius:
-                                                      BorderRadius.circular(15),
-                                                  border: Border.all(
-                                                      color: controller.searchBy
-                                                                  .value ==
-                                                              SearchByAddress
-                                                                  .state
-                                                          ? ColorsUtil
-                                                              .brandColor
-                                                          : Colors.grey[200]!,
-                                                      width: 4),
-                                                ),
-                                                child: Text(
-                                                  'State',
-                                                  style: AppTheme.appTheme
-                                                      .textTheme.titleSmall,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              controller.searchBy.value =
-                                                  SearchByAddress.city;
-                                            },
-                                            child: Obx(
-                                              () => Container(
-                                                width: scale.getScaledWidth(80),
-                                                height:
-                                                    scale.getScaledHeight(45),
-                                                alignment: Alignment.center,
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius:
-                                                      BorderRadius.circular(15),
-                                                  border: Border.all(
-                                                      color: controller.searchBy
-                                                                  .value ==
-                                                              SearchByAddress
-                                                                  .city
-                                                          ? ColorsUtil
-                                                              .brandColor
-                                                          : Colors.grey[200]!,
-                                                      width: 4),
-                                                ),
-                                                child: Text(
-                                                  'City',
-                                                  style: AppTheme.appTheme
-                                                      .textTheme.titleSmall,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              controller.searchBy.value =
-                                                  SearchByAddress.country;
-                                            },
-                                            child: Obx(
-                                              () => Container(
-                                                width: scale.getScaledWidth(80),
-                                                height:
-                                                    scale.getScaledHeight(45),
-                                                alignment: Alignment.center,
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius:
-                                                      BorderRadius.circular(15),
-                                                  border: Border.all(
-                                                      color: controller.searchBy
-                                                                  .value ==
-                                                              SearchByAddress
-                                                                  .country
-                                                          ? ColorsUtil
-                                                              .brandColor
-                                                          : Colors.grey[200]!,
-                                                      width: 4),
-                                                ),
-                                                child: Text(
-                                                  'All',
-                                                  style: AppTheme.appTheme
-                                                      .textTheme.titleSmall,
-                                                ),
-                                              ),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    Text(
-                                      'Change Address',
-                                      style: AppTheme
-                                          .appTheme.textTheme.titleMedium,
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Obx(
-                                      () => AddressPicker(
-                                        controller: controller,
-                                        userCountry:
-                                            controller.userCountry.value,
-                                        userState: controller.userState.value,
-                                        userCity: controller.userCity.value,
-                                      ),
-                                    ),
-                                  ],
                                 ),
                               ),
                             ),
-                            right: scale.getScaledWidth(30),
-                            shadowColor: Colors.black38,
-                            shadowSpreadRadius: 0,
-                            arrowTipDistance: 25,
-                            barrierColor: Colors.black38,
-                            controller: controller.toolTipController,
-                            backgroundColor: Colors.white,
-                            borderRadius: 15,
-                            arrowBaseWidth: 0,
-                            popupDirection: TooltipDirection.down,
-                            borderColor: Colors.transparent,
-                            child: CustomIconButton(
-                              height: scale.getScaledHeight(40),
-                              width: scale.getScaledWidth(40),
-                              image: ConstantData.filterIcon,
-                              onTap: () {
-                                controller.draggableScrollableController
-                                    .animateTo(
-                                  1,
-                                  duration: const Duration(milliseconds: 200),
-                                  curve: Curves.easeIn,
-                                );
-                                Future.delayed(
-                                    const Duration(milliseconds: 300), () {
-                                  controller.toolTipController.showTooltip();
-                                });
-                              },
+                            SizedBox(
+                              width: scale.getScaledWidth(10),
                             ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: scale.getScaledHeight(15),
-                      ),
-                      Expanded(
-                        child: SingleChildScrollView(
-                          controller: scrollController,
-                          child: MediaQuery.removePadding(
-                            context: context,
-                            removeTop: true,
-                            child: ListView.separated(
-                              itemCount: 10,
-                              shrinkWrap: true,
-                              physics: const BouncingScrollPhysics(),
-                              // padding: EdgeInsets.symmetric(vertical: scale.getScaledHeight(15)),
-
-                              primary: false,
-                              itemBuilder: (context, index) {
-                                return CustomCardWidget(
-                                    color: ColorsUtil.brandWhite,
-                                    height: 100,
-                                    child: ListTile(
-                                      leading: ClipRRect(
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: Image.network(
-                                          "https://t3.ftcdn.net/jpg/00/45/20/70/360_F_45207005_oWfbp8uUsuEV74nNLbGS4HyrybFXQek4.jpg",
-                                          height: scale.getScaledHeight(45),
-                                          width: scale.getScaledWidth(45),
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ),
-                                      // leading: SvgPicture.asset("assets/icons/hospital2_svg.svg",height: scale.getScaledHeight(50),fit: BoxFit.fill,),
-                                      title: Text("Dr. Bhavik Kothari"),
-                                      subtitle: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisSize: MainAxisSize.min,
+                            SuperTooltip(
+                              content: Material(
+                                type: MaterialType.transparency,
+                                child: Container(
+                                  height: scale.getScaledHeight(240),
+                                  padding: scale.getPadding(
+                                    horizontal: 5,
+                                    vertical: 5,
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
-                                          SizedBox(
-                                            height: scale.getScaledHeight(5),
-                                          ),
-                                          Row(
-                                            children: [
-                                              SvgPicture.asset(
-                                                  "assets/icons/location.svg"),
-                                              SizedBox(
-                                                width: scale.getScaledWidth(5),
-                                              ),
-                                              Text(
-                                                'Indore, Madhya Pradesh',
-                                                style: TextStyle(
-                                                  color: Colors.black
-                                                      .withOpacity(
-                                                          0.3499999940395355),
-                                                  fontSize: 12,
-                                                  fontFamily: 'Roboto',
-                                                  fontWeight: FontWeight.w400,
-                                                  height: 0,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              SvgPicture.asset(
-                                                  "assets/icons/time_svg.svg"),
-                                              SizedBox(
-                                                width: scale.getScaledWidth(5),
-                                              ),
-                                              Text(
-                                                'Mon_Fri',
-                                                style: TextStyle(
-                                                  color: Colors.black
-                                                      .withOpacity(
-                                                          0.3499999940395355),
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w400,
-                                                  height: 0,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(height: scale.getScaledHeight(5),),
                                           Text(
-                                            'open 24 hours',
-                                            style: TextStyle(
-                                              color: Color(0xFF0BA336),
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w400,
-                                              height: 0,
+                                            'Search By',
+                                            style: AppTheme.appTheme.textTheme.titleMedium,
+                                          ),
+                                          GestureDetector(
+                                            onTap: () async {
+                                              if(controller.searchBy.value == SearchByAddress.state && controller.userState.value.isEmpty){
+                                                customSnackBar(
+                                                  type: AnimatedSnackBarType.info,
+                                                  message: 'Please select your state',
+                                                );
+                                              }else if(controller.searchBy.value == SearchByAddress.city && controller.userCity.value.isEmpty){
+                                                customSnackBar(
+                                                  type: AnimatedSnackBarType.info,
+                                                  message: 'Please select your city',
+                                                );
+                                              }else if (controller.searchBy.value == SearchByAddress.country && controller.userCountry.value.isEmpty){
+                                                customSnackBar(
+                                                  type: AnimatedSnackBarType.info,
+                                                  message: 'Please select your country',
+                                                );
+                                              }else {
+                                                controller.toolTipController.hideTooltip();
+                                                await controller.applyFilter();
+                                              }
+                                            },
+                                            child: Container(
+                                              width: scale.getScaledWidth(80),
+                                              height: scale.getScaledHeight(30),
+                                              alignment: Alignment.center,
+                                              decoration: BoxDecoration(
+                                                color: ColorsUtil.brandColor,
+                                                borderRadius: BorderRadius.circular(10),
+                                              ),
+                                              child: Text(
+                                                'Apply',
+                                                style: AppTheme.appTheme.textTheme.titleSmall!.copyWith(
+                                                  color: ColorsUtil.lightTextColor,
+                                                ),
+                                              ),
                                             ),
                                           ),
                                         ],
                                       ),
-                                      trailing: SvgPicture.asset(
-                                        "assets/icons/navigation_svg.svg",
-                                        height: scale.getScaledHeight(35),
+                                      Expanded(
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () {
+                                                controller.searchBy.value = SearchByAddress.state;
+                                              },
+                                              child: Obx(
+                                                () => Container(
+                                                  width: scale.getScaledWidth(80),
+                                                  height: scale.getScaledHeight(45),
+                                                  alignment: Alignment.center,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(15),
+                                                    border: Border.all(
+                                                      color: controller.searchBy.value == SearchByAddress.state
+                                                          ? ColorsUtil.brandColor
+                                                          : Colors.grey[200]!,
+                                                      width: 4,
+                                                    ),
+                                                  ),
+                                                  child: Text(
+                                                    'State',
+                                                    style: AppTheme.appTheme.textTheme.titleSmall,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                controller.searchBy.value = SearchByAddress.city;
+                                              },
+                                              child: Obx(
+                                                () => Container(
+                                                  width: scale.getScaledWidth(80),
+                                                  height: scale.getScaledHeight(45),
+                                                  alignment: Alignment.center,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius: BorderRadius.circular(15),
+                                                    border: Border.all(
+                                                      color: controller.searchBy.value == SearchByAddress.city
+                                                          ? ColorsUtil.brandColor
+                                                          : Colors.grey[200]!,
+                                                      width: 4,
+                                                    ),
+                                                  ),
+                                                  child: Text(
+                                                    'City',
+                                                    style: AppTheme.appTheme.textTheme.titleSmall,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                controller.searchBy.value = SearchByAddress.country;
+                                              },
+                                              child: Obx(
+                                                    () =>
+                                                    Container(
+                                                      width: scale.getScaledWidth(80),
+                                                      height: scale.getScaledHeight(45),
+                                                      alignment: Alignment.center,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius: BorderRadius.circular(15),
+                                                        border: Border.all(
+                                                          color: controller.searchBy.value == SearchByAddress.country
+                                                              ? ColorsUtil.brandColor
+                                                              : Colors.grey[200]!,
+                                                          width: 4,
+                                                        ),
+                                                      ),
+                                                      child: Text(
+                                                        'All',
+                                                        style: AppTheme.appTheme.textTheme.titleSmall,
+                                                      ),
+                                                    ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
                                       ),
-                                    ));
-                              },
-                              separatorBuilder:
-                                  (BuildContext context, int index) {
-                                return SizedBox(
-                                  height: scale.getScaledHeight(10),
-                                );
-                              },
-                              /*   separatorBuilder: (context, index) {
-                                return Container(
-                                  height: 1,
-                                  width: scale.fw,
-                                  color: Colors.grey[300]!,
-                                );
-                              },*/
+                                      Text(
+                                        'Change Address',
+                                        style: AppTheme.appTheme.textTheme.titleMedium,
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Obx(
+                                        () => AddressPicker(
+                                          controller: controller,
+                                          userCountry: controller.userCountry.value,
+                                          userState: controller.userState.value,
+                                          userCity: controller.userCity.value,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              right: scale.getScaledWidth(30),
+                              shadowColor: Colors.black38,
+                              shadowSpreadRadius: 0,
+                              arrowTipDistance: 25,
+                              barrierColor: Colors.black38,
+                              controller: controller.toolTipController,
+                              backgroundColor: Colors.white,
+                              borderRadius: 15,
+                              arrowBaseWidth: 0,
+                              popupDirection: TooltipDirection.down,
+                              borderColor: Colors.transparent,
+                              child: CustomIconButton(
+                                height: scale.getScaledHeight(40),
+                                width: scale.getScaledWidth(40),
+                                image: ConstantData.filterIcon,
+                                onTap: () {
+                                  controller.draggableScrollableController.animateTo(
+                                    1,
+                                    duration: const Duration(milliseconds: 200),
+                                    curve: Curves.easeIn,
+                                  );
+                                  Future.delayed(const Duration(milliseconds: 300), () {
+                                    controller.toolTipController.showTooltip();
+                                  });
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: scale.getScaledHeight(15),
+                        ),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            controller: scrollController,
+                            child: MediaQuery.removePadding(
+                              context: context,
+                              removeTop: true,
+                              child: Obx(
+                                () => ListView.separated(
+                                  itemCount: controller.isLoading.value ? 5 : 10,
+                                  shrinkWrap: true,
+                                  physics: const BouncingScrollPhysics(),
+                                  primary: false,
+                                  itemBuilder: (context, index) {
+                                    return controller.isLoading.value ? Shimmer.fromColors(
+                                        baseColor: Colors.black12,
+                                        highlightColor: Colors.black26,
+                                        direction: ShimmerDirection.ltr,
+                                        child: CustomCardWidget(
+                                          height: scale.getScaledHeight(100),
+                                        )
+                                    ) : CustomCardWidget(
+                                      color: ColorsUtil.brandWhite,
+                                      height: scale.getScaledHeight(100),
+                                      child: ListTile(
+                                        onTap: () {
+
+                                        },
+                                        leading: ClipRRect(
+                                          borderRadius: BorderRadius.circular(10),
+                                          child: Image.network(
+                                            "https://t3.ftcdn.net/jpg/00/45/20/70/360_F_45207005_oWfbp8uUsuEV74nNLbGS4HyrybFXQek4.jpg",
+                                            height: scale.getScaledHeight(45),
+                                            width: scale.getScaledWidth(45),
+                                            fit: BoxFit.fill,
+                                          ),
+                                        ),
+                                        title: const Text("Dr. Bhavik Kothari"),
+                                        subtitle: Column(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            SizedBox(
+                                              height: scale.getScaledHeight(5),
+                                            ),
+                                            Row(
+                                              children: [
+                                                SvgPicture.asset(
+                                                  ConstantData.locationIcon,
+                                                  height: scale.getScaledHeight(10),
+                                                ),
+                                                SizedBox(
+                                                  width: scale.getScaledWidth(5),
+                                                ),
+                                                Text(
+                                                  'Indore, Madhya Pradesh',
+                                                  style: TextStyle(
+                                                    color: Colors.black.withOpacity(0.3499999940395355),
+                                                    fontSize: 12,
+                                                    fontFamily: 'Roboto',
+                                                    fontWeight: FontWeight.w400,
+                                                    height: 0,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                SvgPicture.asset(
+                                                  ConstantData.timeIcon,
+                                                  height: scale.getScaledHeight(8),
+                                                ),
+                                                SizedBox(
+                                                  width: scale.getScaledWidth(5),
+                                                ),
+                                                Text(
+                                                  'Mon_Fri',
+                                                  style: TextStyle(
+                                                    color: Colors.black.withOpacity(0.3499999940395355),
+                                                    fontSize: scale.getScaledFont(12),
+                                                    fontWeight: FontWeight.w400,
+                                                    height: 0,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Text(
+                                              'open 24 hours',
+                                              style: TextStyle(
+                                                color: const Color(0xFF0BA336),
+                                                fontSize: scale.getScaledFont(10),
+                                                fontWeight: FontWeight.w400,
+                                                height: 0,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        trailing: GestureDetector(
+                                          onTap: () {
+                                            log('Ghis is the navigaqtion');
+                                          },
+                                          child: SvgPicture.asset(
+                                            ConstantData.navigationIcon,
+                                            height: scale.getScaledHeight(35),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  separatorBuilder: (BuildContext context, int index) {
+                                    return SizedBox(
+                                      height: scale.getScaledHeight(10),
+                                    );
+                                  },
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    )
                 );
               },
             )
