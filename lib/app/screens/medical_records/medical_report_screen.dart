@@ -33,13 +33,13 @@ class MedicalReportScreen extends GetView<MedicalReportController> {
                     decoration: BoxDecoration(
                         color: ColorsUtil.brandColor,
                         borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(40),
-                            bottomRight: Radius.circular(40))),
+                            bottomLeft: Radius.circular(25),
+                            bottomRight: Radius.circular(25))),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Text("Medical Reports", style: TextStyle(color: Colors.white, fontSize: 30),),
-                        SizedBox(height: 40,)
+                        Text("Medical Reports", style: TextStyle(color: Colors.white, fontSize: scale.getScaledHeight(25)),),
+                        SizedBox(height: scale.getScaledHeight(40),)
                       ],
                     ),
                   );
@@ -212,13 +212,19 @@ class ReportCard extends StatelessWidget {
     ScalingUtility scale = ScalingUtility(context: context)
       ..setCurrentDeviceSize();
     return Card(
-      margin: EdgeInsets.only(left: 15, right: 15, top: 5),
+      margin: EdgeInsets.only(left: scale.getScaledWidth(20), right: scale.getScaledWidth(20), top: scale.getScaledHeight(3)),
+      shadowColor: Color(0x33000000),
+      elevation: 5,
       shape: RoundedRectangleBorder(),
       child: ListTile(
+        titleAlignment: ListTileTitleAlignment.titleHeight,
+        shape: RoundedRectangleBorder(),
+        minLeadingWidth: 35,
+        horizontalTitleGap: 20,
         tileColor: Colors.white,
         style: ListTileStyle.list,
-        contentPadding: EdgeInsets.only(top: 15, bottom: 15, left: 10),
-        title: Text("Sonography widget",style: TextStyle(fontWeight: FontWeight.bold),),
+       contentPadding: EdgeInsets.only(top: scale.getScaledHeight(30), bottom: scale.getScaledHeight(15), left: scale.getScaledWidth(10)),
+        title: Text("Sonography widget",style: TextStyle(fontWeight: FontWeight.bold, fontSize: scale.getScaledHeight(15)),),
         subtitle: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -229,23 +235,23 @@ class ReportCard extends StatelessWidget {
               // mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 5,),
+                SizedBox(height: scale.getScaledHeight(5),),
                 Row(
                   children: [
                     SvgPicture.asset('assets/icons/location.svg'),
-                    SizedBox(width: 6,),
-                    Text("Apoorva Digital X-Ray Sonography Indore", style: TextStyle(fontSize: 13, color: ColorsUtil.greyTextColor),),
+                    SizedBox(width: scale.getScaledHeight(6),),
+                    Text("Apoorva Digital X-Ray Sonography Indore", style: TextStyle(fontSize: scale.getScaledHeight(9), color: ColorsUtil.greyTextColor),),
                   ],
                 ),
-                SizedBox(height: 5),
-                Text("23 Sept 2023", style: TextStyle(fontSize: 10,color: ColorsUtil.greyTextColor),),
-               SizedBox(height: ),
+                SizedBox(height: scale.getScaledHeight(5)),
+                Text("23 Sept 2023", style: TextStyle(fontSize: scale.getScaledHeight(7),color: ColorsUtil.greyTextColor),),
+              // SizedBox(height: scale.getScaledHeight(10)),
               ],
             )
           ],
         ),
         leading: SvgPicture.asset('assets/icons/file.svg'),
-        trailing: IconButton(onPressed: (){},icon: SvgPicture.asset('assets/icons/sharecircle.svg',height: 80)),
+        trailing: IconButton(onPressed: (){},icon: SvgPicture.asset('assets/icons/sharecircle.svg', height: scale.getScaledHeight(40),)),
       ),
     );
   }
