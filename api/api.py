@@ -10,9 +10,8 @@ import json
 from pytrie import StringTrie
 
 
-data_path="api/data"
+data_path="data"
 warnings.filterwarnings("ignore")
-
 with open(os.path.join(data_path,"data.json"), "r") as json_file:
     loaded_data = json.load(json_file)
 
@@ -104,7 +103,7 @@ class by_id(Resource):
                 "status": False,
                 "message": "user not found"
             })
-api.add_resource(by_id, "/user/id/<string:id>")
+api.add_resource(by_id, "/user/<string:id>")
 
 class by_email(Resource):
     def get(self, email):
@@ -229,7 +228,7 @@ class nearbyhealthcare(Resource):
                 "message": "user not found"
             }) 
 
-api.add_resource(nearbyhealthcare,"/nearbyhealthcare")
+api.add_resource(nearbyhealthcare,"/nearbyHealthcare")
 
 class sympcomplete(Resource):
     def post(self):
@@ -245,5 +244,5 @@ api.add_resource(sympcomplete,"/sympcomplete")
 
 if __name__ == '__main__':
     #uncomment this when using with flutter
-    # app.run(host = '192.168.118.27',port = 5000, debug=True)
-    app.run(debug=True)
+    app.run(host = '192.168.29.218',port = 5000, debug=True)
+#     app.run(debug=True)
