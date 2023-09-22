@@ -11,7 +11,7 @@ from pytrie import StringTrie
 from collections import Counter
 
 
-data_path="data"
+data_path="api/data"
 warnings.filterwarnings("ignore")
 with open(os.path.join(data_path,"data.json"), "r") as json_file:
     loaded_data = json.load(json_file)
@@ -189,8 +189,8 @@ api.add_resource(recommend,"/ask/")
 class nearbyhealthcare(Resource):
     def get(self):
         country = request.args['country']
-        state = request.args['state']
-        city = request.args['city']
+        state = request.args.get('state',None)
+        city = request.args.get('city',None)
         if  city and  state:
             data = list(hospital.find({"address.country":country,"address.state":state,"address.city":city}))
         elif not city and  state:
@@ -215,7 +215,7 @@ class nearbyhealthcare(Resource):
         else:
             return jsonify({
                 "status": False,
-                "message": "user not found"
+                "message": "Healthcare not found"
             }) 
 
 api.add_resource(nearbyhealthcare,"/nearbyHealthcare")
@@ -234,5 +234,5 @@ api.add_resource(sympcomplete,"/sympcomplete")
 
 if __name__ == '__main__':
     #uncomment this when using with flutter
-    app.run(host = '192.168.29.218',port = 5000, debug=True)
-#     app.run(debug=True)
+    # app.run(host = '192.168.29.218',port = 5000, debug=True)
+    app.run(debug=True)
