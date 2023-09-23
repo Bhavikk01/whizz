@@ -28,7 +28,7 @@ class ConstantData {
   /* Icons Asset */
 
   ///App Assets
-  static const appLogo = 'assets/images/app_logo.png';
+  static const appLogo = 'assets/images/app_logo.svg';
   static const appSplash = 'assets/icons/loading_icon.gif';
   static const appLoading = 'assets/icons/loading_icon.gif';
   static const backgroundTile = 'assets/images/background_tile.png';
