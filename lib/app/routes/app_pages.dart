@@ -1,3 +1,4 @@
+import 'package:Whizz/app/screens/dashboard/dashboard_screen.dart';
 import 'package:Whizz/app/screens/dashboard/disease_prediction_screens/binding/disease_prediction_binding.dart';
 import 'package:Whizz/app/screens/dashboard/disease_prediction_screens/disease_prediction_screen.dart';
 import 'package:get/get.dart';

@@ -8,6 +8,7 @@ class ConstantData {
   static Map<String, List> cityMap = {};
   static Map<String, String> countryMap = {};
 
+
   loadData(context) async {
     String data = await DefaultAssetBundle.of(context).loadString("assets/countries_data.json");
     List jsonResult = jsonDecode(data);
@@ -50,6 +51,11 @@ class ConstantData {
   static const userAvatar = 'assets/images/user_avatar.png';
   static const menuIcon = 'assets/icons/menu_icon.png';
   static const navigationIcon = 'assets/icons/navigation_icon.svg';
+  static const fileIcon = 'assets/icons/file.svg';
+  static const shareCircle = 'assets/icons/sharecircle.svg';
+  static const uploadIcon = 'assets/icons/cloud_upload.svg';
+  static const pillIcon = 'assets/icons/pillIcon.svg';
+  static const addIcon = 'assets/icons/plusIcon.svg';
 
   /* String Constants */
   static const appName = 'Whizz';

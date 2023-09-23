@@ -28,7 +28,6 @@ class AppTheme {
         fontSize: 15,
         fontWeight: FontWeight.w500,
         letterSpacing: 0.01,
-
       ),
       bodySmall: GoogleFonts.roboto(
         fontSize: 12,
@@ -38,13 +37,21 @@ class AppTheme {
         fontSize: 18,
         fontWeight: FontWeight.w600,
         letterSpacing: 0.02,
-
       ),
       labelLarge: GoogleFonts.roboto(
         fontSize: 16,
         fontWeight: FontWeight.w400,
       ),
-
+      displayMedium: GoogleFonts.roboto(
+        fontSize: 20,
+        color: Colors.white,
+        fontWeight: FontWeight.w500,
+      ),
+      displaySmall : GoogleFonts.roboto(
+        fontSize: 12,
+        color: Colors.white.withOpacity(0.6499999761581421),
+        fontWeight: FontWeight.w400,
+      ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
