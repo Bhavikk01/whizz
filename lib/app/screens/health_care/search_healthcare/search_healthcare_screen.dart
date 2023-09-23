@@ -17,6 +17,7 @@ import 'package:Whizz/app/widgets/custom_card_widget.dart';
 import 'package:Whizz/app/widgets/custom_icon_button.dart';
 import 'package:Whizz/app/widgets/custom_search_field.dart';
 
+import '../../../models/healthcare_center_model.dart';
 import '../../../utils/custom_bottom_snackbar.dart';
 import 'controller/search_healthcare_controller.dart';
 
@@ -88,6 +89,7 @@ class SearchHealthcareScreen extends GetView<SearchHealthcareController> {
                               child: SizedBox(
                                 height: scale.getScaledHeight(40),
                                 child: CustomSearchField(
+                                  controller: controller.searchController,
                                   hintText: "Search Hospital",
                                   onTap: () {
                                     controller.draggableScrollableController.animateTo(
@@ -95,6 +97,27 @@ class SearchHealthcareScreen extends GetView<SearchHealthcareController> {
                                       duration: const Duration(milliseconds: 200),
                                       curve: Curves.easeIn,
                                     );
+                                    controller.isSearching.value = true;
+                                    controller.searchedHealthcare.clear();
+                                    if(controller.searchController.text.isEmpty){
+                                      controller.searchedHealthcare.addAll(controller.healthcareCenters);
+                                    }else {
+                                      controller.searchedHealthcare.addAll(controller.healthcareCenters.where((element) => element.name!.toLowerCase().startsWith(controller.searchController.text.toLowerCase())));
+                                    }
+                                  },
+                                  onChange: (value){
+                                    controller.searchedHealthcare.clear();
+                                    if(value.isEmpty){
+                                      controller.searchedHealthcare.addAll(controller.healthcareCenters);
+                                    }else {
+                                      controller.searchedHealthcare.addAll(
+                                      controller.healthcareCenters.where(
+                                        (element) => element.name!.toLowerCase().startsWith(value.toLowerCase()))
+                                      );
+                                    }
+                                  },
+                                  onClose: (){
+                                    controller.isSearching.value = false;
                                   },
                                   focusNode: focusNode,
                                 ),
@@ -308,12 +331,24 @@ class SearchHealthcareScreen extends GetView<SearchHealthcareController> {
                               context: context,
                               removeTop: true,
                               child: Obx(
-                                () => ListView.separated(
-                                  itemCount: controller.isLoading.value ? 5 : 10,
+                                () => !controller.isSearching.value ? ListView.separated(
+                                  itemCount: controller.isLoading.value ? 5 : controller.healthcareCenters.length,
                                   shrinkWrap: true,
                                   physics: const BouncingScrollPhysics(),
                                   primary: false,
                                   itemBuilder: (context, index) {
+                                    dynamic city;
+                                    dynamic state;
+                                    HealthcareCenter center = HealthcareCenter();
+                                    if(!controller.isLoading.value){
+                                      center = controller.healthcareCenters[index];
+                                      var countryIso = ConstantData.countryMap.values.toList();
+                                      var countryIndex = countryIso.indexOf(center.address!.country!);
+                                      var country = ConstantData.countryMap.keys.toList()[countryIndex];
+                                      log('this is the country $country');
+                                      state = ConstantData.stateMap[country]!.firstWhere((element) => element['state_code'] == center.address!.state);
+                                      city = ConstantData.cityMap[state['name']]!.firstWhere((element) => element['id'] == int.parse(center.address!.city!));
+                                    }
                                     return controller.isLoading.value ? Shimmer.fromColors(
                                         baseColor: Colors.black12,
                                         highlightColor: Colors.black26,
@@ -331,13 +366,19 @@ class SearchHealthcareScreen extends GetView<SearchHealthcareController> {
                                         leading: ClipRRect(
                                           borderRadius: BorderRadius.circular(10),
                                           child: Image.network(
-                                            "https://t3.ftcdn.net/jpg/00/45/20/70/360_F_45207005_oWfbp8uUsuEV74nNLbGS4HyrybFXQek4.jpg",
+                                            center.photoUrl != null
+                                                ? center.photoUrl!.isNotEmpty
+                                                ? center.photoUrl!.first
+                                                : 'https://t3.ftcdn.net/jpg/00/45/20/70/360_F_45207005_oWfbp8uUsuEV74nNLbGS4HyrybFXQek4.jpg'
+                                                : 'https://t3.ftcdn.net/jpg/00/45/20/70/360_F_45207005_oWfbp8uUsuEV74nNLbGS4HyrybFXQek4.jpg',
                                             height: scale.getScaledHeight(45),
                                             width: scale.getScaledWidth(45),
                                             fit: BoxFit.fill,
                                           ),
                                         ),
-                                        title: const Text("Dr. Bhavik Kothari"),
+                                        title: Text(
+                                          center.name!,
+                                        ),
                                         subtitle: Column(
                                           mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -358,7 +399,7 @@ class SearchHealthcareScreen extends GetView<SearchHealthcareController> {
                                                   width: scale.getScaledWidth(5),
                                                 ),
                                                 Text(
-                                                  'Indore, Madhya Pradesh',
+                                                  '${city['name']}, ${state['name']}',
                                                   style: TextStyle(
                                                     color: Colors.black.withOpacity(0.3499999940395355),
                                                     fontSize: 12,
@@ -390,7 +431,7 @@ class SearchHealthcareScreen extends GetView<SearchHealthcareController> {
                                               ],
                                             ),
                                             Text(
-                                              'open 24 hours',
+                                              'open ${center.timings} hours',
                                               style: TextStyle(
                                                 color: const Color(0xFF0BA336),
                                                 fontSize: scale.getScaledFont(10),
@@ -402,7 +443,164 @@ class SearchHealthcareScreen extends GetView<SearchHealthcareController> {
                                         ),
                                         trailing: GestureDetector(
                                           onTap: () {
-                                            log('Ghis is the navigaqtion');
+                                            controller.mapController.animateCamera(
+                                              CameraUpdate.newCameraPosition(
+                                                CameraPosition(
+                                                  target: LatLng(
+                                                    center.address!.latitude!,
+                                                    center.address!.longitude!,
+                                                  ),
+                                                  zoom: 19
+                                                ),
+                                              ),
+                                            );
+                                            controller.draggableScrollableController.animateTo(
+                                              0,
+                                              duration: const Duration(milliseconds: 200),
+                                              curve: Curves.easeIn,
+                                            );
+                                          },
+                                          child: SvgPicture.asset(
+                                            ConstantData.navigationIcon,
+                                            height: scale.getScaledHeight(35),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  separatorBuilder: (BuildContext context, int index) {
+                                    return SizedBox(
+                                      height: scale.getScaledHeight(10),
+                                    );
+                                  },
+                                ) : ListView.separated(
+                                  itemCount: controller.isLoading.value ? 5 : controller.searchedHealthcare.length,
+                                  shrinkWrap: true,
+                                  physics: const BouncingScrollPhysics(),
+                                  primary: false,
+                                  itemBuilder: (context, index) {
+                                    dynamic city;
+                                    dynamic state;
+                                    HealthcareCenter center = HealthcareCenter();
+                                    if(!controller.isLoading.value){
+                                      center = controller.searchedHealthcare[index];
+                                      var countryIso = ConstantData.countryMap.values.toList();
+                                      var countryIndex = countryIso.indexOf(center.address!.country!);
+                                      var country = ConstantData.countryMap.keys.toList()[countryIndex];
+                                      log('this is the country $country');
+                                      state = ConstantData.stateMap[country]!.firstWhere((element) => element['state_code'] == center.address!.state);
+                                      city = ConstantData.cityMap[state['name']]!.firstWhere((element) => element['id'] == int.parse(center.address!.city!));
+                                    }
+                                    return controller.isLoading.value ? Shimmer.fromColors(
+                                        baseColor: Colors.black12,
+                                        highlightColor: Colors.black26,
+                                        direction: ShimmerDirection.ltr,
+                                        child: CustomCardWidget(
+                                          height: scale.getScaledHeight(100),
+                                        )
+                                    ) : CustomCardWidget(
+                                      color: ColorsUtil.brandWhite,
+                                      height: scale.getScaledHeight(100),
+                                      child: ListTile(
+                                        onTap: () {
+
+                                        },
+                                        leading: ClipRRect(
+                                          borderRadius: BorderRadius.circular(10),
+                                          child: Image.network(
+                                            center.photoUrl != null
+                                                ? center.photoUrl!.isNotEmpty
+                                                ? center.photoUrl!.first
+                                                : 'https://t3.ftcdn.net/jpg/00/45/20/70/360_F_45207005_oWfbp8uUsuEV74nNLbGS4HyrybFXQek4.jpg'
+                                                : 'https://t3.ftcdn.net/jpg/00/45/20/70/360_F_45207005_oWfbp8uUsuEV74nNLbGS4HyrybFXQek4.jpg',
+                                            height: scale.getScaledHeight(45),
+                                            width: scale.getScaledWidth(45),
+                                            fit: BoxFit.fill,
+                                          ),
+                                        ),
+                                        title: Text(
+                                          center.name!,
+                                        ),
+                                        subtitle: Column(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            SizedBox(
+                                              height: scale.getScaledHeight(5),
+                                            ),
+                                            Row(
+                                              children: [
+                                                SvgPicture.asset(
+                                                  ConstantData.locationIcon,
+                                                  height: scale.getScaledHeight(10),
+                                                ),
+                                                SizedBox(
+                                                  width: scale.getScaledWidth(5),
+                                                ),
+                                                Text(
+                                                  '${city['name']}, ${state['name']}',
+                                                  style: TextStyle(
+                                                    color: Colors.black.withOpacity(0.3499999940395355),
+                                                    fontSize: 12,
+                                                    fontFamily: 'Roboto',
+                                                    fontWeight: FontWeight.w400,
+                                                    height: 0,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                SvgPicture.asset(
+                                                  ConstantData.timeIcon,
+                                                  height: scale.getScaledHeight(8),
+                                                ),
+                                                SizedBox(
+                                                  width: scale.getScaledWidth(5),
+                                                ),
+                                                Text(
+                                                  'Mon_Fri',
+                                                  style: TextStyle(
+                                                    color: Colors.black.withOpacity(0.3499999940395355),
+                                                    fontSize: scale.getScaledFont(12),
+                                                    fontWeight: FontWeight.w400,
+                                                    height: 0,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Text(
+                                              'open ${center.timings} hours',
+                                              style: TextStyle(
+                                                color: const Color(0xFF0BA336),
+                                                fontSize: scale.getScaledFont(10),
+                                                fontWeight: FontWeight.w400,
+                                                height: 0,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        trailing: GestureDetector(
+                                          onTap: () {
+                                            controller.mapController.animateCamera(
+                                              CameraUpdate.newCameraPosition(
+                                                CameraPosition(
+                                                    target: LatLng(
+                                                      center.address!.latitude!,
+                                                      center.address!.longitude!,
+                                                    ),
+                                                    zoom: 19
+                                                ),
+                                              ),
+                                            );
+                                            controller.draggableScrollableController.animateTo(
+                                              0,
+                                              duration: const Duration(milliseconds: 200),
+                                              curve: Curves.easeIn,
+                                            );
                                           },
                                           child: SvgPicture.asset(
                                             ConstantData.navigationIcon,

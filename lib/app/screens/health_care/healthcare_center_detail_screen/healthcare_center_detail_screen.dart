@@ -239,6 +239,8 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
           CustomSearchField(
             height: scale.getScaledHeight(65),
             width: scale.getScaledWidth(320),
+            onClose: () {},
+            controller: TextEditingController(),
             suffixIcon: IconButton(
               onPressed: () {},
               icon: Icon(

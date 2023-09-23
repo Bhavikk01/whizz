@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Created with Vectornator (http://vectornator.io/) -->
+<svg height="100%" stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 500 500" width="100%" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:vectornator="http://vectornator.io" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
+<linearGradient gradientTransform="matrix(2.10269 0 0 2.10269 -654.903 -270.618)" gradientUnits="userSpaceOnUse" id="LinearGradient" x1="335.811" x2="431.706" y1="222.791" y2="222.791">
+<stop offset="0.21688" stop-color="#36cbbc"/>
+<stop offset="0.956848" stop-color="#f2f2f2"/>
+</linearGradient>
+<linearGradient gradientTransform="matrix(-2.10269 2.57505e-16 0 -2.10269 1086.01 750.909)" gradientUnits="userSpaceOnUse" id="LinearGradient_2" x1="335.811" x2="431.706" y1="222.791" y2="222.791">
+<stop offset="0.21688" stop-color="#36cbbc"/>
+<stop offset="0.956848" stop-color="#f2f2f2"/>
+</linearGradient>
+</defs>
+<g id="Layer-1" vectornator:layerName="Layer 1">
+<g opacity="1" vectornator:layerName="Group 1">
+<path d="M252.8 103.985C252.8 103.985 242.171 218.598 51.2019 215.31L51.8013 291.7C51.8013 291.7 106.067 291.531 141.016 277.35C207.574 250.342 254.392 178.271 252.8 103.985Z" fill="url(#LinearGradient)" fill-rule="nonzero" opacity="1" stroke="none" vectornator:layerName="Curve 11"/>
+<path d="M178.304 376.307C178.304 376.307 188.933 261.694 379.902 264.982L379.302 188.592C379.302 188.592 325.037 188.761 290.088 202.942C223.53 229.95 176.711 302.021 178.304 376.307Z" fill="url(#LinearGradient_2)" fill-rule="nonzero" opacity="1" stroke="none" vectornator:layerName="Curve 12"/>
+<path d="M177.507 90.7907L177.095 193.647C177.095 193.647 261.878 154.792 253.55 90.633L177.507 90.7907Z" fill="#00c2b1" fill-rule="nonzero" opacity="1" stroke="none" vectornator:layerName="Curve 13"/>
+<path d="M253.597 389.501L254.008 286.644C254.008 286.644 169.226 325.5 177.554 389.659L253.597 389.501Z" fill="#00c2b1" fill-rule="nonzero" opacity="1" stroke="none" vectornator:layerName="Curve 14"/>
+</g>
+</g>
+</svg>

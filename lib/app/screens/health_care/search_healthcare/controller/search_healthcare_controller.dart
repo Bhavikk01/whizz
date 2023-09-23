@@ -13,17 +13,24 @@ import 'package:Whizz/app/models/enum/searchByAddress.dart';
 import 'package:Whizz/app/models/user_model.dart';
 import 'package:Whizz/app/services/user.dart';
 
+import '../../../../models/healthcare_center_model.dart';
 import '../../../../utils/custom_bottom_snackbar.dart';
 class SearchHealthcareController extends GetxController {
 
-  late DraggableScrollableController draggableScrollableController;
   var isLoading = false.obs;
+  var isSearching = true.obs;
   late GoogleMapController mapController;
   Rx<SearchByAddress> searchBy = SearchByAddress.state.obs;
+  late DraggableScrollableController draggableScrollableController;
+
+  List<HealthcareCenter> healthcareCenters = <HealthcareCenter>[].obs;
+  List<HealthcareCenter> searchedHealthcare = <HealthcareCenter>[].obs;
+
   SuperTooltipController toolTipController = SuperTooltipController();
   TextEditingController userCountryController = TextEditingController();
   TextEditingController userStateController = TextEditingController();
   TextEditingController userCityController = TextEditingController();
+  TextEditingController searchController = TextEditingController();
   late Rx<UserAddress> userAddress;
   Rx<String> userCountry = ''.obs;
   Rx<String> userState = ''.obs;
@@ -81,8 +88,20 @@ class SearchHealthcareController extends GetxController {
       searchBy.value,
       userAddress: userAddress.value,
       onSuccess: (res) {
-
-        isLoading.value = false;
+        if(res.body['status']){
+          healthcareCenters.clear();
+          for(var center in res.body['data']){
+            healthcareCenters.add(HealthcareCenter.fromJson(center));
+          }
+          isLoading.value = false;
+        }else{
+          healthcareCenters.clear();
+          customSnackBar(
+            type: AnimatedSnackBarType.error,
+            message: '${res.body['message']}',
+          );
+          isLoading.value = false;
+        }
       },
       onError: (err){
         isLoading.value = false;
@@ -95,6 +114,7 @@ class SearchHealthcareController extends GetxController {
   }
 
   applyFilter() async {
+    isSearching.value = false;
     isLoading.value = true;
     userAddress = UserAddress(
       country: userCountry.value,
