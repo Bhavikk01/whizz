@@ -2,297 +2,360 @@ import 'package:Whizz/app/screens/health_care/doctor_panel/controller/doctor_pan
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:table_calendar/table_calendar.dart';
-
-import '../../../utils/app_theme.dart';
 import '../../../utils/colors.dart';
-import '../../../utils/constants.dart';
 import '../../../utils/scale_utility.dart';
 
 class DoctorScreen extends GetView<DoctorScreenController> {
   const DoctorScreen({Key? key}) : super(key: key);
 
-  get scale => null;
 
   @override
   Widget build(BuildContext context) {
     ScalingUtility scale = ScalingUtility(context: context)
       ..setCurrentDeviceSize();
     return Scaffold(
-      backgroundColor: ColorsUtil.brandColor,
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            pinned: true,
-            elevation: 0,
-            collapsedHeight: scale.getScaledHeight(80),
-            expandedHeight: scale.getScaledHeight(150),
-            backgroundColor: Colors.transparent,
-            flexibleSpace: LayoutBuilder(
-              builder: (context, constraints) {
-                return Container(
-                    height: constraints.maxHeight,
-                    width: constraints.maxWidth,
-                    decoration: BoxDecoration(
-                      image: const DecorationImage(
-                        image: AssetImage(
-                          ConstantData.backgroundTile,
-                        ),
+        appBar: AppBar(
+          backgroundColor: ColorsUtil.brandColor,
+          automaticallyImplyLeading: true,
+        ),
+        body: Container(
+          padding: scale.getPadding(left: 20, right: 20, top: 20),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                // DOCTOR
+                Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: Image.network(
+                        "https://www.aucmed.edu/sites/g/files/krcnkv361/files/styles/atge_3_2_crop_md/public/2021-11/large-Smile-Guy-web.jpg?h=6b55786a&itok=Wy7cQpYS",
+                        height: scale.getScaledHeight(150),
+                        width: scale.getScaledWidth(100),
                         fit: BoxFit.cover,
                       ),
-                      color: ColorsUtil.brandColor,
-                      // borderRadius: const BorderRadius.only(
-                      //   bottomLeft: Radius.circular(25),
-                      //   bottomRight: Radius.circular(25),
-                      // ),
                     ),
-                    child: Row(
+                    SizedBox(
+                      width: scale.getScaledWidth(20),
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
-                          width: 40,
+                        Text(
+                          'Dr. Jane Doe',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: scale.getScaledFont(22),
+                            fontWeight: FontWeight.w500,
+                            height: 0,
+                          ),
                         ),
-                        CircleAvatar(
-                          backgroundImage: Image.network(
-                                  "https://www.aucmed.edu/sites/g/files/krcnkv361/files/styles/atge_3_2_crop_md/public/2021-11/large-Smile-Guy-web.jpg?h=6b55786a&itok=Wy7cQpYS")
-                              .image,
-                          maxRadius: 50,
+                        Text(
+                          'Heart specialist',
+                          style: TextStyle(
+                            color: Color(0x4F1A203D),
+                            fontSize: scale.getScaledFont(12),
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.w400,
+                            height: 1.5,
+                          ),
                         ),
-                        SizedBox(
-                          width: scale.getScaledWidth(40),
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        Row(
                           children: [
+                            SvgPicture.asset("assets/icons/hospitalMarker.svg",),
+                            SizedBox(width: scale.getScaledWidth(2),),
                             Text(
-                              'Dr. Jane Doe',
+                              'Apollo Hospital Indore ',
                               style: TextStyle(
-                                color: Colors.white,
-                                fontSize: scale.getScaledFont(22),
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            Text(
-                              'General doctor',
-                              style: TextStyle(
-                                color: Color(0xFFD1D1D6),
+                                color: Color(0x4F1A203D),
                                 fontSize: scale.getScaledFont(12),
                                 fontFamily: 'Roboto',
                                 fontWeight: FontWeight.w400,
+                                height: 1.5,
                               ),
                             ),
-                            Text(
-                              '\$700',
-                              style: TextStyle(
-                                color: Color(0xFF01B001),
-                                fontSize: scale.getScaledFont(12),
-
-                                fontWeight: FontWeight.w400,
-
-                              ),
-                            )
                           ],
-                        )
+                        ),
                       ],
-                    ));
-              },
-            ),
-          ),
-          SliverFillRemaining(
-            hasScrollBody: false,
-            child: Container(
-              padding: scale.getPadding(horizontal: 15 , vertical: 10),
-              decoration: ShapeDecoration(
-                color: Colors.white,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                  ),
+                    )
+                  ],
                 ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: scale.getScaledHeight(20),
-                  ),
-                  Text(
-                    'Choose Date',
-                    style: TextStyle(
-                      color: Color(0xFFD1D1D6),
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
+                SizedBox(
+                  height: scale.getScaledHeight(20),
+                ),
+                // RATINGS
+                Container(
+                  padding: scale.getPadding(top: 10, bottom: 10),
+                  width: scale.fw,
+                  height: scale.getScaledHeight(55),
+                  decoration: ShapeDecoration(
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(width: 1, color: Color(0xFFD1D1D6)),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  // TableCalendar(focusedDay: DateTime.now(), firstDay:  DateTime.utc(2010, 10, 16), lastDay: DateTime.utc(2030, 3, 14))
-
-                  Container(
-                   // color: Colors.blue,
-                    height: scale.getScaledHeight(300),
-                    child: TableCalendar(
-                      calendarStyle:CalendarStyle(defaultTextStyle: GoogleFonts.roboto(fontStyle: FontStyle.italic)) ,
-                        headerStyle: HeaderStyle(formatButtonVisible: false, titleCentered: true),
-                          availableGestures: AvailableGestures.all,
-                          onDaySelected: (selectedDay, focusedDay) {
-                            focusedDay: selectedDay;
-                          },
-                          focusedDay: DateTime.now(),
-                          firstDay: DateTime.utc(2010, 10, 16),
-                          lastDay: DateTime.utc(2030, 3, 14)),
-
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Column(
+                        children: [
+                          Text(
+                            'Experience',
+                            style: TextStyle(
+                              color: Color(0x4F1A203D),
+                              fontSize: scale.getScaledFont(10),
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.w400,
+                              height: 0,
+                            ),
+                          ),
+                          SizedBox(
+                            height: scale.getScaledHeight(5),
+                          ),
+                          Text.rich(
+                            TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: '10+ ',
+                                  style: TextStyle(
+                                    color: Color(0xFF18B928),
+                                    fontSize: scale.getScaledHeight(12),
+                                    fontFamily: 'Roboto',
+                                    fontWeight: FontWeight.w500,
+                                    height: 0,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: 'yrs',
+                                  style: TextStyle(
+                                    color: Color(0xFF18B928),
+                                    fontSize: scale.getScaledFont(9),
+                                    fontFamily: 'Roboto',
+                                    fontWeight: FontWeight.w500,
+                                    height: 0,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: scale.getScaledHeight(52),
+                        width: 1,
+                        child: Container(
+                          color: Color(0xFFD1D1D6),
+                        ),
+                      ),
+                      Column(
+                        children: [
+                          Text(
+                            'Rating',
+                            style: TextStyle(
+                              color: Color(0x4F1A203D),
+                              fontSize: scale.getScaledFont(10),
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.w400,
+                              height: 0,
+                            ),
+                          ),
+                          SizedBox(
+                            height: scale.getScaledHeight(5),
+                          ),
+                          SvgPicture.asset(
+                            "assets/icons/stars.svg",
+                            height: 12,
+                          )
+                        ],
+                      )
+                    ],
                   ),
-                  SizedBox(
-                    height: scale.getScaledHeight(20),
+                ),
+                SizedBox(
+                  height: scale.getScaledHeight(20),
+                ),
+
+                //ABOUT DOCTOR
+                Text(
+                  'About Doctor',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: scale.getScaledFont(15),
+                    fontFamily: 'Roboto',
+                    fontWeight: FontWeight.w500,
+                    height: 0,
                   ),
-                  Text(
-                    'Choose Time',
+                ),
+                SizedBox(
+                  height: scale.getScaledHeight(20),
+                ),
+                // DETAILS
+                SizedBox(
+                  width: 300,
+                  height: 102,
+                  child: Text(
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu ',
                     style: TextStyle(
                       color: Color(0xFFD1D1D6),
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
+                      fontSize: scale.getScaledFont(12),
+                      fontFamily: 'Roboto',
+                      fontWeight: FontWeight.w400,
                       height: 0,
                     ),
                   ),
-                  SizedBox(
-                    height: scale.getScaledHeight(20),
-                  ),
-                  Center(
-                    child: Wrap(
-                      direction: Axis.horizontal,
-                      spacing: 20,
-                      crossAxisAlignment: WrapCrossAlignment.start,
-                      alignment: WrapAlignment.center,
-                      runSpacing: 20,
-                      children: [
-                        GestureDetector(
-                          onTap: () {},
-                          child: Container(
-                            width: 80,
-                            height: 26,
-                            decoration: ShapeDecoration(
-                              shape: RoundedRectangleBorder(
-                                side: BorderSide(
-                                    width: 0.50, color: Color(0xFFD1D1D6)),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                            ),
-                            child: Center(child: Text("3.00 am")),
-                          ),
-                        ),
-                        Container(
-                          width: 80,
-                          height: 26,
-                          decoration: ShapeDecoration(
-                            color: ColorsUtil.brandColor,
-                            shape: RoundedRectangleBorder(
-                              side: BorderSide(width: 0.50, color: ColorsUtil.brandColor),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                          ),
-                          child: Center(
-                              child: Text(
-                            "3.00 am",
-                            style: TextStyle(color: Colors.white),
-                          )),
-                        ),
-                        Container(
-                          width: 80,
-                          height: 26,
-                          decoration: ShapeDecoration(
-                            shape: RoundedRectangleBorder(
-                              side: BorderSide(
-                                  width: 0.50, color: Color(0xFFD1D1D6)),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                          ),
-                          child: Center(child: Text("3.00 am")),
-                        ),
-                        Container(
-                          width: 80,
-                          height: 26,
-                          decoration: ShapeDecoration(
-                            shape: RoundedRectangleBorder(
-                              side: BorderSide(
-                                  width: 0.50, color: Color(0xFFD1D1D6)),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                          ),
-                          child: Center(child: Text("3.00 am")),
-                        ),
-                        Container(
-                          width: 80,
-                          height: 26,
-                          decoration: ShapeDecoration(
-                            shape: RoundedRectangleBorder(
-                              side: BorderSide(
-                                  width: 0.50, color: Color(0xFFD1D1D6)),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                          ),
-                          child: Center(child: Text("3.00 am")),
-                        ),
-                        Container(
-                          width: 80,
-                          height: 26,
-                          decoration: ShapeDecoration(
-                            shape: RoundedRectangleBorder(
-                              side: BorderSide(
-                                  width: 0.50, color: Color(0xFFD1D1D6)),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                          ),
-                          child: Center(child: Text("3.00 am")),
-                        ),
-                      ],
+                ),
+
+                SizedBox(
+                  height: scale.getScaledHeight(20),
+                ),
+
+                // Mark Attendance
+                Container(
+                  padding: scale.getPadding(horizontal: 20),
+                  height: scale.getScaledHeight(67),
+                  decoration: ShapeDecoration(
+                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                  ),
-                  SizedBox(
-                    height: scale.getScaledHeight(40),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: 110,
-                        height: 43,
-                        child: ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xFFF7F5F5),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30))),
-                            child: Text(
-                              "Cancel",
-                              style: TextStyle(color: Colors.black),
-                            )),
-                      ),
-                      SizedBox(
-                        width: scale.getScaledHeight(20),
-                      ),
-                      SizedBox(
-                        width: 110,
-                        height: 43,
-                        child: ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xFFFF6B6B),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30))),
-                            child: Text(
-                              "Book",
-                              style: TextStyle(color: Colors.white),
-                            )),
-                      ),
+                    shadows: [
+                      BoxShadow(
+                        color: Color(0x33000000),
+                        blurRadius: 10,
+                        offset: Offset(2, 3),
+                        spreadRadius: 0,
+                      )
                     ],
-                  )
-                ],
-              ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Mark Attendance',
+                        style: TextStyle(
+                          color: Colors.black.withOpacity(0.8500000238418579),
+                          fontSize: scale.getScaledFont(12),
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w600,
+                          height: 0,
+                        ),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {},
+                        child: Text("Mark"),
+                        style: ElevatedButton.styleFrom(
+                            padding: scale.getPadding(
+                              left: 30,
+                              right: 30,
+                            )),
+                      )
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: scale.getScaledHeight(25),
+                ),
+
+                Text(
+                  ' Appointments',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: scale.getScaledFont(15),
+                    fontFamily: 'Roboto',
+                    fontWeight: FontWeight.w500,
+                    height: 0,
+                  ),
+                ),
+                SizedBox(
+                  height: scale.getScaledHeight(20),
+                ),
+
+                ListView.builder(
+                    padding: scale.getPadding(top: 5,bottom: 5),
+                    shrinkWrap: true,
+                    itemCount: 5,
+                    itemBuilder: (context, cnt) => Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12)),
+                      child: Padding(
+                        padding: scale.getPadding(
+                            left: 10, right: 10, top: 10, bottom: 10),
+                        child: ListTile(
+                          leading: ClipRRect(
+                              borderRadius: BorderRadius.circular(15),
+                              child: Image.network(
+                                "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1600",
+                                height: scale.getScaledHeight(50),
+                                width: scale.getScaledWidth(50),
+                                fit: BoxFit.cover,
+                              )),
+                          title: Text(
+                            'James knite',
+                            style: TextStyle(
+                              color: Colors.black.withOpacity(0.75),
+                              fontSize: scale.getScaledFont(12),
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.w500,
+                              height: 0,
+                            ),
+                          ),
+                          subtitle: Text(
+                            '25 years',
+                            style: TextStyle(
+                              color: Color(0x4F1A203D),
+                              fontSize: scale.getScaledFont(10),
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.w500,
+                              height: 0,
+                            ),
+                          ),
+                          trailing: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Appt time',
+                                style: TextStyle(
+                                  color: Colors.black
+                                      .withOpacity(0.699999988079071),
+                                  fontSize: scale.getScaledFont(12),
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.w500,
+                                  height: 0,
+                                ),
+                              ),
+                              Text(
+                                '27 Sept 2023',
+                                style: TextStyle(
+                                  color: Color(0x4F01B001),
+                                  fontSize: scale.getScaledFont(10),
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.w500,
+                                  height: 1.5,
+                                ),
+                              ),
+                              Text(
+                                '12:22pm',
+                                style: TextStyle(
+                                  color: Color(0x4F01B001),
+                                  fontSize: scale.getScaledFont(10),
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.w500,
+                                  height: 1.5,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    )),
+              ],
             ),
-          )
-        ],
-      ),
-    );
+          ),
+        ));
   }
 }
