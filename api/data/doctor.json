@@ -1,0 +1,137 @@
+[
+    {
+        "doctor_name": "Dr. Ravi Patel",
+        "available": true,
+        "id": "1",
+        "specialty": "General Practitioner",
+        "health_care_id": "1",
+        "cost": "1000",
+        "timings": "10:00 AM - 12:00 PM"
+    },
+    {
+        "doctor_name": "Dr. Priya Sharma",
+        "available": true,
+        "id": "2",
+        "specialty": "General Practitioner",
+        "health_care_id": "1",
+        "cost": "1000",
+        "timings": "10:00 AM - 12:00 PM"
+    },
+    {
+        "doctor_name": "Dr. Sanjay Kumar",
+        "available": true,
+        "id": "3",
+        "specialty": "General Practitioner",
+        "health_care_id": "1",
+        "cost": "1000",
+        "timings": "10:00 AM - 12:00 PM"
+    },
+    {
+        "doctor_name": "Dr. Aishwarya Singh",
+        "available": true,
+        "id": "4",
+        "specialty": "General Practitioner",
+        "health_care_id": "1",
+        "cost": "1000",
+        "timings": "10:00 AM - 12:00 PM"
+    },
+    {
+        "doctor_name": "Dr. Nandini Desai",
+        "available": true,
+        "id": "5",
+        "specialty": "Cardiologist",
+        "health_care_id": "2",
+        "cost": "1500",
+        "timings": "2:00 PM - 4:00 PM"
+    },
+    {
+        "doctor_name": "Dr. Vikram Verma",
+        "available": true,
+        "id": "6",
+        "specialty": "Dermatologist",
+        "health_care_id": "2",
+        "cost": "1200",
+        "timings": "3:00 PM - 5:00 PM"
+    },
+    {
+        "doctor_name": "Dr. Meera Kapoor",
+        "available": false,
+        "id": "7",
+        "specialty": "Pediatrician",
+        "health_care_id": "2",
+        "cost": "800",
+        "timings": "9:00 AM - 11:00 AM"
+    },
+    {
+        "doctor_name": "Dr. Rahul Singh",
+        "available": true,
+        "id": "8",
+        "specialty": "Orthopedic Surgeon",
+        "health_care_id": "3",
+        "cost": "2000",
+        "timings": "1:00 PM - 3:00 PM"
+    },
+    {
+        "doctor_name": "Dr. Anjali Mishra",
+        "available": true,
+        "id": "9",
+        "specialty": "Gynecologist",
+        "health_care_id": "3",
+        "cost": "1800",
+        "timings": "10:00 AM - 12:00 PM"
+    },
+    {
+        "doctor_name": "Dr. Arjun Reddy",
+        "available": true,
+        "id": "10",
+        "specialty": "Neurologist",
+        "health_care_id": "3",
+        "cost": "2200",
+        "timings": "11:00 AM - 1:00 PM"
+    },
+    {
+        "doctor_name": "Dr. Preeti Joshi",
+        "available": true,
+        "id": "11",
+        "specialty": "Ophthalmologist",
+        "health_care_id": "4",
+        "cost": "1300",
+        "timings": "4:00 PM - 6:00 PM"
+    },
+    {
+        "doctor_name": "Dr. Rohit Gupta",
+        "available": false,
+        "id": "12",
+        "specialty": "Dentist",
+        "health_care_id": "4",
+        "cost": "900",
+        "timings": "10:00 AM - 12:00 PM"
+    },
+    {
+        "doctor_name": "Dr. Shweta Sharma",
+        "available": true,
+        "id": "13",
+        "specialty": "Psychiatrist",
+        "health_care_id": "4",
+        "cost": "1600",
+        "timings": "2:00 PM - 4:00 PM"
+    },
+    {
+        "doctor_name": "Dr. Deepak Patel",
+        "available": true,
+        "id": "14",
+        "specialty": "Urologist",
+        "health_care_id": "5",
+        "cost": "1900",
+        "timings": "9:00 AM - 11:00 AM"
+    },
+    {
+        "doctor_name": "Dr. Neha Rajput",
+        "available": true,
+        "id": "15",
+        "specialty": "Oncologist",
+        "health_care_id": "5",
+        "cost": "2500",
+        "timings": "3:00 PM - 5:00 PM"
+    }    
+]
