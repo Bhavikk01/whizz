@@ -362,7 +362,12 @@ class SearchHealthcareScreen extends GetView<SearchHealthcareController> {
                                       height: scale.getScaledHeight(100),
                                       child: ListTile(
                                         onTap: () {
-                                          Get.toNamed(Routes.healthCenterScreen);
+                                          Get.toNamed(
+                                            Routes.healthCenterScreen,
+                                            arguments: {
+                                              'healthcareId': center.id
+                                            }
+                                          );
                                         },
                                         leading: ClipRRect(
                                           borderRadius: BorderRadius.circular(10),
