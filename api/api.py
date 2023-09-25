@@ -11,8 +11,7 @@ from pytrie import StringTrie
 from collections import Counter
 
 
-data_path="api/data"
-# data_path="data"
+data_path="data"
 warnings.filterwarnings("ignore")
 with open(os.path.join(data_path,"data.json"), "r") as json_file:
     loaded_data = json.load(json_file)
