@@ -1,6 +1,9 @@
+import 'package:Whizz/app/screens/health_care/appointment/appointment_screen.dart';
+import 'package:Whizz/app/screens/health_care/appointment/controller/appointment_controller.dart';
 import 'package:Whizz/app/screens/health_care/doctor_panel/controller/doctor_panel_controller.dart';
 import 'package:Whizz/app/screens/home/controllers/home_controller.dart';
 import 'package:Whizz/app/screens/home/home_screen.dart';
+import 'package:Whizz/tempMain.dart';
 
 // import 'package:Whizz/app/screens/medical_records/controllers/medical_report_controller.dart';
 // import 'package:Whizz/app/screens/medical_records/medical_report_screen.dart';
@@ -34,11 +37,11 @@ Future<void> main() async {
   // Get.put<ApiClient>(ApiClient());
   // Get.put<UserStore>(UserStore());
   // Get.put<AuthServices>(AuthServices());
-  Get.put(BottomNavBarController());
-  Get.put(DoctorScreenController());
-  Get.put(HomeController());
+  // Get.put(BottomNavBarController());
+  // Get.put(HomeController());
+  Get.put(AppointmentController());
 
-  runApp(const MyApp());
+  runApp(const TempApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -50,7 +53,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       theme: AppTheme.appTheme,
       title: "Application",
-      home: DoctorScreen(),
+      home: AppointMentScreen(),
       getPages: AppPages.routes,
       debugShowCheckedModeBanner: false,
     );
