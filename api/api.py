@@ -35,7 +35,7 @@ client = MongoClient("mongodb://localhost:27017")
 db = client["Whizz"]  
 user = db["user_data"] 
 hospital = db["healthcare_center"]
-
+doctor= db["doctor"]
 
 #Argument parsing
 create_arg=reqparse.RequestParser()
@@ -46,6 +46,10 @@ ask_arg=reqparse.RequestParser()
 ask_arg.add_argument("selection",type=str,help="none")
 complete_arg=reqparse.RequestParser()
 complete_arg.add_argument("user_input",type=str,help="none")
+
+doctor_status_update_arg=reqparse.RequestParser()
+doctor_status_update_arg.add_argument("id",type=str,help="none")
+doctor_status_update_arg.add_argument("status",type=bool,help="none")
 
 
 def related_symptoms(symp):
@@ -67,6 +71,10 @@ def classify(sample):
     print(cls[0])
     return disease_dict[str(cls[0])]
 
+def remove_id(data):
+    del data[0]["_id"]
+    return data
+
 def build_trie(word_list):
     trie = StringTrie()
     for word in word_list:
@@ -76,6 +84,13 @@ def build_trie(word_list):
 def complete_words(trie, user_input):
     completions = trie.keys(prefix=user_input)
     return completions
+
+def remove_id_mult(data):
+    cleaned_data = []
+    for h in data:
+        h_without_id = {key: value for key, value in h.items() if key != "_id"}
+        cleaned_data.append(h_without_id)
+    return cleaned_data
 
 def calculate_disease_severity(symptoms):
     relevant_scores = [severity.get(symptom, 0) for symptom in symptoms]
@@ -106,7 +121,7 @@ class by_id(Resource):
     def get(self, id):
         data = list(user.find({"id":id}))
         if data:
-            del data[0]["_id"]
+            data=remove_id(data)
             return jsonify({
                 "status": True,
                 "data": data[0]
@@ -122,7 +137,7 @@ class by_email(Resource):
     def get(self, email):
         data = list(user.find({"email":email}))
         if data:
-            del data[0]["_id"]
+            data=remove_id(data)
             return jsonify({
                 "status": True,
                 "data": data[0]
@@ -138,7 +153,7 @@ class by_phone(Resource):
     def get(self, mobile):
         data = list(user.find({"mobile":mobile}))
         if data:
-            del data[0]["_id"]
+            data=remove_id(data)
             return jsonify({
                 "status": True,
                 "data": data[0]
@@ -223,10 +238,7 @@ class nearbyhealthcare(Resource):
             })
 
         if data:
-            cleaned_data = []
-            for h in data:
-                h_without_id = {key: value for key, value in h.items() if key != "_id"}
-                cleaned_data.append(h_without_id)
+            cleaned_data = remove_id_mult(data)
             return jsonify({
                 "status": True,
                 "data": cleaned_data
@@ -249,7 +261,64 @@ class sympcomplete(Resource):
 
 api.add_resource(sympcomplete,"/sympcomplete")
 
+#Doctor methods
+class get_doctor_by_hid(Resource):
+    def get(self,id):
+        data = list(doctor.find({"health_care_id":id}))
+        if data:
+            cleaned_data = remove_id_mult(data)
+            return jsonify({
+                "status": True,
+                "data": cleaned_data
+            })
+        else:
+            return jsonify({
+                "status": False,
+                "message": "healthcare not found"
+            })
 
+api.add_resource(get_doctor_by_hid,"/doctor/<string:id>")
+
+class doctor_status_update(Resource):
+    def put(self):
+        args=doctor_status_update_arg.parse_args()
+        try:
+            if list(doctor.find({"id":id})):
+                doctor.update_one({"id":args["id"]},{"$set":{"available":args["status"]}})
+                return jsonify({
+                    "status": True,
+                    "message": "status updated"
+                })
+            else:
+                return jsonify({
+                    "status": False,
+                    "message": "doctor not found"
+                })
+        except:
+            return jsonify({
+                "status": False,
+                "message": "status update failed"
+            })
+
+api.add_resource(doctor_status_update,"/doctor/status/")
+
+class doctor_status_check(Resource):
+    def get(self):
+        id = request.args['id']
+        data = list(doctor.find({"id":id}))
+        if data:
+            cleaned_data = remove_id(data)
+            return jsonify({
+                "status": True,
+                "data": cleaned_data[0]["available"]
+            })
+        else:
+            return jsonify({
+                "status": False,
+                "message": "doctor not found"
+            })
+
+api.add_resource(doctor_status_check,"/doctor/status/check")
 
 if __name__ == '__main__':
     #uncomment this when using with flutter
