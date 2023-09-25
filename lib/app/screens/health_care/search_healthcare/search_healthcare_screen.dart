@@ -18,6 +18,7 @@ import 'package:Whizz/app/widgets/custom_icon_button.dart';
 import 'package:Whizz/app/widgets/custom_search_field.dart';
 
 import '../../../models/healthcare_center_model.dart';
+import '../../../routes/app_pages.dart';
 import '../../../utils/custom_bottom_snackbar.dart';
 import 'controller/search_healthcare_controller.dart';
 
@@ -361,7 +362,7 @@ class SearchHealthcareScreen extends GetView<SearchHealthcareController> {
                                       height: scale.getScaledHeight(100),
                                       child: ListTile(
                                         onTap: () {
-
+                                          Get.toNamed(Routes.healthCenterScreen);
                                         },
                                         leading: ClipRRect(
                                           borderRadius: BorderRadius.circular(10),

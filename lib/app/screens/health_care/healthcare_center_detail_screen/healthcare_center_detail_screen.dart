@@ -23,7 +23,7 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: DefaultTabController(
-          length: 6,
+          length: 5,
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -95,7 +95,7 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
                                 children: [
                                   Icon(
                                     Icons.location_pin,
-                                    color: Colors.red,
+                                    color: ColorsUtil.brandColor,
                                     size: scale.getScaledFont(18),
                                   ),
                                   SizedBox(
@@ -124,7 +124,7 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
                                 children: [
                                   Icon(
                                     Icons.calendar_month,
-                                    color: Colors.red,
+                                    color: ColorsUtil.brandColor,
                                     size: scale.getScaledFont(18),
                                   ),
                                   SizedBox(
@@ -154,7 +154,7 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
                   height: scale.getScaledHeight(15),
                 ),
                 Container(
-                  height: scale.getScaledHeight(42),
+                  height: scale.getScaledHeight(41),
                   decoration: BoxDecoration(
                     border: Border(
                       bottom: BorderSide(
@@ -173,9 +173,6 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
                       ),
                       Tab(
                         text: 'Infrastructure',
-                      ),
-                      Tab(
-                        text: 'Medicine Stock',
                       ),
                       Tab(
                         text: 'Doctor Details',
@@ -210,7 +207,6 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
                             _basicDetailsTab(scale, context),
                             _servicesTab(scale, context),
                             Container(),
-                            _medicineStockTab(scale, context),
                             _doctorDetailsTab(scale, context),
                             _reviewTab(scale, context),
                           ],
@@ -233,23 +229,6 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
       controller: controller.scrollController,
       child: Column(
         children: [
-          SizedBox(
-            height: scale.getScaledHeight(15),
-          ),
-          CustomSearchField(
-            height: scale.getScaledHeight(65),
-            width: scale.getScaledWidth(320),
-            onClose: () {},
-            controller: TextEditingController(),
-            suffixIcon: IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.search,
-                size: scale.getScaledFont(30),
-              ),
-            ),
-            hintText: 'Search Here',
-          ),
           MediaQuery.removePadding(
             context: context,
             removeTop: true,
@@ -280,23 +259,10 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
                               ),
                             ),
                             const SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              'MBBS, DNB - General Medicine',
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: AppTheme.appTheme.textTheme.titleSmall!
-                                  .copyWith(
-                                fontWeight: FontWeight.w300,
-                                fontSize: scale.getScaledFont(13),
-                              ),
-                            ),
-                            const SizedBox(
                               height: 3,
                             ),
                             Text(
-                              'Cardiology',
+                              'Cardiologist',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: AppTheme.appTheme.textTheme.titleSmall!
@@ -305,74 +271,32 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
                                 fontSize: scale.getScaledFont(13),
                               ),
                             ),
-                            const SizedBox(
-                              height: 3,
-                            ),
                             Text(
-                              '21 years experience overall',
+                              '₹ 500',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: AppTheme.appTheme.textTheme.titleSmall!
-                                  .copyWith(
-                                fontWeight: FontWeight.w400,
+                              style: AppTheme.appTheme.textTheme.bodySmall!.copyWith(
+                                color: Colors.green,
                                 fontSize: scale.getScaledFont(13),
                               ),
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(
-                        width: 130,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text(
-                              '₹700',
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: AppTheme.appTheme.textTheme.bodySmall!
-                                  .copyWith(
-                                fontSize: scale.getScaledFont(13),
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Icon(
-                                  Icons.timelapse,
-                                  size: scale.getScaledFont(15),
-                                  color: ColorsUtil.darkContainerColor,
-                                ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                Text(
-                                  'Mon - Fri',
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: AppTheme.appTheme.textTheme.bodySmall!
-                                      .copyWith(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: scale.getScaledFont(13),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              '${DateFormat('hh:mma').format(DateTime.now())} - ${DateFormat('hh:mma').format(DateTime.now())}',
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: AppTheme.appTheme.textTheme.bodySmall!
-                                  .copyWith(
-                                fontSize: scale.getScaledFont(11),
-                              ),
-                            ),
-                          ],
+                      ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          padding: scale.getPadding(horizontal: 15),
+                          backgroundColor: index%2 == 0
+                              ? ColorsUtil.blueColor
+                              : ColorsUtil.greyTextColor,
+                        ),
+                        child: Text(
+                          'Book Now',
+                          style: AppTheme.appTheme.textTheme.bodyMedium!.copyWith(
+                            fontSize: scale.getScaledFont(10),
+                            color: ColorsUtil.brandWhite,
+                          ),
                         ),
                       ),
                     ],
