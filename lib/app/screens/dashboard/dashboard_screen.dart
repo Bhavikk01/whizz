@@ -130,7 +130,7 @@ class DashboardScreen extends GetView<HomeController> {
                               Row(
                                 children: [
                                   CircularPercentIndicator(
-                                    radius: 70,
+                                    radius: scale.getScaledWidth(60),
                                     lineWidth: scale.getScaledWidth(8),
                                     backgroundColor: Colors.black26,
                                     progressColor: ColorsUtil.blueColor,
