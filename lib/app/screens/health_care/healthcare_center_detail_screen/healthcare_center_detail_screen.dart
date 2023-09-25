@@ -23,199 +23,198 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: DefaultTabController(
-          length: 5,
+          length: 4,
           child: SingleChildScrollView(
-            child: Column(
-              children: [
-                ListTile(
-                  title: Row(
-                    children: [
-                      CustomIconButton(
-                        image: ConstantData.backArrow,
-                        height: scale.getScaledHeight(45),
-                        width: scale.getScaledWidth(45),
-                        onTap: () {
-                          // Get.back();
-                        },
-                      ),
-                      SizedBox(
-                        width: scale.getScaledWidth(10),
-                      ),
-                      SizedBox(
-                        width: scale.getScaledWidth(260),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Hospital Name',
-                              style: AppTheme.appTheme.textTheme.titleLarge,
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  '3.5/5 ',
-                                  style: AppTheme.appTheme.textTheme.titleSmall,
-                                ),
-                                RatingBar.builder(
-                                  initialRating: 3.5,
-                                  minRating: 1,
-                                  direction: Axis.horizontal,
-                                  allowHalfRating: true,
-                                  ignoreGestures: true,
-                                  itemCount: 5,
-                                  itemSize: scale.getScaledFont(20),
-                                  unratedColor: ColorsUtil.lightContainerColor,
-                                  itemPadding: scale.getPadding(horizontal: 2),
-                                  itemBuilder: (context, _) => Icon(
-                                    Icons.star,
-                                    color: ColorsUtil.darkContainerColor,
-                                  ),
-                                  onRatingUpdate: (rating) {},
-                                )
-                              ],
-                            ),
-                          ],
+            child: Obx(
+              () => !controller.isLoading.value ? Column(
+                children: [
+                  ListTile(
+                    title: Row(
+                      children: [
+                        CustomIconButton(
+                          image: ConstantData.backArrow,
+                          height: scale.getScaledHeight(35),
+                          width: scale.getScaledWidth(35),
+                          onTap: () {
+                            Get.back();
+                          },
+                          iconColor: ColorsUtil.brandColor,
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-                AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 400),
-                  child: Padding(
-                          padding: scale.getPadding(left: 20, right: 20),
+                        SizedBox(
+                          width: scale.getScaledWidth(10),
+                        ),
+                        SizedBox(
+                          width: scale.getScaledWidth(260),
                           child: Column(
+                            mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(
-                                height: scale.getScaledHeight(20),
+                              Text(
+                                controller.healthcare.name!,
+                                style: AppTheme.appTheme.textTheme.titleLarge,
                               ),
                               Row(
                                 children: [
-                                  Icon(
-                                    Icons.location_pin,
-                                    color: ColorsUtil.brandColor,
-                                    size: scale.getScaledFont(18),
+                                  Text(
+                                    '3.5/5 ',
+                                    style: AppTheme.appTheme.textTheme.titleSmall,
                                   ),
-                                  SizedBox(
-                                    width: scale.getScaledWidth(5),
-                                  ),
-                                  SizedBox(
-                                    width: scale.getScaledWidth(280),
-                                    child: Text(
-                                      'Indore, Madhya Pradesh',
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: AppTheme
-                                          .appTheme.textTheme.titleSmall!
-                                          .copyWith(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: scale.getScaledFont(14),
-                                      ),
+                                  RatingBar.builder(
+                                    initialRating: 3.5,
+                                    minRating: 1,
+                                    direction: Axis.horizontal,
+                                    allowHalfRating: true,
+                                    ignoreGestures: true,
+                                    itemCount: 5,
+                                    itemSize: scale.getScaledFont(20),
+                                    unratedColor: ColorsUtil.lightContainerColor,
+                                    itemPadding: scale.getPadding(horizontal: 2),
+                                    itemBuilder: (context, _) => Icon(
+                                      Icons.star,
+                                      color: ColorsUtil.darkContainerColor,
                                     ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: scale.getScaledHeight(8),
-                              ),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.calendar_month,
-                                    color: ColorsUtil.brandColor,
-                                    size: scale.getScaledFont(18),
-                                  ),
-                                  SizedBox(
-                                    width: scale.getScaledWidth(5),
-                                  ),
-                                  SizedBox(
-                                    width: scale.getScaledWidth(280),
-                                    child: Text(
-                                      'Open From ${DateFormat('hh : mm a').format(DateTime.now())} To ${DateFormat('hh : mm a').format(DateTime.now())}',
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: AppTheme
-                                          .appTheme.textTheme.titleSmall!
-                                          .copyWith(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: scale.getScaledFont(14),
-                                      ),
-                                    ),
-                                  ),
+                                    onRatingUpdate: (rating) {},
+                                  )
                                 ],
                               ),
                             ],
                           ),
-                        )
-                ),
-                SizedBox(
-                  height: scale.getScaledHeight(15),
-                ),
-                Container(
-                  height: scale.getScaledHeight(41),
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        width: 2,
-                        color: Colors.grey[300]!,
-                      ),
+                        ),
+                      ],
                     ),
                   ),
-                  child: TabBar(
-                    tabs: const [
-                      Tab(
-                        text: 'Basic Details',
-                      ),
-                      Tab(
-                        text: 'Services',
-                      ),
-                      Tab(
-                        text: 'Infrastructure',
-                      ),
-                      Tab(
-                        text: 'Doctor Details',
-                      ),
-                      Tab(
-                        text: 'Reviews & Feedback',
-                      ),
-                    ],
-                    isScrollable: true,
-                    indicatorWeight: 4,
-                    indicatorSize: TabBarIndicatorSize.label,
-                    labelColor: ColorsUtil.darkContainerColor,
-                    labelStyle: AppTheme.appTheme.textTheme.titleSmall!.copyWith(
-                      fontWeight: FontWeight.w500,
-                      fontSize: scale.getScaledFont(16),
-                    ),
-                    indicator: TabIndicator(),
-                    indicatorColor: ColorsUtil.darkContainerColor,
-                    unselectedLabelColor: Colors.black,
+                  AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 400),
+                    child: Padding(
+                            padding: scale.getPadding(left: 20, right: 20),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: scale.getScaledHeight(20),
+                                ),
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.location_pin,
+                                      color: ColorsUtil.brandColor,
+                                      size: scale.getScaledFont(18),
+                                    ),
+                                    SizedBox(
+                                      width: scale.getScaledWidth(5),
+                                    ),
+                                    SizedBox(
+                                      width: scale.getScaledWidth(280),
+                                      child: Text(
+                                        '${controller.city['name']}, ${controller.state['name']}',
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: AppTheme
+                                            .appTheme.textTheme.titleSmall!
+                                            .copyWith(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: scale.getScaledFont(14),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: scale.getScaledHeight(8),
+                                ),
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.calendar_month,
+                                      color: ColorsUtil.brandColor,
+                                      size: scale.getScaledFont(18),
+                                    ),
+                                    SizedBox(
+                                      width: scale.getScaledWidth(5),
+                                    ),
+                                    SizedBox(
+                                      width: scale.getScaledWidth(280),
+                                      child: Text(
+                                        'Open From ${DateFormat('hh : mm a').format(DateTime.now())} To ${DateFormat('hh : mm a').format(DateTime.now())}',
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: AppTheme
+                                            .appTheme.textTheme.titleSmall!
+                                            .copyWith(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: scale.getScaledFont(14),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          )
                   ),
-                ),
-                Container(
-                  color: Colors.white,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      AnimatedContainer(
-                        duration: const Duration(milliseconds: 200),
-                        height: MediaQuery.of(context).size.height * 0.70,
-                        child: TabBarView(
-                          children: [
-                            _basicDetailsTab(scale, context),
-                            _servicesTab(scale, context),
-                            Container(),
-                            _doctorDetailsTab(scale, context),
-                            _reviewTab(scale, context),
-                          ],
+                  SizedBox(
+                    height: scale.getScaledHeight(15),
+                  ),
+                  Container(
+                    height: scale.getScaledHeight(41),
+                    decoration: BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(
+                          width: 2,
+                          color: Colors.grey[300]!,
                         ),
                       ),
-                    ],
+                    ),
+                    child: TabBar(
+                      tabs: const [
+                        Tab(
+                          text: 'Basic Details',
+                        ),
+                        Tab(
+                          text: 'Services',
+                        ),
+                        Tab(
+                          text: 'Doctor Details',
+                        ),
+                        Tab(
+                          text: 'Reviews & Feedback',
+                        ),
+                      ],
+                      isScrollable: true,
+                      indicatorWeight: 4,
+                      indicatorSize: TabBarIndicatorSize.label,
+                      labelColor: ColorsUtil.darkContainerColor,
+                      labelStyle: AppTheme.appTheme.textTheme.titleSmall!.copyWith(
+                        fontWeight: FontWeight.w500,
+                        fontSize: scale.getScaledFont(16),
+                      ),
+                      indicator: TabIndicator(),
+                      indicatorColor: ColorsUtil.darkContainerColor,
+                      unselectedLabelColor: Colors.black,
+                    ),
                   ),
-                ),
-              ],
+                  Container(
+                    color: Colors.white,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        AnimatedContainer(
+                          duration: const Duration(milliseconds: 200),
+                          height: MediaQuery.of(context).size.height * 0.70,
+                          child: TabBarView(
+                            children: [
+                              _basicDetailsTab(scale, context),
+                              _servicesTab(scale, context),
+                              _doctorDetailsTab(scale, context),
+                              _reviewTab(scale, context),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ) : Container(),
             ),
           ),
         ),
@@ -233,10 +232,11 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
             context: context,
             removeTop: true,
             child: ListView.separated(
-              itemCount: 10,
+              itemCount: controller.doctorList.length,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
+                var doctor = controller.doctorList[index];
                 return Container(
                   padding: scale.getPadding(horizontal: 20, vertical: 13),
                   child: Row(
@@ -249,7 +249,7 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Dr. K.Roshan Rao',
+                              doctor.doctorName!,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: AppTheme.appTheme.textTheme.titleSmall!
@@ -262,7 +262,7 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
                               height: 3,
                             ),
                             Text(
-                              'Cardiologist',
+                              doctor.specialty!,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: AppTheme.appTheme.textTheme.titleSmall!
@@ -272,7 +272,7 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
                               ),
                             ),
                             Text(
-                              '₹ 500',
+                              '₹${doctor.cost!}',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: AppTheme.appTheme.textTheme.bodySmall!.copyWith(
@@ -287,7 +287,7 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
                           padding: scale.getPadding(horizontal: 15),
-                          backgroundColor: index%2 == 0
+                          backgroundColor: doctor.available!
                               ? ColorsUtil.blueColor
                               : ColorsUtil.greyTextColor,
                         ),

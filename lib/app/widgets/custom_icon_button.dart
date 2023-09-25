@@ -7,6 +7,7 @@ import '../utils/scale_utility.dart';
 
 class CustomIconButton extends StatelessWidget {
   final Color? color;
+  final Color? iconColor;
   final double? height;
   final double? width;
   final EdgeInsetsGeometry? padding;
@@ -19,6 +20,7 @@ class CustomIconButton extends StatelessWidget {
       {this.image,
       Key? key,
       this.color,
+      this.iconColor,
       this.height,
       this.width,
       this.onTap,
@@ -68,6 +70,7 @@ class CustomIconButton extends StatelessWidget {
           height: height != null ? height! - 5 : scale.getScaledHeight(35),
           width: width != null ? width! - 5 : scale.getScaledWidth(35),
           fit: BoxFit.cover,
+          color: iconColor,
         ),
         /*      Image.asset(
           image ?? '',

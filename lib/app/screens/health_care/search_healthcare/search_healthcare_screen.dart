@@ -384,6 +384,7 @@ class SearchHealthcareScreen extends GetView<SearchHealthcareController> {
                                         ),
                                         title: Text(
                                           center.name!,
+                                          maxLines: 1,
                                         ),
                                         subtitle: Column(
                                           mainAxisAlignment:

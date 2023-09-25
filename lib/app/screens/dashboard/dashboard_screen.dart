@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../routes/app_pages.dart';
 import '../../utils/colors.dart';
@@ -155,10 +154,8 @@ class DashboardScreen extends GetView<HomeController> {
                                         ),
                                         Text(
                                           '10 : 00 PM',
-                                          style: AppTheme
-                                              .appTheme.textTheme.bodySmall!
-                                              .copyWith(
-                                            fontSize: scale.getScaledFont(12),
+                                          style: AppTheme.appTheme.textTheme.bodySmall!.copyWith(
+                                            fontSize: scale.getScaledFont(10),
                                           ),
                                         ),
                                         SizedBox(
@@ -166,19 +163,15 @@ class DashboardScreen extends GetView<HomeController> {
                                         ),
                                         Text(
                                           "Last Taken at",
-                                          style: AppTheme
-                                              .appTheme.textTheme.bodySmall!
-                                              .copyWith(
+                                          style: AppTheme.appTheme.textTheme.bodySmall!.copyWith(
                                             color: Colors.black,
                                             fontSize: scale.getScaledFont(12),
                                           ),
                                         ),
                                         Text(
                                           '10 : 00 PM',
-                                          style: AppTheme
-                                              .appTheme.textTheme.bodySmall!
-                                              .copyWith(
-                                            fontSize: scale.getScaledFont(12),
+                                          style: AppTheme.appTheme.textTheme.bodySmall!.copyWith(
+                                            fontSize: scale.getScaledFont(10),
                                           ),
                                         ),
                                         Text(

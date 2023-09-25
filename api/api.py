@@ -250,6 +250,26 @@ class nearbyhealthcare(Resource):
 
 api.add_resource(nearbyhealthcare,"/nearbyHealthcare")
 
+
+#Get HealthcareCenter by Id
+class getHealthcareCenterById(Resource):
+    def get(self, id):
+        data = list(hospital.find({"id":id}))
+        if data:
+            data=remove_id(data)
+            return jsonify({
+                "status": True,
+                "data": data[0]
+            })
+        else:
+            return jsonify({
+                "status": False,
+                "message": "Hospital not found"
+            })
+
+api.add_resource(getHealthcareCenterById,"/getHealthcareCenterById/<string:id>")
+
+
 class sympcomplete(Resource):
     def post(self):
         args=complete_arg.parse_args()
@@ -273,10 +293,10 @@ class get_doctor_by_hid(Resource):
         else:
             return jsonify({
                 "status": False,
-                "message": "healthcare not found"
+                "message": "No doctors found"
             })
 
-api.add_resource(get_doctor_by_hid,"/doctor/<string:id>")
+api.add_resource(get_doctor_by_hid,"/get_doctors_by_hid/<string:id>")
 
 class doctor_status_update(Resource):
     def put(self):

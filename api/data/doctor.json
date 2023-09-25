@@ -4,16 +4,16 @@
         "available": true,
         "id": "1",
         "specialty": "General Practitioner",
-        "health_care_id": "1",
+        "health_care_id": "123456789",
         "cost": "1000",
         "timings": "10:00 AM - 12:00 PM"
     },
     {
         "doctor_name": "Dr. Priya Sharma",
         "available": true,
-        "id": "2",
+        "id": "123456789",
         "specialty": "General Practitioner",
-        "health_care_id": "1",
+        "health_care_id": "123456789",
         "cost": "1000",
         "timings": "10:00 AM - 12:00 PM"
     },
@@ -22,7 +22,7 @@
         "available": true,
         "id": "3",
         "specialty": "General Practitioner",
-        "health_care_id": "1",
+        "health_care_id": "123456789",
         "cost": "1000",
         "timings": "10:00 AM - 12:00 PM"
     },
@@ -31,7 +31,7 @@
         "available": true,
         "id": "4",
         "specialty": "General Practitioner",
-        "health_care_id": "1",
+        "health_care_id": "123456789",
         "cost": "1000",
         "timings": "10:00 AM - 12:00 PM"
     },
@@ -40,7 +40,7 @@
         "available": true,
         "id": "5",
         "specialty": "Cardiologist",
-        "health_care_id": "2",
+        "health_care_id": "123456789",
         "cost": "1500",
         "timings": "2:00 PM - 4:00 PM"
     },
@@ -49,7 +49,7 @@
         "available": true,
         "id": "6",
         "specialty": "Dermatologist",
-        "health_care_id": "2",
+        "health_care_id": "123456789",
         "cost": "1200",
         "timings": "3:00 PM - 5:00 PM"
     },
@@ -58,7 +58,7 @@
         "available": false,
         "id": "7",
         "specialty": "Pediatrician",
-        "health_care_id": "2",
+        "health_care_id": "123456789",
         "cost": "800",
         "timings": "9:00 AM - 11:00 AM"
     },

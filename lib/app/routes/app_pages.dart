@@ -74,7 +74,7 @@ class AppPages {
     /// Healthcare Screen
     GetPage(
       name: Routes.healthCenterScreen,
-      page: ()=>const HealthcareCenterDetailScreen(),
+      page: ()=> const HealthcareCenterDetailScreen(),
       binding: HealthcareBinding(),
     ),
 

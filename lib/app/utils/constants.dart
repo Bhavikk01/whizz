@@ -46,7 +46,7 @@ class ConstantData {
   static const locationIcon = 'assets/icons/location.svg';
   static const timeIcon = 'assets/icons/time_svg.svg';
   static const hospitalIcon = 'assets/icons/hospital_svg.svg';
-  static const backArrow = 'assets/icons/back_icon.png';
+  static const backArrow = 'assets/icons/back_icon.svg';
   static const googleIcon = 'assets/images/google_icon.png';
   static const userAvatar = 'assets/images/user_avatar.png';
   static const menuIcon = 'assets/icons/menu_icon.png';
