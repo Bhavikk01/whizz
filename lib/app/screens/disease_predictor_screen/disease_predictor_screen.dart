@@ -34,6 +34,8 @@ class DiseasePredictorScreen extends GetView<PredictorController> {
             ),
           ),
           SliverFillRemaining(
+            hasScrollBody: true,
+            fillOverscroll: true,
             child: Container(
               padding: scale.getPadding(left: 10, right: 10, top: 20),
               child: Column(
