@@ -65,21 +65,20 @@ class DiseasePredictionScreen extends GetView<DiseasePredictionController> {
                                   ),
 
                                   child: Text(controller.selectedList[index]),
-                                ))
-                        ),
+                                ))),
                   ),
                   SizedBox(
                     height: scale.getScaledHeight(15),
                   ),
                   CustomSearchField(
                     controller: controller.controller,
-                    onClose:() {
+                    onClose: () {
                       controller.foundDisease.value = [''];
                     },
                     onChange: (String disease) {
-                      if (disease.isEmpty){
+                      if (disease.isEmpty) {
                         controller.foundDisease.value = [''];
-                      }else{
+                      } else {
                         controller.searchDisease(disease);
                       }
                     },
@@ -89,46 +88,51 @@ class DiseasePredictionScreen extends GetView<DiseasePredictionController> {
                   SizedBox(
                     height: scale.getScaledHeight(20),
                   ),
-                  Obx(
-                    () => controller.foundDisease.length>1? Container(
-                      // width: scale.getScaledWidth(350),
-                      height: scale.getScaledHeight(200),
-                      decoration: ShapeDecoration(
-                        color: Color(0x3DD9D9D9),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                      ),
-                      child: Expanded(
+                  Obx(() => controller.foundDisease.length > 1
+                      ? Container(
+                          width: scale.getScaledWidth(350),
+                          height: scale.getScaledHeight(200),
+                          decoration: ShapeDecoration(
+                            color: Color(0x3DD9D9D9),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
                           child: Obx(() => controller.containsDisease.value
-                              ? ListView.builder(
-                                  itemCount: controller.foundDisease.length,
-                                  itemBuilder: (context, index) {
-                                    return Wrap(
-                                        runSpacing: scale.getScaledHeight(20),
-                                        crossAxisAlignment: WrapCrossAlignment.center,
-                                        spacing: scale.getScaledWidth(15),
-                                        children: List.generate(
-                                            controller.foundDisease.length,
-                                                (index) => Container(
-                                              // width: scale.getScaledWidth(50),
-                                              padding: scale.getPadding(
-                                                  horizontal: 10, vertical: 10),
-                                              decoration: ShapeDecoration(
-                                                color: Color(0x89D1D1D6),
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.circular(20),
+                              ? SingleChildScrollView(
+                                  scrollDirection: Axis.vertical,
+                                  child: Wrap(
+                                      runSpacing: scale.getScaledHeight(20),
+                                      crossAxisAlignment:
+                                          WrapCrossAlignment.center,
+                                      spacing: scale.getScaledWidth(15),
+                                      children: List.generate(
+                                          controller.foundDisease.length,
+                                          (index) => Container(
+                                                // width: scale.getScaledWidth(50),
+                                                padding: scale.getPadding(
+                                                    horizontal: 10,
+                                                    vertical: 10),
+                                                decoration: ShapeDecoration(
+                                                  color: Color(0x89D1D1D6),
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20),
+                                                  ),
                                                 ),
-                                              ),
 
-                                              child: Text(controller.foundDisease[index]),
-                                            ))
-                                    );
-                                  },
+                                                child: Text(controller
+                                                    .foundDisease[index]),
+                                              ))),
                                 )
-                              : Container(height: -10,))),
-                    ):Container(height: null,)
-                  ),
+                              : Container(
+                                  height: -10,
+                                )),
+                        )
+                      : Container(
+                          height: null,
+                        )),
                 ],
               ),
             ),
