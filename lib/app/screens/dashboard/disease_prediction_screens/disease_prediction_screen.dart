@@ -101,30 +101,33 @@ class DiseasePredictionScreen extends GetView<DiseasePredictionController> {
                           child: Obx(() => controller.containsDisease.value
                               ? SingleChildScrollView(
                                   scrollDirection: Axis.vertical,
-                                  child: Wrap(
-                                      runSpacing: scale.getScaledHeight(20),
-                                      crossAxisAlignment:
-                                          WrapCrossAlignment.center,
-                                      spacing: scale.getScaledWidth(15),
-                                      children: List.generate(
-                                          controller.foundDisease.length,
-                                          (index) => Container(
-                                                // width: scale.getScaledWidth(50),
-                                                padding: scale.getPadding(
-                                                    horizontal: 10,
-                                                    vertical: 10),
-                                                decoration: ShapeDecoration(
-                                                  color: Color(0x89D1D1D6),
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20),
+                                  child: Padding(
+                                    padding: scale.getPadding(top: 10),
+                                    child: Wrap(
+                                        runSpacing: scale.getScaledHeight(20),
+                                        crossAxisAlignment:
+                                            WrapCrossAlignment.center,
+                                        spacing: scale.getScaledWidth(15),
+                                        children: List.generate(
+                                            controller.foundDisease.length,
+                                            (index) => Container(
+                                                  // width: scale.getScaledWidth(50),
+                                                  padding: scale.getPadding(
+                                                      horizontal: 10,
+                                                      vertical: 10),
+                                                  decoration: ShapeDecoration(
+                                                    color: Color(0x89D1D1D6),
+                                                    shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20),
+                                                    ),
                                                   ),
-                                                ),
 
-                                                child: Text(controller
-                                                    .foundDisease[index]),
-                                              ))),
+                                                  child: Text(controller
+                                                      .foundDisease[index]),
+                                                ))),
+                                  ),
                                 )
                               : Container(
                                   height: -10,
