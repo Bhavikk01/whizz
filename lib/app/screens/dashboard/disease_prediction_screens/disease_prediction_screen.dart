@@ -110,22 +110,31 @@ class DiseasePredictionScreen extends GetView<DiseasePredictionController> {
                                         spacing: scale.getScaledWidth(15),
                                         children: List.generate(
                                             controller.foundDisease.length,
-                                            (index) => Container(
-                                                  // width: scale.getScaledWidth(50),
-                                                  padding: scale.getPadding(
-                                                      horizontal: 10,
-                                                      vertical: 10),
-                                                  decoration: ShapeDecoration(
-                                                    color: Color(0x89D1D1D6),
-                                                    shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20),
+                                            (index) => InkWell(
+                                                  onTap: () {
+                                                    controller.selectedList.add(
+                                                        controller
+                                                                .foundDisease[
+                                                            index]);
+                                                  },
+                                                  child: Container(
+                                                    // width: scale.getScaledWidth(50),
+                                                    padding: scale.getPadding(
+                                                        horizontal: 10,
+                                                        vertical: 10),
+                                                    decoration: ShapeDecoration(
+                                                      color: Color(0x89D1D1D6),
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(20),
+                                                      ),
                                                     ),
-                                                  ),
 
-                                                  child: Text(controller
-                                                      .foundDisease[index]),
+                                                    child: Text(controller
+                                                        .foundDisease[index]),
+                                                  ),
                                                 ))),
                                   ),
                                 )
