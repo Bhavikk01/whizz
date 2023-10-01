@@ -1,3 +1,4 @@
+import 'package:Whizz/app/screens/dashboard/disease_prediction_screens/controller/disease_prediction_controller.dart';
 import 'package:Whizz/app/screens/health_care/appointment/appointment_screen.dart';
 import 'package:Whizz/app/screens/health_care/appointment/controller/appointment_controller.dart';
 import 'package:Whizz/app/screens/health_care/doctor_panel/controller/doctor_panel_controller.dart';
@@ -39,7 +40,8 @@ Future<void> main() async {
   // Get.put<AuthServices>(AuthServices());
   // Get.put(BottomNavBarController());
   // Get.put(HomeController());
-  Get.put(AppointmentController());
+  // Get.put(AppointmentController());
+  Get.put(DiseasePredictionController());
 
   runApp(const TempApp());
 }
