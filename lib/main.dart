@@ -61,7 +61,7 @@ class _SplashScreenState extends State<SplashScreen> {
             ? UserStore.to.profile.userProfile == 'Doctor'
             ? Routes.doctorHomePage
             : UserStore.to.profile.id == null
-            ? Routes.userProfileDetails
+            ? Routes.loginWithEmail
             : Routes.home
             : Routes.loginWithEmail,
       );
