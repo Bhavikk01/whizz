@@ -1,12 +1,3 @@
-import 'package:Whizz/app/screens/health_care/appointment/appointment_screen.dart';
-import 'package:Whizz/app/screens/health_care/appointment/controller/appointment_controller.dart';
-import 'package:Whizz/app/screens/health_care/doctor_panel/controller/doctor_panel_controller.dart';
-import 'package:Whizz/app/screens/home/controllers/home_controller.dart';
-import 'package:Whizz/app/screens/home/home_screen.dart';
-import 'package:Whizz/tempMain.dart';
-
-// import 'package:Whizz/app/screens/medical_records/controllers/medical_report_controller.dart';
-// import 'package:Whizz/app/screens/medical_records/medical_report_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -19,10 +10,6 @@ import 'package:Whizz/app/utils/constants.dart';
 import 'app/API/api_client.dart';
 import 'app/global_controllers/bottom_nav_controller.dart';
 import 'app/routes/app_pages.dart';
-import 'app/screens/dashboard/dashboard_screen.dart';
-import 'app/screens/health_care/doctor_panel/doctor_panel_screen.dart';
-import 'app/screens/health_care/search_healthcare/controller/search_healthcare_controller.dart';
-import 'app/screens/health_care/search_healthcare/search_healthcare_screen.dart';
 import 'app/services/storage.dart';
 import 'app/services/user.dart';
 import 'app/utils/scale_utility.dart';
@@ -33,15 +20,13 @@ Future<void> main() async {
   Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  // await Get.putAsync<StorageService>(() => StorageService().init());
-  // Get.put<ApiClient>(ApiClient());
-  // Get.put<UserStore>(UserStore());
-  // Get.put<AuthServices>(AuthServices());
-  // Get.put(BottomNavBarController());
-  // Get.put(HomeController());
-  Get.put(AppointmentController());
+  await Get.putAsync<StorageService>(() => StorageService().init());
+  Get.put<ApiClient>(ApiClient());
+  Get.put<UserStore>(UserStore());
+  Get.put<AuthServices>(AuthServices());
+  Get.put(BottomNavBarController());
 
-  runApp(const TempApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -53,7 +38,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       theme: AppTheme.appTheme,
       title: "Application",
-      home: AppointMentScreen(),
+      home: const SplashScreen(),
       getPages: AppPages.routes,
       debugShowCheckedModeBanner: false,
     );
@@ -72,7 +57,14 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     Future.delayed(const Duration(seconds: 7), () {
       Get.offAllNamed(
-          UserStore.to.uid.isNotEmpty ? Routes.home : Routes.loginWithEmail);
+        UserStore.to.uid.isNotEmpty
+            ? UserStore.to.profile.userProfile == 'Doctor'
+            ? Routes.doctorHomePage
+            : UserStore.to.profile.id == null
+            ? Routes.userProfileDetails
+            : Routes.home
+            : Routes.loginWithEmail,
+      );
     });
     super.initState();
   }

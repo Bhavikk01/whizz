@@ -73,6 +73,7 @@ class UserAddress {
   final String? country;
   final String? state;
   final String? city;
+  final String? street;
   final double? longitude;
   final double? latitude;
 
@@ -80,6 +81,7 @@ class UserAddress {
     this.country,
     this.state,
     this.city,
+    this.street,
     this.longitude,
     this.latitude,
   });
@@ -88,6 +90,7 @@ class UserAddress {
     String? country,
     String? state,
     String? city,
+    String? street,
     double? longitude,
     double? latitude,
   }) {
@@ -95,6 +98,7 @@ class UserAddress {
       country: country ?? this.country,
       state: state ?? this.state,
       city: city ?? this.city,
+      street: street ?? this.street,
       longitude: longitude ?? this.longitude,
       latitude: latitude ?? this.latitude,
     );
@@ -104,12 +108,14 @@ class UserAddress {
       : country = json['country'] as String?,
         state = json['state'] as String?,
         city = json['city'] as String?,
+        street = json['street'] as String?,
         longitude = json['longitude'] as double?,
         latitude = json['latitude'] as double?;
 
   Map<String, dynamic> toJson() => {
     'country' : country,
     'state' : state,
+    'street' : street,
     'city' : city,
     'longitude' : longitude,
     'latitude' : latitude

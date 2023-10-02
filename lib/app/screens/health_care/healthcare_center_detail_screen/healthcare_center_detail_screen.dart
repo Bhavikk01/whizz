@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:Whizz/app/utils/app_theme.dart';
 import 'package:Whizz/app/utils/colors.dart';
 import 'package:Whizz/app/widgets/custom_icon_button.dart';
+import '../../../routes/app_pages.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/scale_utility.dart';
 import '../../../widgets/custom_search_field.dart';
@@ -284,7 +285,9 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
                         ),
                       ),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.toNamed(Routes.doctorAppointment);
+                        },
                         style: ElevatedButton.styleFrom(
                           padding: scale.getPadding(horizontal: 15),
                           backgroundColor: doctor.available!

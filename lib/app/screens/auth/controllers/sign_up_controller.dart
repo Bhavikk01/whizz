@@ -16,49 +16,11 @@ import '../../../utils/custom_bottom_snackbar.dart';
 class SignUpController extends GetxController {
   late RxString dob;
   TextEditingController otpController = TextEditingController();
-  TextEditingController dobController = TextEditingController();
-  TextEditingController ageController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
-  TextEditingController userCountryController = TextEditingController();
-  TextEditingController userStateController = TextEditingController();
-  TextEditingController userCityController = TextEditingController();
-  TextEditingController userGenderController = TextEditingController();
-
-  Rx<String> userCountry = ''.obs;
-  Rx<String> userProfile = ''.obs;
-  Rx<String> userState = ''.obs;
-  Rx<String> userCity = ''.obs;
-
-  @override
-  void onInit() {
-    // TODO: implement onInit
-    super.onInit();
-    dob = "".obs;
-  }
-
-  void dobOnTap() async {
-    DateTime? pickedDate = await showDatePicker(
-      context: Get.context!,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(1950),
-      lastDate: DateTime.now(),
-    );
-    if (pickedDate != null) {
-      dob.value = DateFormat('dd-MM-yyyy').format(pickedDate);
-      dobController.text = dob.value;
-    }
-  }
-
-  pickUserImage(source) async {
-    var file = await ImagePicker().pickImage(source: source);
-    if(file != null){
-      userProfile.value = file.path;
-    }
-  }
 
   uploadUserData(ScalingUtility scale, context) async {
     try{
@@ -143,13 +105,13 @@ class SignUpController extends GetxController {
                         otpController.text,
                         UserModel(
                           userAddress: UserAddress(
-                            country: userCountry.value,
-                            state: userState.value,
-                            city: userCity.value,
+                            country: '',
+                            state: '',
+                            city: '',
                             longitude: 0,
                             latitude: 0,
                           ),
-                          dOB: dobController.text,
+                          dOB: '',
                           age: 0,
                           email: emailController.text,
                           password: passwordController.text,

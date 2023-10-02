@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/scale_utility.dart';
 
-class DoctorScreen extends GetView<DoctorScreenController> {
-  const DoctorScreen({Key? key}) : super(key: key);
+class DoctorHomeScreen extends GetView<DoctorScreenController> {
+  const DoctorHomeScreen({Key? key}) : super(key: key);
 
 
   @override
