@@ -153,6 +153,7 @@ class _DiseaseReportScreenState extends State<DiseaseReportScreen> {
             ],
           )),
           SliverFillRemaining(
+            hasScrollBody: false,
             child: Container(
               margin: scale.getMargin(left: 20),
               child: Column(
