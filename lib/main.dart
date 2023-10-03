@@ -6,8 +6,8 @@ import 'package:Whizz/app/screens/home/controllers/home_controller.dart';
 import 'package:Whizz/app/screens/home/home_screen.dart';
 import 'package:Whizz/tempMain.dart';
 
-// import 'package:Whizz/app/screens/medical_records/controllers/medical_report_controller.dart';
-// import 'package:Whizz/app/screens/medical_records/medical_report_screen.dart';
+// import 'package:Whizz/app/screens/medical_records/controllers/disease_report_controller.dart';
+// import 'package:Whizz/app/screens/medical_records/disease_report_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -21,6 +21,7 @@ import 'app/API/api_client.dart';
 import 'app/global_controllers/bottom_nav_controller.dart';
 import 'app/routes/app_pages.dart';
 import 'app/screens/dashboard/dashboard_screen.dart';
+import 'app/screens/dashboard/disease_report_screen/disease_report_screen.dart';
 import 'app/screens/health_care/doctor_panel/doctor_panel_screen.dart';
 import 'app/screens/health_care/search_healthcare/controller/search_healthcare_controller.dart';
 import 'app/screens/health_care/search_healthcare/search_healthcare_screen.dart';
@@ -55,7 +56,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       theme: AppTheme.appTheme,
       title: "Application",
-      home: AppointMentScreen(),
+      home: DiseaseReportScreen(),
       getPages: AppPages.routes,
       debugShowCheckedModeBanner: false,
     );
