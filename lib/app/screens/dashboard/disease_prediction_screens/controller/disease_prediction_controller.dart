@@ -7,7 +7,7 @@ class DiseasePredictionController extends GetxController {
   List<String> predictedDiseaseList = ["A", "ABC", "QQ", "OPLA"];
 
   // List<String> selectedList = [];
-  RxList<String> selectedList = [''].obs;
+  RxList<dynamic> selectedList = [].obs;
 
   List<String> diseaseList = [
     'itching',

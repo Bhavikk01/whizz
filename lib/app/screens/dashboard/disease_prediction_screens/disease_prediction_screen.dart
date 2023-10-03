@@ -46,13 +46,15 @@ class DiseasePredictionScreen extends GetView<DiseasePredictionController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Obx(
-                    () => Wrap(
+                  controller.selectedList?.value==null?SliverToBoxAdapter(child: Container(),):Obx(
+                      ()=>Wrap(
                         runSpacing: scale.getScaledHeight(20),
                         crossAxisAlignment: WrapCrossAlignment.center,
                         spacing: scale.getScaledWidth(15),
+                        direction: Axis.horizontal,
                         children: List.generate(
-                            controller.selectedList.length,
+
+                            controller.selectedList!.value!.length,
                             (index) => Container(
                                   // width: scale.getScaledWidth(50),
                                   padding: scale.getPadding(
@@ -64,9 +66,10 @@ class DiseasePredictionScreen extends GetView<DiseasePredictionController> {
                                     ),
                                   ),
 
-                                  child: Text(controller.selectedList[index]),
+                                  child: Text(controller.selectedList[index]!),
                                 ))),
                   ),
+
                   SizedBox(
                     height: scale.getScaledHeight(15),
                   ),
@@ -112,7 +115,7 @@ class DiseasePredictionScreen extends GetView<DiseasePredictionController> {
                                             controller.foundDisease.length,
                                             (index) => InkWell(
                                                   onTap: () {
-                                                    controller.selectedList.add(
+                                                    controller.selectedList?.value?.add(
                                                         controller
                                                                 .foundDisease[
                                                             index]);
