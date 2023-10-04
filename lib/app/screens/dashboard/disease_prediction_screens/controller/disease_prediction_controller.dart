@@ -182,10 +182,10 @@ class DiseasePredictionController extends GetxController {
 
 
         }, onError: (err) {
-      // customSnackBar(
-      //   type: AnimatedSnackBarType.error,
-      //   message: '${err.body['error']}',
-      // );
+      customSnackBar(
+        type: AnimatedSnackBarType.error,
+        message: '${err.body['error']}',
+      );
 
     }, diseaseList: selectedList);
   }
