@@ -6,11 +6,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../../../../API/api_client.dart';
+import '../../../../routes/app_pages.dart';
 import '../../../../utils/custom_bottom_snackbar.dart';
 
 class DiseasePredictionController extends GetxController {
   TextEditingController controller = TextEditingController();
-  // ['stomach_pain','joint_pain','acidity', 'anxiety'].obs;
   RxList<dynamic> askDiseaseList = [].obs;
   RxList<dynamic> selectedList = [].obs;
   List<String> diseaseList = [
@@ -155,22 +155,9 @@ class DiseasePredictionController extends GetxController {
   void onInit() async {
 
     super.onInit();
-    askDiseaseList.value = ['stomach_pain','joint_pain','acidity', 'anxiety'];
+    askDiseaseList.value = [];
   }
 
-  void searchDisease(String enteredDisease) {
-    List<String> results = [];
-
-    if (enteredDisease.isEmpty) {
-      results = diseaseList;
-    } else {
-      results = diseaseList
-          .where((element) => element.toLowerCase().contains(enteredDisease))
-          .toList();
-      containsDisease.value = true;
-      foundDisease.value = results;
-    }
-  }
 
   askSymptoms() async {
 
@@ -194,9 +181,7 @@ class DiseasePredictionController extends GetxController {
     if(selectedList.isNotEmpty)
       {
         UserStore.to.symptoms= selectedList;
-       // todo Navigate
-        // Get.toNamed()
-
+        Get.toNamed(Routes.disease);
       }
     else{
       customSnackBar(type: AnimatedSnackBarType.warning,message: "Please select disease");

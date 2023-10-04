@@ -1,6 +1,7 @@
 import 'package:Whizz/app/screens/dashboard/dashboard_screen.dart';
 import 'package:Whizz/app/screens/dashboard/disease_prediction_screens/binding/disease_prediction_binding.dart';
 import 'package:Whizz/app/screens/dashboard/disease_prediction_screens/disease_prediction_screen.dart';
+import 'package:Whizz/app/screens/dashboard/disease_report_screen/disease_report_screen.dart';
 import 'package:get/get.dart';
 import 'package:Whizz/app/screens/auth/bindings/auth_binding.dart';
 import 'package:Whizz/app/screens/auth/sign_up_screen.dart';
@@ -11,6 +12,7 @@ import 'package:Whizz/app/screens/health_care/healthcare_center_detail_screen/he
 import '../screens/auth/bindings/sign_up_binding.dart';
 import '../screens/auth/forgot_password.dart';
 import '../screens/auth/login_with_email.dart';
+import '../screens/dashboard/disease_report_screen/disease_report_binding/disease_report_binding.dart';
 import '../screens/dashboard/reports/binding/user_reports_binding.dart';
 import '../screens/dashboard/reports/user_reports_screen.dart';
 import '../screens/home/bindings/home_binding.dart';
@@ -69,6 +71,11 @@ class AppPages {
       name: Routes.diseaseRecommendation,
       page: ()=> const DiseasePredictionScreen(),
       binding: DiseasePredictionBinding(),
+    ),
+    GetPage(
+      name: Routes.disease,
+      page: ()=> const DiseaseReportScreen(),
+      binding: DiseaseReportBinding(),
     ),
 
     /// Healthcare Screen

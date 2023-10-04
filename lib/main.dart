@@ -1,4 +1,5 @@
 import 'package:Whizz/app/screens/dashboard/disease_prediction_screens/controller/disease_prediction_controller.dart';
+import 'package:Whizz/app/screens/dashboard/disease_prediction_screens/disease_prediction_screen.dart';
 import 'package:Whizz/app/screens/dashboard/disease_report_screen/controller/disease_report_controller.dart';
 import 'package:Whizz/app/screens/health_care/appointment/appointment_screen.dart';
 import 'package:Whizz/app/screens/health_care/appointment/controller/appointment_controller.dart';
@@ -45,8 +46,7 @@ Future<void> main() async {
   // Get.put(AppointmentController());
   Get.put(ApiClient());
   Get.put(DiseasePredictionController());
-  Get.put(DiseaseReportController());
-  runApp(const TempApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       theme: AppTheme.appTheme,
       title: "Application",
-      home: DiseaseReportScreen(),
+      home: DiseasePredictionScreen(),
       getPages: AppPages.routes,
       debugShowCheckedModeBanner: false,
     );
