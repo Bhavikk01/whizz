@@ -357,7 +357,9 @@ class DashboardScreen extends GetView<HomeController> {
                                   ),
                                 ),
                                 ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Get.toNamed(Routes.diseaseRecommendation);
+                                  },
                                   style: ElevatedButton.styleFrom(
                                     textStyle: TextStyle(
                                       fontSize: scale.getScaledFont(14),
