@@ -35,7 +35,8 @@ class ApiClient extends GetConnect implements GetxService {
         '$err',
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       );
-      return Response(statusCode: 404, body: {'status': false, 'error': '$err'});
+      return Response(
+          statusCode: 404, body: {'status': false, 'error': '$err'});
     }
   }
 
@@ -118,11 +119,13 @@ class ApiClient extends GetConnect implements GetxService {
       {required Function(Response res) onSuccess,
       required Function(Response error) onError,
       required UserAddress userAddress}) async {
-    try{
+    try {
       if (searchMode == SearchByAddress.city) {
         var countryCode = ConstantData.countryMap[userAddress.country];
-        var cityCode = ConstantData.cityMap[userAddress.state]!.firstWhere((element) => element['name'] == userAddress.city);
-        var stateCode = ConstantData.stateMap[userAddress.country]!.firstWhere((element) => element['name'] == userAddress.state);
+        var cityCode = ConstantData.cityMap[userAddress.state]!
+            .firstWhere((element) => element['name'] == userAddress.city);
+        var stateCode = ConstantData.stateMap[userAddress.country]!
+            .firstWhere((element) => element['name'] == userAddress.state);
         log('--------------Calling API: ${ApiRoutes.baseUrl}nearbyHealthcare?country=$countryCode&state=${stateCode['state_code']}&city=${cityCode['id']} ---------------');
         Response res = await httpClient.get(
           '${ApiRoutes.baseUrl}nearbyHealthcare?country=$countryCode&state=${stateCode['state_code']}&city=${cityCode['id']}',
@@ -142,7 +145,8 @@ class ApiClient extends GetConnect implements GetxService {
         }
       } else if (searchMode == SearchByAddress.state) {
         var countryCode = ConstantData.countryMap[userAddress.country];
-        var stateCode = ConstantData.stateMap[userAddress.country]!.firstWhere((element) => element['name'] == userAddress.state);
+        var stateCode = ConstantData.stateMap[userAddress.country]!
+            .firstWhere((element) => element['name'] == userAddress.state);
         log('--------------Calling API: ${ApiRoutes.baseUrl}nearbyHealthcare?country=$countryCode&state=${stateCode['state_code']} ---------------');
         Response res = await httpClient.get(
           '${ApiRoutes.baseUrl}nearbyHealthcare?country=$countryCode&state=${stateCode['state_code']}',
@@ -160,7 +164,7 @@ class ApiClient extends GetConnect implements GetxService {
             ),
           );
         }
-      }else{
+      } else {
         var countryCode = ConstantData.countryMap[userAddress.country];
         log('--------------Calling API: ${ApiRoutes.baseUrl}nearbyHealthcare?country=$countryCode ---------------');
         Response res = await httpClient.get(
@@ -180,7 +184,7 @@ class ApiClient extends GetConnect implements GetxService {
           );
         }
       }
-    }catch(err){
+    } catch (err) {
       onError(
         Response(
           statusCode: 404,
@@ -190,9 +194,10 @@ class ApiClient extends GetConnect implements GetxService {
     }
   }
 
-  getAllPillsReminder({required Function(Response res) onSuccess,
-        required Function(Response error) onError}) async {
-    try{
+  getAllPillsReminder(
+      {required Function(Response res) onSuccess,
+      required Function(Response error) onError}) async {
+    try {
       log('--------------Calling API: ${ApiRoutes.baseUrl}user/getUserPills/${UserStore.to.uid} ---------------');
       Response res = await httpClient.get(
         '${ApiRoutes.baseUrl}user/getUserPills/${UserStore.to.uid}',
@@ -210,7 +215,7 @@ class ApiClient extends GetConnect implements GetxService {
           ),
         );
       }
-    }catch(err){
+    } catch (err) {
       onError(
         Response(
           statusCode: 404,
@@ -219,4 +224,85 @@ class ApiClient extends GetConnect implements GetxService {
       );
     }
   }
+
+  Future<dynamic> askDisease(
+      {required Function(Response res) onSuccess,
+      required Function(Response error) onError,
+      required List<dynamic> diseaseList}) async {
+
+    String askList = diseaseList.join('-');
+    try {
+      log('--------------Calling API: Ask Disease   ---------------');
+      Response res = await httpClient.post(
+        '${ApiRoutes.baseUrl}ask/',
+        body: {"selection": askList},
+      );
+      log('================================ Data Received ==========================================');
+      log(res.body.toString());
+      log('================================ Finishing API Call =====================================');
+
+      if (validateResponse(res)) {
+        onSuccess(res);
+      }
+      else{
+        onError(
+          Response(
+            statusCode: res.statusCode,
+            body: {'error': 'Unhealthy Response'},
+          ),
+        );
+      }
+    }catch (err) {
+
+      onError(
+        Response(
+          statusCode: 404,
+          body: {'error': '$err'},
+        ),
+      );
+    }
+  }
+
+
+
+  predictDisease({required Function(Response res) onSuccess,
+    required Function(Response error) onError,
+    required List<dynamic> symptoms}) async{
+
+    String predictList = symptoms.join('-');
+    try {
+      log('--------------Calling API: Predict Disease   ---------------');
+      Response res = await httpClient.post(
+        '${ApiRoutes.baseUrl}predict/',
+        body: {"symptoms": predictList},
+      );
+      log('================================ Data Received ==========================================');
+      log(res.body.toString());
+      log('================================ Finishing API Call =====================================');
+
+      if (validateResponse(res)) {
+        onSuccess(res);
+      }
+      else{
+        onError(
+          Response(
+            statusCode: res.statusCode,
+            body: {'error': 'Unhealthy Response'},
+          ),
+        );
+      }
+    }catch (err) {
+
+      onError(
+        Response(
+          statusCode: 404,
+          body: {'error': '$err'},
+        ),
+      );
+    }
+
+  }
+
+
+
 }

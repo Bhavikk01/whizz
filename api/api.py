@@ -234,5 +234,11 @@ api.add_resource(sympcomplete,"/sympcomplete")
 
 if __name__ == '__main__':
     #uncomment this when using with flutter
-    app.run(host = '192.168.29.6',port = 5000, debug=True)
+    app.run(host = '192.168.29.244',port = 5000, debug=True)
 #     app.run(debug=True)
+"""
+ todo
+ Change the current ip address
+ 192.168.29.255
+
+ """

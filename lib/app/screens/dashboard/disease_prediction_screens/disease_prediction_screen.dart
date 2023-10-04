@@ -25,6 +25,10 @@ class DiseasePredictionScreen extends GetView<DiseasePredictionController> {
             // pinned: true,
             collapsedHeight: scale.getScaledHeight(100),
             expandedHeight: scale.getScaledHeight(110),
+            actions: [
+              TextButton(onPressed: controller.onClickPredictButton, child: Text("Predict")),
+              // SizedBox(width: scale.getScaledWidth(5),)
+            ],
             flexibleSpace: FlexibleSpaceBar(
               background: Container(
                 decoration: BoxDecoration(
@@ -36,7 +40,72 @@ class DiseasePredictionScreen extends GetView<DiseasePredictionController> {
               ),
               title: Text("Disease Predictor"),
               centerTitle: true,
-              titlePadding: EdgeInsets.only(bottom: scale.getScaledHeight(43)),
+              titlePadding: EdgeInsets.only(bottom: scale.getScaledHeight(30)),
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Container(
+              padding: scale.getPadding(left: 10, right: 10, top: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // SizedBox(
+                  //   height: scale.getScaledHeight(20),
+                  // ),
+                  Text(
+                    'You may have these symptoms',
+                    style: TextStyle(
+                      color: Color(0x4F1A203D),
+                      fontSize: scale.getScaledHeight(18),
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  SizedBox(
+                    height: scale.getScaledHeight(20),
+                  ),
+                  Obx(
+                        ()=>Wrap(
+                        runSpacing: scale.getScaledHeight(20),
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        spacing: scale.getScaledWidth(15),
+                        children: List.generate(
+                            controller.askDiseaseList.length,
+                                (index) => GestureDetector(
+                              onTap: () async{
+
+                                controller.selectedList.add(
+                                    controller.askDiseaseList[index]);
+                                controller.selectedList.value = controller.selectedList.toSet().toList();
+                                await controller.askSymptoms();
+
+                              },
+                              child: Container(
+                                // width: scale.getScaledWidth(50),
+                                padding: scale.getPadding(
+                                    horizontal: 10, vertical: 10),
+                                decoration: ShapeDecoration(
+                                  color: Color(0x89D1D1D6),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                ),
+
+                                child: Text(
+                                    controller.askDiseaseList[index]),
+                              ),
+                            ))
+                      // Container(height: 10,width: 30,color: Colors.black,),
+                      // Container(height: 10,width: 30,color: Colors.orange,),
+
+                    ),
+                  ),
+                  SizedBox(
+                    height: scale.getScaledHeight(20),
+                  ),
+                  Divider(indent: 100,endIndent: 100,thickness: 2,)
+                ],
+              ),
             ),
           ),
           SliverToBoxAdapter(
@@ -46,7 +115,7 @@ class DiseasePredictionScreen extends GetView<DiseasePredictionController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  controller.selectedList?.value==null?SliverToBoxAdapter(child: Container(),):Obx(
+                  controller.selectedList.value==null?SliverToBoxAdapter(child: Container(),):Obx(
                       ()=>Wrap(
                         runSpacing: scale.getScaledHeight(20),
                         crossAxisAlignment: WrapCrossAlignment.center,
@@ -114,11 +183,13 @@ class DiseasePredictionScreen extends GetView<DiseasePredictionController> {
                                         children: List.generate(
                                             controller.foundDisease.length,
                                             (index) => InkWell(
-                                                  onTap: () {
-                                                    controller.selectedList?.value?.add(
+                                                  onTap: () async{
+                                                    controller.selectedList.add(
                                                         controller
                                                                 .foundDisease[
                                                             index]);
+                                                    controller.selectedList.value = controller.selectedList.toSet().toList();
+                                                    await controller.askSymptoms();
                                                   },
                                                   child: Container(
                                                     // width: scale.getScaledWidth(50),
@@ -152,66 +223,7 @@ class DiseasePredictionScreen extends GetView<DiseasePredictionController> {
               ),
             ),
           ),
-          SliverToBoxAdapter(
-            child: Container(
-              padding: scale.getPadding(left: 10, right: 10, top: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // SizedBox(
-                  //   height: scale.getScaledHeight(20),
-                  // ),
-                  Text(
-                    'You may have these symptoms',
-                    style: TextStyle(
-                      color: Color(0x4F1A203D),
-                      fontSize: scale.getScaledHeight(18),
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  SizedBox(
-                    height: scale.getScaledHeight(20),
-                  ),
-                  Wrap(
-                      runSpacing: scale.getScaledHeight(20),
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      spacing: scale.getScaledWidth(15),
-                      children: List.generate(
-                          controller.predictedDiseaseList.length,
-                          (index) => GestureDetector(
-                                onTap: () {
-                                  //todo
-                                  /*
-                          * add the selected d to selected list
-                          * remove from all d list
-                          * */
-                                  controller.selectedList.add(
-                                      controller.predictedDiseaseList[index]);
-                                },
-                                child: Container(
-                                  // width: scale.getScaledWidth(50),
-                                  padding: scale.getPadding(
-                                      horizontal: 10, vertical: 10),
-                                  decoration: ShapeDecoration(
-                                    color: Color(0x89D1D1D6),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                  ),
 
-                                  child: Text(
-                                      controller.predictedDiseaseList[index]),
-                                ),
-                              ))
-                      // Container(height: 10,width: 30,color: Colors.black,),
-                      // Container(height: 10,width: 30,color: Colors.orange,),
-
-                      ),
-                ],
-              ),
-            ),
-          )
         ],
       ),
     );

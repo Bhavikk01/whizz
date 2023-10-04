@@ -76,6 +76,8 @@ class AppTheme {
       border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide.none),
-    )
+    ),
+
+    textButtonTheme: TextButtonThemeData(style: ButtonStyle(foregroundColor: MaterialStateProperty.all(Colors.white)))
   );
 }

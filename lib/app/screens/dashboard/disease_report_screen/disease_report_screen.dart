@@ -1,18 +1,15 @@
+import 'package:Whizz/app/screens/dashboard/disease_report_screen/controller/disease_report_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../utils/colors.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/scale_utility.dart';
 
-class DiseaseReportScreen extends StatefulWidget {
+class DiseaseReportScreen extends GetView<DiseaseReportController> {
   const DiseaseReportScreen({Key? key}) : super(key: key);
 
-  @override
-  State<DiseaseReportScreen> createState() => _DiseaseReportScreenState();
-}
-
-class _DiseaseReportScreenState extends State<DiseaseReportScreen> {
   @override
   Widget build(BuildContext context) {
     ScalingUtility scale = ScalingUtility(context: context)
@@ -106,7 +103,7 @@ class _DiseaseReportScreenState extends State<DiseaseReportScreen> {
                   children: [
                     CircleAvatar(
                       child: Text(
-                        "5",
+                        controller.range,
                         style: TextStyle(
                             color: Color(0xFFFC3E32),
                             fontWeight: FontWeight.bold,
@@ -118,7 +115,7 @@ class _DiseaseReportScreenState extends State<DiseaseReportScreen> {
                       height: scale.getScaledHeight(5),
                     ),
                     Text(
-                      'Arthritis',
+                      controller.diseaseName,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: scale.getScaledFont(20),
@@ -140,7 +137,7 @@ class _DiseaseReportScreenState extends State<DiseaseReportScreen> {
                         bottomRight: Radius.circular(20))),
                 child: Center(
                   child: Text(
-                    'Arthritis is the swelling and tenderness of one or more of your joints. The main symptoms of arthritis are joint pain and stiffness, which typically worsen with age. The most common types of arthritis are osteoarthritis and rheumatoid arthritis',
+                    controller.description,
                     style: TextStyle(
                       color: Color(0xFFE7E7E7),
                       fontSize: scale.getScaledFont(11),
@@ -180,30 +177,32 @@ class _DiseaseReportScreenState extends State<DiseaseReportScreen> {
                     //color: Colors.orange,
                     child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
-                        child: Wrap(
-                            runAlignment: WrapAlignment.center,
-                            spacing: 10,
-                            children: List.generate(
-                                20,
-                                (index) => Container(
-                                      padding: scale.getPadding(
-                                          horizontal: 10, vertical: 10),
-                                      decoration: ShapeDecoration(
-                                        color: Color(0xD3FFA500),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
+                        child: Obx(
+                            ()=>Wrap(
+                              runAlignment: WrapAlignment.center,
+                              spacing: 10,
+                              children: List.generate(
+                                  controller.symptoms.length,
+                                  (index) => Container(
+                                        padding: scale.getPadding(
+                                            horizontal: 10, vertical: 10),
+                                        decoration: ShapeDecoration(
+                                          color: Color(0xD3FFA500),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                          ),
                                         ),
-                                      ),
-                                      child: Text(
-                                        "Arthritis",
-                                        style: TextStyle(
-                                          color: Color(0xFFFCFCFC),
-                                          fontSize: scale.getScaledFont(12),
-                                          fontWeight: FontWeight.w400,
+                                        child: Text(
+                                          controller.symptoms[index].toString(),
+                                          style: TextStyle(
+                                            color: Color(0xFFFCFCFC),
+                                            fontSize: scale.getScaledFont(12),
+                                            fontWeight: FontWeight.w400,
+                                          ),
                                         ),
-                                      ),
-                                    )))),
+                                      ))),
+                        )),
                   ),
                   Divider(
                     height: scale.getScaledHeight(10),
@@ -231,30 +230,32 @@ class _DiseaseReportScreenState extends State<DiseaseReportScreen> {
                     //color: Colors.orange,
                     child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
-                        child: Wrap(
-                            runAlignment: WrapAlignment.center,
-                            spacing: 10,
-                            children: List.generate(
-                                20,
-                                (index) => Container(
-                                      padding: scale.getPadding(
-                                          horizontal: 10, vertical: 10),
-                                      decoration: ShapeDecoration(
-                                        color: Color(0xD327B479),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
+                        child: Obx(
+                            ()=>Wrap(
+                              runAlignment: WrapAlignment.center,
+                              spacing: 10,
+                              children: List.generate(
+                                  controller.precaution.length,
+                                  (index) => Container(
+                                        padding: scale.getPadding(
+                                            horizontal: 10, vertical: 10),
+                                        decoration: ShapeDecoration(
+                                          color: Color(0xD327B479),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                          ),
                                         ),
-                                      ),
-                                      child: Text(
-                                        "Exercise",
-                                        style: TextStyle(
-                                          color: Color(0xFFFCFCFC),
-                                          fontSize: scale.getScaledFont(12),
-                                          fontWeight: FontWeight.w400,
+                                        child: Text(
+                                         controller.precaution[index].toString(),
+                                          style: TextStyle(
+                                            color: Color(0xFFFCFCFC),
+                                            fontSize: scale.getScaledFont(12),
+                                            fontWeight: FontWeight.w400,
+                                          ),
                                         ),
-                                      ),
-                                    )))),
+                                      ))),
+                        )),
                   ),
                   Divider(
                     height: scale.getScaledHeight(10),

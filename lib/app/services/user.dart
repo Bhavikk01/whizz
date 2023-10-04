@@ -25,6 +25,10 @@ class UserStore extends GetxController {
 
   bool get hasToken => uid.isNotEmpty;
 
+  List<dynamic> symptoms= [];
+
+
+
   @override
   Future<void> onInit() async {
     super.onInit();

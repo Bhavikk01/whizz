@@ -2,6 +2,6 @@
 abstract class ApiRoutes {
   ApiRoutes._();
 
-  static const baseUrl = 'http://192.168.118.27:5000/';
+  static const baseUrl = 'http://192.168.29.244:5000/';
 
 }

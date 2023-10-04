@@ -1,14 +1,18 @@
+import 'dart:developer';
+
+import 'package:Whizz/app/services/user.dart';
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
+import '../../../../API/api_client.dart';
+import '../../../../utils/custom_bottom_snackbar.dart';
+
 class DiseasePredictionController extends GetxController {
   TextEditingController controller = TextEditingController();
-
-  List<String> predictedDiseaseList = ["A", "ABC", "QQ", "OPLA"];
-
-  // List<String> selectedList = [];
+  // ['stomach_pain','joint_pain','acidity', 'anxiety'].obs;
+  RxList<dynamic> askDiseaseList = [].obs;
   RxList<dynamic> selectedList = [].obs;
-
   List<String> diseaseList = [
     'itching',
     'skin_rash',
@@ -144,10 +148,15 @@ class DiseasePredictionController extends GetxController {
     'yellow_crust_ooze',
     'prognosis'
   ];
-
   RxList<String> foundDisease = [''].obs;
   RxBool containsDisease = false.obs;
 
+  @override
+  void onInit() async {
+
+    super.onInit();
+    askDiseaseList.value = ['stomach_pain','joint_pain','acidity', 'anxiety'];
+  }
 
   void searchDisease(String enteredDisease) {
     List<String> results = [];
@@ -163,6 +172,36 @@ class DiseasePredictionController extends GetxController {
     }
   }
 
+  askSymptoms() async {
+
+    await ApiClient.to.askDisease(
+        onSuccess: (res) {
+         // todo jb list empty ho toh common symptoms bta do ya shimmer effect
+          askDiseaseList.clear();
+          askDiseaseList.value = res.body['symptoms'];
+
+
+        }, onError: (err) {
+      // customSnackBar(
+      //   type: AnimatedSnackBarType.error,
+      //   message: '${err.body['error']}',
+      // );
+
+    }, diseaseList: selectedList);
+  }
+
+  onClickPredictButton(){
+    if(selectedList.isNotEmpty)
+      {
+        UserStore.to.symptoms= selectedList;
+       // todo Navigate
+        // Get.toNamed()
+
+      }
+    else{
+      customSnackBar(type: AnimatedSnackBarType.warning,message: "Please select disease");
+    }
+  }
 /*
   * TODO
   *  CALL ASK API WHEN USER HAS SELECTED THE BUBBLE
