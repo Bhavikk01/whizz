@@ -42,7 +42,7 @@ class CustomSearchField extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: height ?? 30,
-      // width: width?? 200,
+      //width: width,
       child: TextFormField(
         controller: controller,
         minLines: 1,
@@ -50,7 +50,7 @@ class CustomSearchField extends StatelessWidget {
         onChanged: onChange,
         decoration: InputDecoration(
           hintText: hintText,
-          hintStyle: const TextStyle(fontSize: 15),
+          hintStyle: const TextStyle(fontSize: 15,color: Color(0x4C2B447C)),
           filled: true,
           fillColor: const Color(0x192B447C),
           suffixIcon: IconButton(

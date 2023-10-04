@@ -114,40 +114,6 @@ class ApiClient extends GetConnect implements GetxService {
     }
   }
 
-  updateUserData(Map<String, dynamic> user,
-      {required Function(Response res) onSuccess,
-        required Function(Response error) onError}) async {
-    try {
-      log('--------------Calling API: ${ApiRoutes.baseUrl}user/update/${user['id']} ---------------');
-      log('================================ Data Sending ==========================================');
-      log(user.toString());
-      Response res = await httpClient.post(
-        '${ApiRoutes.baseUrl}user/update/${user['id']}',
-        body: user,
-      );
-      log('================================ Data Received ==========================================');
-      log(res.body.toString());
-      log('================================ Finishing API Call =====================================');
-      if (validateResponse(res)) {
-        onSuccess(res);
-      } else {
-        onError(
-          Response(
-            statusCode: res.statusCode,
-            body: {'error': 'Unhealthy Response'},
-          ),
-        );
-      }
-    } catch (err) {
-      onError(
-        Response(
-          statusCode: 404,
-          body: {'error': '$err'},
-        ),
-      );
-    }
-  }
-
   getNearByHealthcare(SearchByAddress searchMode,
       {required Function(Response res) onSuccess,
       required Function(Response error) onError,
@@ -253,63 +219,4 @@ class ApiClient extends GetConnect implements GetxService {
       );
     }
   }
-
-  getHealthcareData(String healthcareId, {required Function(dynamic res) onSuccess, required Function(dynamic err) onError}) async {
-    try{
-      log('--------------Calling API: ${ApiRoutes.baseUrl}getHealthcareCenterById/$healthcareId ---------------');
-      Response res = await httpClient.get(
-        '${ApiRoutes.baseUrl}getHealthcareCenterById/$healthcareId',
-      );
-      log('================================ Data Received ==========================================');
-      log(res.body.toString());
-      log('================================ Finishing API Call =====================================');
-      if (validateResponse(res)) {
-        onSuccess(res);
-      } else {
-        onError(
-          Response(
-            statusCode: res.statusCode,
-            body: {'error': 'Unhealthy Response'},
-          ),
-        );
-      }
-    }catch(err){
-      onError(
-        Response(
-          statusCode: 404,
-          body: {'error': '$err'},
-        ),
-      );
-    }
-  }
-
-  getDoctorList(String healthcareId, {required Function(dynamic res) onSuccess, required Function(dynamic err) onError}) async {
-    try{
-      log('--------------Calling API: ${ApiRoutes.baseUrl}getDoctors/$healthcareId ---------------');
-      Response res = await httpClient.get(
-        '${ApiRoutes.baseUrl}get_doctors_by_hid/$healthcareId',
-      );
-      log('================================ Data Received ==========================================');
-      log(res.body.toString());
-      log('================================ Finishing API Call =====================================');
-      if (validateResponse(res)) {
-        onSuccess(res);
-      } else {
-        onError(
-          Response(
-            statusCode: res.statusCode,
-            body: {'error': 'Unhealthy Response'},
-          ),
-        );
-      }
-    }catch(err){
-      onError(
-        Response(
-          statusCode: 404,
-          body: {'error': '$err'},
-        ),
-      );
-    }
-  }
-
 }

@@ -24,6 +24,7 @@ class Routes {
   static const reminderScreen = '$dashboard/reminderScreen';
   static const userReports = '$dashboard/userReports';
   static const diseaseRecommendation = '$dashboard/diseaseRecommendation';
+  static const disease = '$dashboard/diseaseResult';
 
 
   /// Health Center Routes

@@ -341,5 +341,11 @@ api.add_resource(doctor_status_check,"/doctor/status/check")
 
 if __name__ == '__main__':
     #uncomment this when using with flutter
-    app.run(host = '192.168.118.27',port = 5000, debug=True)
+    app.run(host = '192.168.29.218',port = 5000, debug=True)
 #     app.run(debug=True)
+"""
+ todo
+ Change the current ip address
+ 192.168.29.255
+
+ """

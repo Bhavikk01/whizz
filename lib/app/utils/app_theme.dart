@@ -71,12 +71,13 @@ class AppTheme {
     ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: ColorsUtil.fieldColor,
-      hintStyle: const TextStyle(fontSize: 14),
+      fillColor: Color(0x192B447C),
+      hintStyle: TextStyle(fontSize: 14),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide.none,
-      ),
-    )
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide.none),
+    ),
+
+    textButtonTheme: TextButtonThemeData(style: ButtonStyle(foregroundColor: MaterialStateProperty.all(Colors.white)))
   );
 }
