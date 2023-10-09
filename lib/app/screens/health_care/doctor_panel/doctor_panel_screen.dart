@@ -181,7 +181,7 @@ class DoctorHomeScreen extends GetView<DoctorScreenController> {
 
                 //ABOUT DOCTOR
                 Text(
-                  'About Doctor',
+                  'About',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: scale.getScaledFont(15),
@@ -191,75 +191,22 @@ class DoctorHomeScreen extends GetView<DoctorScreenController> {
                   ),
                 ),
                 SizedBox(
-                  height: scale.getScaledHeight(20),
+                  height: scale.getScaledHeight(10),
                 ),
                 // DETAILS
-                SizedBox(
-                  width: 300,
-                  height: 102,
-                  child: Text(
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu ',
-                    style: TextStyle(
-                      color: Color(0xFFD1D1D6),
-                      fontSize: scale.getScaledFont(12),
-                      fontFamily: 'Roboto',
-                      fontWeight: FontWeight.w400,
-                      height: 0,
-                    ),
-                  ),
-                ),
-
-                SizedBox(
-                  height: scale.getScaledHeight(20),
-                ),
-
-                // Mark Attendance
-                Container(
-                  padding: scale.getPadding(horizontal: 20),
-                  height: scale.getScaledHeight(67),
-                  decoration: ShapeDecoration(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    shadows: [
-                      BoxShadow(
-                        color: Color(0x33000000),
-                        blurRadius: 10,
-                        offset: Offset(2, 3),
-                        spreadRadius: 0,
-                      )
-                    ],
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Mark Attendance',
-                        style: TextStyle(
-                          color: Colors.black.withOpacity(0.8500000238418579),
-                          fontSize: scale.getScaledFont(12),
-                          fontFamily: 'Roboto',
-                          fontWeight: FontWeight.w600,
-                          height: 0,
-                        ),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {},
-                        child: Text("Mark"),
-                        style: ElevatedButton.styleFrom(
-                            padding: scale.getPadding(
-                              left: 30,
-                              right: 30,
-                            )),
-                      )
-                    ],
+                Text(
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu ',
+                  style: TextStyle(
+                    color: ColorsUtil.greyTextColor,
+                    fontSize: scale.getScaledFont(12),
+                    fontFamily: 'Roboto',
+                    fontWeight: FontWeight.w400,
+                    height: 0,
                   ),
                 ),
                 SizedBox(
-                  height: scale.getScaledHeight(25),
+                  height: scale.getScaledHeight(15),
                 ),
-
                 Text(
                   ' Appointments',
                   style: TextStyle(
@@ -277,6 +224,7 @@ class DoctorHomeScreen extends GetView<DoctorScreenController> {
                 ListView.builder(
                     padding: scale.getPadding(top: 5,bottom: 5),
                     shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
                     itemCount: 5,
                     itemBuilder: (context, cnt) => Card(
                       shape: RoundedRectangleBorder(
