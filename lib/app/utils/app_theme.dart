@@ -28,7 +28,6 @@ class AppTheme {
         fontSize: 15,
         fontWeight: FontWeight.w500,
         letterSpacing: 0.01,
-
       ),
       bodySmall: GoogleFonts.roboto(
         fontSize: 12,
@@ -38,13 +37,21 @@ class AppTheme {
         fontSize: 18,
         fontWeight: FontWeight.w600,
         letterSpacing: 0.02,
-
       ),
       labelLarge: GoogleFonts.roboto(
         fontSize: 16,
         fontWeight: FontWeight.w400,
       ),
-
+      displayMedium: GoogleFonts.roboto(
+        fontSize: 20,
+        color: Colors.white,
+        fontWeight: FontWeight.w500,
+      ),
+      displaySmall : GoogleFonts.roboto(
+        fontSize: 12,
+        color: Colors.white.withOpacity(0.6499999761581421),
+        fontWeight: FontWeight.w400,
+      ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
@@ -62,36 +69,15 @@ class AppTheme {
         ),
       ),
     ),
-    dropdownMenuTheme: DropdownMenuThemeData(
-      inputDecorationTheme: InputDecorationTheme(
-        border: OutlineInputBorder(
+    inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      fillColor: Color(0x192B447C),
+      hintStyle: TextStyle(fontSize: 14),
+      border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(
-            color: Colors.transparent,
-            width: 0,
-          ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(
-            color: Colors.transparent,
-            width: 0,
-          ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(
-            color: ColorsUtil.darkContainerColor,
-            width: 2,
-          ),
-        ),
-        filled: true,
-        fillColor: ColorsUtil.textFieldColor,
-        hintStyle: GoogleFonts.atkinsonHyperlegible(
-          fontSize: 16,
-          fontWeight: FontWeight.w400,
-        ),
-      ),
-    )
+          borderSide: BorderSide.none),
+    ),
+
+    textButtonTheme: TextButtonThemeData(style: ButtonStyle(foregroundColor: MaterialStateProperty.all(Colors.white)))
   );
 }

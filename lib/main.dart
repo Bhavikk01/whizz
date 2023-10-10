@@ -10,15 +10,12 @@ import 'package:Whizz/app/utils/constants.dart';
 import 'app/API/api_client.dart';
 import 'app/global_controllers/bottom_nav_controller.dart';
 import 'app/routes/app_pages.dart';
-import 'app/screens/health_care/search_healthcare/controller/search_healthcare_controller.dart';
-import 'app/screens/health_care/search_healthcare/search_healthcare_screen.dart';
 import 'app/services/storage.dart';
 import 'app/services/user.dart';
 import 'app/utils/scale_utility.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -28,6 +25,7 @@ Future<void> main() async {
   Get.put<UserStore>(UserStore());
   Get.put<AuthServices>(AuthServices());
   Get.put(BottomNavBarController());
+
   runApp(const MyApp());
 }
 
@@ -55,13 +53,17 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 7), () {
-      Get.offAllNamed(UserStore.to.uid.isNotEmpty
-          ? Routes.home
-          : Routes.loginWithEmail
+      Get.offAllNamed(
+        UserStore.to.uid.isNotEmpty
+            ? UserStore.to.profile.userProfile == 'Doctor'
+            ? Routes.doctorHomePage
+            : UserStore.to.profile.id == null
+            ? Routes.doctorHomePage
+            : Routes.home
+            : Routes.loginWithEmail,
       );
     });
     super.initState();
@@ -69,7 +71,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    ScalingUtility scale = ScalingUtility(context: Get.context!)..setCurrentDeviceSize();
+    ScalingUtility scale = ScalingUtility(context: Get.context!)
+      ..setCurrentDeviceSize();
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
@@ -78,11 +81,10 @@ class _SplashScreenState extends State<SplashScreen> {
         decoration: BoxDecoration(
           color: ColorsUtil.brandColor,
           image: const DecorationImage(
-            image: AssetImage(
-              ConstantData.backgroundImage,
-            ),
-            fit: BoxFit.cover
-          ),
+              image: AssetImage(
+                ConstantData.backgroundImage,
+              ),
+              fit: BoxFit.cover),
         ),
         child: Center(
           child: Image.asset(

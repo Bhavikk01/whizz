@@ -196,4 +196,28 @@ class AuthServices extends GetxController {
         }
     );
   }
+
+  updateUserData(UserModel user) async {
+    await ApiClient.to.updateUserData(
+        user.toJson(),
+        onSuccess: (res) async {
+          if(res.body['status']){
+            await UserStore.to.saveProfile(user.id!);
+            Get.offAllNamed(Routes.home);
+          }else{
+            await FirebaseAuth.instance.currentUser!.delete();
+            customSnackBar(
+              type: AnimatedSnackBarType.warning,
+              message: '${res.body['message']}',
+            );
+          }
+        },
+        onError: (err) {
+          customSnackBar(
+            type: AnimatedSnackBarType.error,
+            message: '${err.body['error']}',
+          );
+        }
+    );
+  }
 }

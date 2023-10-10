@@ -1,3 +1,4 @@
+import 'package:Whizz/app/screens/dashboard/dashboard_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -15,7 +16,7 @@ import '../user_profile/binding/user_profile_binding.dart';
 
 class HomeScreen extends GetView<HomeController> {
   HomeScreen({Key? key}) : super(key: key);
-  var bottomNavController = Get.find<BottomNavBarController>();
+  final  bottomNavController = Get.find<BottomNavBarController>();
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +29,7 @@ class HomeScreen extends GetView<HomeController> {
           switch(settings.name){
             case Routes.dashboard:
               return GetPageRoute(
-                page: () => const UserProfileScreen(),
-                binding: UserProfileBinding(),
+                page: () => const DashboardScreen(),
                 maintainState: true,
                 transition: Transition.fadeIn,
               );
