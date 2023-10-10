@@ -1,11 +1,11 @@
 class DoctorModel {
-  final String? doctorName;
-  final bool? available;
-  final String? id;
-  final String? specialty;
-  final String? healthCareId;
-  final String? cost;
-  final String? timings;
+  String? doctorName;
+  bool? available;
+  String? id;
+  String? specialty;
+  String? healthCareId;
+  String? cost;
+  String? timings;
 
   DoctorModel({
     this.doctorName,

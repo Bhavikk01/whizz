@@ -282,6 +282,36 @@ class ApiClient extends GetConnect implements GetxService {
       );
     }
   }
+
+  getDoctorData(String doctorId, {required Function(dynamic res) onSuccess, required Function(dynamic err) onError}) async {
+    try{
+      log('--------------Calling API: ${ApiRoutes.baseUrl}getdoctorById/$doctorId ---------------');
+      Response res = await httpClient.get(
+        '${ApiRoutes.baseUrl}getdoctorById/$doctorId',
+      );
+      log('================================ Data Received ==========================================');
+      log(res.body.toString());
+      log('================================ Finishing API Call =====================================');
+      if (validateResponse(res)) {
+        onSuccess(res);
+      } else {
+        onError(
+          Response(
+            statusCode: res.statusCode,
+            body: {'error': 'Unhealthy Response'},
+          ),
+        );
+      }
+    }catch(err){
+      onError(
+        Response(
+          statusCode: 404,
+          body: {'error': '$err'},
+        ),
+      );
+    }
+  }
+
   getDoctorList(String healthcareId, {required Function(dynamic res) onSuccess, required Function(dynamic err) onError}) async {
     try{
       log('--------------Calling API: ${ApiRoutes.baseUrl}getDoctors/$healthcareId ---------------');

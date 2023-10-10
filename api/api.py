@@ -341,7 +341,7 @@ api.add_resource(doctor_status_check,"/doctor/status/check")
 
 if __name__ == '__main__':
     #uncomment this when using with flutter
-    app.run(host = '192.168.29.218',port = 5000, debug=True)
+    app.run(host = '192.168.1.26',port = 5000, debug=True)
 #     app.run(debug=True)
 """
  todo
