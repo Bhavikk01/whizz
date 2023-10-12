@@ -397,10 +397,9 @@ class report_upload(Resource):
             location = request.form['location']
             file_type = request.form['type']
             uploaded_file = request.files['file']
-            print(len(uploaded_file.read()))
-
+            file_data = uploaded_file.read()
             if uploaded_file and allowed_file(uploaded_file.filename):
-                if len(uploaded_file.read()) > MAX_CONTENT_LENGTH:
+                if len(file_data) > MAX_CONTENT_LENGTH:
                     return jsonify({
                         "status": False,
                         "message": "File size exceeds the maximum allowed size (5MB)"
@@ -408,9 +407,7 @@ class report_upload(Resource):
 
                 filename = secure_filename(uploaded_file.filename)
                 content_type = uploaded_file.content_type
-                uploaded_file.seek(0)
-                file_data = uploaded_file.read()
-                print(len(file_data))
+                uploaded_file.seek(0)                
                 result = report.insert_one({"file_data": file_data})
                 file_id = str(result.inserted_id)
                 file_url = url_for("get_report", file_id=file_id, _external=True)
@@ -420,7 +417,7 @@ class report_upload(Resource):
                     "time": time,
                     "location": location,
                     "filename": filename,
-                    "content_type": content_type,
+                    "file_type": file_type,
                     "type": file_type,
                     "file_id": file_id,
                     "file_url": file_url
@@ -465,6 +462,22 @@ def get_report(file_id):
             "message": "File not found"
         })
 
+class get_report_by_userid(Resource):
+    def get(self,userid):
+        include={"file_url":1,"filename":1,"file_type":1}
+        data = list(report_data.find({"userid":userid},include))
+        if data:
+            cleaned_data = remove_id_mult(data)
+            return jsonify({
+                "status": True,
+                "data": cleaned_data
+            })
+        else:
+            return jsonify({
+                "status": False,
+                "message": "No reports found"
+            })
+api.add_resource(get_report_by_userid,"/report/get/<string:userid>")
 
 if __name__ == '__main__':
     #uncomment this when using with flutter
