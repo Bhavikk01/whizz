@@ -1,3 +1,7 @@
+import 'package:Whizz/app/screens/dashboard/disease_prediction_screens/controller/disease_prediction_controller.dart';
+import 'package:Whizz/app/screens/dashboard/disease_prediction_screens/disease_prediction_screen.dart';
+import 'package:Whizz/app/screens/dashboard/disease_report_screen/controller/disease_report_controller.dart';
+import 'package:Whizz/tempMain.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +30,12 @@ Future<void> main() async {
   Get.put<AuthServices>(AuthServices());
   Get.put(BottomNavBarController());
 
-  runApp(const MyApp());
+
+  Get.put(DiseasePredictionController());
+  Get.put(DiseaseReportController());
+
+  runApp(const TempApp());
+
 }
 
 class MyApp extends StatelessWidget {

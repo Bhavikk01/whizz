@@ -481,8 +481,8 @@ api.add_resource(get_report_by_userid,"/report/get/<string:userid>")
 
 if __name__ == '__main__':
     #uncomment this when using with flutter
-    # app.run(host = '192.168.29.218',port = 5000, debug=True)
-    app.run(debug=True)
+    app.run(host = '192.168.190.29',port = 5000, debug=True)
+#     app.run(debug=True)
 """
  todo
  Change the current ip address

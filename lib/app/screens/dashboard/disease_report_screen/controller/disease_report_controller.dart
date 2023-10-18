@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:Whizz/app/API/api_client.dart';
+import 'package:Whizz/app/services/user.dart';
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:get/get.dart';
 
@@ -19,7 +20,7 @@ class DiseaseReportController extends GetxController {
     description = "";
     diseaseName = "";
     range = "5";
-
+    symptoms.value = UserStore.to.symptoms;
     super.onInit();
     ApiClient.to.predictDisease(
         onSuccess: (res) {
