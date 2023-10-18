@@ -180,7 +180,7 @@ class DiseasePredictionController extends GetxController {
   onClickPredictButton(){
     if(selectedList.isNotEmpty)
       {
-        UserStore.to.symptoms= selectedList;
+        UserStore.to.symptoms = selectedList;
         Get.toNamed(Routes.disease);
       }
     else{

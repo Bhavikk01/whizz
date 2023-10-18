@@ -384,6 +384,7 @@ class ApiClient extends GetConnect implements GetxService {
     required List<dynamic> symptoms}) async{
 
     String predictList = symptoms.join('-');
+    log(name: "Predict List", predictList.toString());
     try {
       log('--------------Calling API: Predict Disease   ---------------');
       Response res = await httpClient.post(
