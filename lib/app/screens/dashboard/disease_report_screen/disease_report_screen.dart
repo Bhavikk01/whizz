@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:Whizz/app/screens/dashboard/disease_report_screen/controller/disease_report_controller.dart';
+import 'package:Whizz/app/services/pdf_service/pdf_class.dart';
+import 'package:Whizz/app/services/pdf_service/whizz_report.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,7 +23,10 @@ class DiseaseReportScreen extends GetView<DiseaseReportController> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           InkWell(
-            onTap: () {},
+            onTap: () async{
+              File file = await WhizzReport(diseaseDescription: '', precautions: [], symptoms: [],).generate();
+              PdfApi.openFile(file);
+            },
             child: Stack(
               alignment: Alignment.centerRight,
               children: [
