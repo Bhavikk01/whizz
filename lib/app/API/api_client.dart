@@ -224,11 +224,11 @@ class ApiClient extends GetConnect implements GetxService {
       {required Function(Response res) onSuccess,
         required Function(Response error) onError}) async {
     try {
-      log('--------------Calling API: ${ApiRoutes.baseUrl}user/update/${user['id']} ---------------');
+      log('--------------Calling API: ${ApiRoutes.baseUrl}user/update---------------');
       log('================================ Data Sending ==========================================');
       log(user.toString());
-      Response res = await httpClient.post(
-        '${ApiRoutes.baseUrl}user/update/${user['id']}',
+      Response res = await httpClient.put(
+        '${ApiRoutes.baseUrl}user/update',
         body: user,
       );
       log('================================ Data Received ==========================================');

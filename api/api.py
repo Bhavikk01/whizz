@@ -15,8 +15,8 @@ from werkzeug.datastructures import FileStorage
 from werkzeug.utils import secure_filename
 
 
-# data_path="data"
-data_path="api/data"
+data_path="data"
+# data_path="api/data"
 warnings.filterwarnings("ignore")
 with open(os.path.join(data_path,"data.json"), "r") as json_file:
     loaded_data = json.load(json_file)
@@ -477,7 +477,7 @@ class report_url(Resource):
 
 if __name__ == '__main__':
     #uncomment this when using with flutter
-    app.run(host = '192.168.1.26',port = 5000, debug=True)
+    app.run(host = '192.168.190.27',port = 5000, debug=True)
 #     app.run(debug=True)
 """
  todo

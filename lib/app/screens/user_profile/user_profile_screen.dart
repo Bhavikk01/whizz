@@ -44,7 +44,7 @@ class UserProfileScreen extends StatelessWidget {
                     SizedBox(
                       height: scale.getScaledHeight(15),
                     ),
-                    UserStore.to.profile.userProfile != null ? CircleAvatar(
+                    UserStore.to.profile.userProfile != '' ? CircleAvatar(
                       backgroundImage: NetworkImage(
                         UserStore.to.profile.userProfile!,
                       ),

@@ -343,7 +343,7 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
             ),
             Text(
               textAlign: TextAlign.justify,
-              "The Apollo Hospitals, Indore is a joint venture between Apollo Hospitals Enterprises Limited (AHEL) & Rajshree Hospital & Research Centre Pvt. Ltd.\n\nIt offers high-end tertiary care across various medical disciplines, with a special focus on Cardiology & Cardiothoracic Surgery, Neurology, and Neurosurgery, Nephrology, and Urology, Orthopaedics, Gastroenterology, Emergency & Trauma. The 180 bedded hospital's strength lies in the perfect balance of excellent infrastructure, latest technology, and dedicated manpower, all orchestrated to provide patient services to the highest standards. Centres of Excellence Apollo Hospitals.\n\nIndore has established Centres of Excellence across various key specialties. The goal of each Centre of Excellence is to ensure that care of the highest possible standards is offered whilst also forging ahead in research, meeting and surpassing benchmarks set by the world's best healthcare providers, tracking and standardizing best practices, and achieving excellence in academics.",
+              controller.healthcare.about!,
               style: AppTheme.appTheme.textTheme.bodyMedium,
             ),
             SizedBox(
@@ -354,15 +354,24 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
               style: AppTheme.appTheme.textTheme.titleMedium,
             ),
             const SizedBox(
-              height: 8,
+              height: 5,
             ),
+            Text(
+              '${DateFormat('hh : mm a').format(DateTime.now())} - ${DateFormat('hh : mm a').format(DateTime.now())}',
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: AppTheme.appTheme.textTheme.bodyMedium!.copyWith(
+                fontSize: scale.getScaledFont(13),
+              ),
+            ),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Icon(
                   Icons.timelapse,
-                  size: scale.getScaledFont(18),
+                  size: scale.getScaledFont(15),
                 ),
                 const SizedBox(
                   width: 8,
@@ -373,21 +382,10 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
                   overflow: TextOverflow.ellipsis,
                   style: AppTheme.appTheme.textTheme.bodyMedium!.copyWith(
                     fontWeight: FontWeight.w500,
-                    fontSize: scale.getScaledFont(15),
+                    fontSize: scale.getScaledFont(12),
                   ),
                 ),
               ],
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Text(
-              '${DateFormat('hh : mm a').format(DateTime.now())} - ${DateFormat('hh : mm a').format(DateTime.now())}',
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: AppTheme.appTheme.textTheme.bodyMedium!.copyWith(
-                fontSize: scale.getScaledFont(14),
-              ),
             ),
             SizedBox(
               height: scale.getScaledHeight(13),

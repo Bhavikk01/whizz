@@ -45,27 +45,8 @@ class SearchHealthcareController extends GetxController {
   Future<void> onInit() async {
     super.onInit();
     await Geolocator.requestPermission();
-    await getLocation();
-    if(UserStore.to.profile.userAddress != null){
-      userAddress = UserStore.to.profile.userAddress!.obs;
-    }else{
-      userAddress = UserAddress(
-        city: '',
-        state: '',
-        country: '',
-        latitude: 0,
-        longitude: 0,
-      ).obs;
-    }
-    log('This is the userAddress : $userAddress ');
-    userCountryController = TextEditingController(text: '${userAddress.value.country}');
-    userStateController = TextEditingController(text: '${userAddress.value.state}');
-    userCityController = TextEditingController(text: '${userAddress.value.city}');
-    userCountry = '${userAddress.value.country}'.obs;
-    userState = '${userAddress.value.state}'.obs;
-    userCity = '${userAddress.value.city}'.obs;
-    await getNearByHealthcare();
   }
+
 
   Future<void> getLocation() async {
     log('Getting current location');
@@ -121,6 +102,30 @@ class SearchHealthcareController extends GetxController {
       state: userState.value,
       city: userCity.value,
     ).obs;
+    await getNearByHealthcare();
+  }
+
+  initialLoad() async {
+    await getLocation();
+    log('This is the address : ${UserStore.to.profile.userAddress}');
+    if(UserStore.to.profile.userAddress != null){
+      userAddress = UserStore.to.profile.userAddress!.obs;
+    }else{
+      userAddress = UserAddress(
+        city: '',
+        state: '',
+        country: '',
+        latitude: 0,
+        longitude: 0,
+      ).obs;
+    }
+    log('This is the userAddress : $userAddress ');
+    userCountryController = TextEditingController(text: '${userAddress.value.country}');
+    userStateController = TextEditingController(text: '${userAddress.value.state}');
+    userCityController = TextEditingController(text: '${userAddress.value.city}');
+    userCountry = '${userAddress.value.country}'.obs;
+    userState = '${userAddress.value.state}'.obs;
+    userCity = '${userAddress.value.city}'.obs;
     await getNearByHealthcare();
   }
 
