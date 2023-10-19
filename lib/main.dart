@@ -31,10 +31,10 @@ Future<void> main() async {
   Get.put(BottomNavBarController());
 
 
-  Get.put(DiseasePredictionController());
-  Get.put(DiseaseReportController());
+  // Get.put(DiseasePredictionController());
+  // Get.put(DiseaseReportController());
 
-  runApp(const TempApp());
+  runApp(const MyApp());
 
 }
 

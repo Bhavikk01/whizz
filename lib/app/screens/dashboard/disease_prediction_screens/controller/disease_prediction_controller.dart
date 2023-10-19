@@ -178,15 +178,14 @@ class DiseasePredictionController extends GetxController {
   }
 
   onClickPredictButton(){
-    if(selectedList.isNotEmpty)
-      {
-        UserStore.to.symptoms = selectedList;
-        Get.toNamed(Routes.disease);
-      }
-    else{
+    if(selectedList.isNotEmpty) {
+      UserStore.to.symptoms = selectedList;
+      Get.toNamed(Routes.disease);
+    } else{
       customSnackBar(type: AnimatedSnackBarType.warning,message: "Please select disease");
     }
   }
+
 /*
   * TODO
   *  CALL ASK API WHEN USER HAS SELECTED THE BUBBLE

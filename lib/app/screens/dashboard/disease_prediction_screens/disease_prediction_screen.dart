@@ -32,7 +32,6 @@ class DiseasePredictionScreen extends GetView<DiseasePredictionController> {
                 onPressed: controller.onClickPredictButton,
                 child: const Text("Predict"),
               ),
-              // SizedBox(width: scale.getScaledWidth(5),)
             ],
             flexibleSpace: FlexibleSpaceBar(
               background: Container(
@@ -59,13 +58,14 @@ class DiseasePredictionScreen extends GetView<DiseasePredictionController> {
                 children: [
                   TypeAheadField(
                     textFieldConfiguration: TextFieldConfiguration(
-                        style: AppTheme.appTheme.textTheme.bodyLarge,
-                        controller: controller.controller,
-                        cursorColor: Colors.black,
-                        decoration: InputDecoration(
-                            suffix: GestureDetector(
+                      style: AppTheme.appTheme.textTheme.bodyLarge,
+                      controller: controller.controller,
+                      cursorColor: Colors.black,
+                      decoration: InputDecoration(
+                        hintText: 'Search your symptoms',
+                        suffix: GestureDetector(
                           onTap: () async {
-                            if(controller.controller.text.isNotEmpty){
+                            if (controller.controller.text.isNotEmpty) {
                               controller.selectedList.add(controller.controller.text);
                               controller.controller.text = '';
                               controller.selectedList.value = controller.selectedList.toSet().toList();
@@ -77,7 +77,9 @@ class DiseasePredictionScreen extends GetView<DiseasePredictionController> {
                             color: Colors.black,
                             size: scale.getScaledFont(15),
                           ),
-                        ))),
+                        ),
+                      ),
+                    ),
                     itemBuilder: (BuildContext context, itemData) {
                       return Container(
                         padding: scale.getPadding(
@@ -106,13 +108,13 @@ class DiseasePredictionScreen extends GetView<DiseasePredictionController> {
                     hideOnEmpty: true,
                     onSuggestionSelected: (Object? suggestion) async {
                       controller.controller.text = '';
-                      controller.selectedList.add(suggestion);
-                      controller.selectedList.value = controller.selectedList.toSet().toList();
+                      controller.selectedList.add(suggestion as String);
                       await controller.askSymptoms();
                     },
                     suggestionsCallback: (String pattern) {
                       if (pattern.isNotEmpty) {
-                        return controller.diseaseList.where((element) => element.toLowerCase().contains(pattern));
+                        return controller.diseaseList.where((element) =>
+                            element.toLowerCase().contains(pattern));
                       } else {
                         return [];
                       }
@@ -120,8 +122,9 @@ class DiseasePredictionScreen extends GetView<DiseasePredictionController> {
                   ),
                   controller.askDiseaseList.isNotEmpty
                       ? SizedBox(
-                    height: scale.getScaledHeight(20),
-                  ): Container(),
+                          height: scale.getScaledHeight(20),
+                        )
+                      : Container(),
                   controller.askDiseaseList.isNotEmpty
                       ? Text(
                           'You may have these symptoms',
@@ -134,34 +137,37 @@ class DiseasePredictionScreen extends GetView<DiseasePredictionController> {
                       : Container(),
                   controller.askDiseaseList.isNotEmpty
                       ? SizedBox(
-                    height: scale.getScaledHeight(20),
-                  ): Container(),
+                          height: scale.getScaledHeight(20),
+                        )
+                      : Container(),
                   Obx(
                     () => Wrap(
                         runSpacing: scale.getScaledHeight(20),
                         crossAxisAlignment: WrapCrossAlignment.center,
                         spacing: scale.getScaledWidth(15),
                         children: List.generate(
-                            controller.askDiseaseList.length,
-                            (index) => GestureDetector(
-                                  onTap: () async {
-                                    controller.selectedList.add(controller.askDiseaseList[index]);
-                                    controller.selectedList.value = controller.selectedList.toSet().toList();
-                                    await controller.askSymptoms();
-                                  },
-                                  child: Container(
-                                    padding: scale.getPadding(horizontal: 10, vertical: 10),
-                                    decoration: ShapeDecoration(
-                                      color: const Color(0x89D1D1D6),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                    ),
-                                    child: Text(controller.askDiseaseList[index]),
-                                  ),
+                          controller.askDiseaseList.length,
+                          (index) => GestureDetector(
+                            onTap: () async {
+                              controller.selectedList
+                                  .add(controller.askDiseaseList[index]);
+                              controller.selectedList.value =
+                                  controller.selectedList.toSet().toList();
+                              await controller.askSymptoms();
+                            },
+                            child: Container(
+                              padding: scale.getPadding(
+                                  horizontal: 10, vertical: 10),
+                              decoration: ShapeDecoration(
+                                color: const Color(0x89D1D1D6),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
                                 ),
-                        )
-                        ),
+                              ),
+                              child: Text(controller.askDiseaseList[index]),
+                            ),
+                          ),
+                        )),
                   ),
                   Obx(
                     () => Container(
@@ -180,83 +186,112 @@ class DiseasePredictionScreen extends GetView<DiseasePredictionController> {
                           controller.selectedList.isEmpty
                               ? Container()
                               : Obx(
-                                () => Wrap(
-                              runSpacing: scale.getScaledHeight(20),
-                              crossAxisAlignment: WrapCrossAlignment.center,
-                              spacing: scale.getScaledWidth(15),
-                              direction: Axis.horizontal,
-                              children: List.generate(
-                                controller.selectedList.length,
-                                    (index) => Container(
-                                  padding: scale.getPadding(horizontal: 10, vertical: 10),
-                                  decoration: ShapeDecoration(
-                                    color: const Color(0x89D1D1D6),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20),
+                                  () => Wrap(
+                                    runSpacing: scale.getScaledHeight(20),
+                                    crossAxisAlignment:
+                                        WrapCrossAlignment.center,
+                                    spacing: scale.getScaledWidth(15),
+                                    direction: Axis.horizontal,
+                                    children: List.generate(
+                                      controller.selectedList.length,
+                                      (index) => Container(
+                                        padding: scale.getPadding(
+                                            horizontal: 10, vertical: 10),
+                                        decoration: ShapeDecoration(
+                                          color: const Color(0x89D1D1D6),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                          ),
+                                        ),
+                                        child: Text(
+                                            controller.selectedList[index]!),
+                                      ),
                                     ),
                                   ),
-                                  child: Text(controller.selectedList[index]!),
                                 ),
-                              ),
-                            ),
-                          ),
                           SizedBox(
                             height: scale.getScaledHeight(15),
                           ),
                           Obx(
-                                () => controller.foundDisease.length > 1
+                            () => controller.foundDisease.length > 1
                                 ? Container(
-                              width: scale.getScaledWidth(350),
-                              height: scale.getScaledHeight(200),
-                              decoration: ShapeDecoration(
-                                color: const Color(0x3DD9D9D9),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                              ),
-                              child: Obx(
-                                    () => controller.containsDisease.value
-                                    ? SingleChildScrollView(
-                                  scrollDirection: Axis.vertical,
-                                  child: Padding(
-                                    padding: scale.getPadding(top: 10),
-                                    child: Wrap(
-                                      runSpacing: scale.getScaledHeight(20),
-                                      crossAxisAlignment: WrapCrossAlignment.center,
-                                      spacing: scale.getScaledWidth(15),
-                                      children: List.generate(
-                                        controller.foundDisease.length,
-                                            (index) => InkWell(
-                                          onTap: () async {
-                                            controller.selectedList.add(controller.foundDisease[index]);
-                                            controller.selectedList.value = controller.selectedList.toSet().toList();
-                                            await controller.askSymptoms();
-                                          },
-                                          child: Container(
-                                            padding: scale.getPadding(horizontal: 10, vertical: 10),
-                                            decoration: ShapeDecoration(
-                                              color: const Color(0x89D1D1D6),
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(20),
-                                              ),
-                                            ),
-                                            child: Text(
-                                              controller.foundDisease[index],
-                                            ),
-                                          ),
-                                        ),
+                                    width: scale.getScaledWidth(350),
+                                    height: scale.getScaledHeight(200),
+                                    decoration: ShapeDecoration(
+                                      color: const Color(0x3DD9D9D9),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(20),
                                       ),
                                     ),
-                                  ),
-                                )
-                                    : Container(
-                                  height: -10,
-                                ),
-                              ),
-                            )
+                                    child: Obx(
+                                      () => controller.containsDisease.value
+                                          ? SingleChildScrollView(
+                                              scrollDirection: Axis.vertical,
+                                              child: Padding(
+                                                padding:
+                                                    scale.getPadding(top: 10),
+                                                child: Wrap(
+                                                  runSpacing:
+                                                      scale.getScaledHeight(20),
+                                                  crossAxisAlignment:
+                                                      WrapCrossAlignment.center,
+                                                  spacing:
+                                                      scale.getScaledWidth(15),
+                                                  children: List.generate(
+                                                    controller
+                                                        .foundDisease.length,
+                                                    (index) => InkWell(
+                                                      onTap: () async {
+                                                        controller.selectedList
+                                                            .add(controller
+                                                                    .foundDisease[
+                                                                index]);
+                                                        controller.selectedList
+                                                                .value =
+                                                            controller
+                                                                .selectedList
+                                                                .toSet()
+                                                                .toList();
+                                                        await controller
+                                                            .askSymptoms();
+                                                      },
+                                                      child: Container(
+                                                        padding:
+                                                            scale.getPadding(
+                                                                horizontal: 10,
+                                                                vertical: 10),
+                                                        decoration:
+                                                            ShapeDecoration(
+                                                          color: const Color(
+                                                              0x89D1D1D6),
+                                                          shape:
+                                                              RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20),
+                                                          ),
+                                                        ),
+                                                        child: Text(
+                                                          controller
+                                                                  .foundDisease[
+                                                              index],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            )
+                                          : Container(
+                                              height: -10,
+                                            ),
+                                    ),
+                                  )
                                 : Container(
-                              height: null,
-                            ),
+                                    height: null,
+                                  ),
                           ),
                         ],
                       ),

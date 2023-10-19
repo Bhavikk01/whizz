@@ -287,7 +287,7 @@ class HealthcareCenterDetailScreen extends GetView<HealthcareController> {
                       ElevatedButton(
                         onPressed: () {
                           if(doctor.available!) {
-                            Get.toNamed(Routes.doctorAppointment);
+                            Get.toNamed(Routes.doctorAppointment, arguments: {'id': doctor.id});
                           }
                         },
                         style: ElevatedButton.styleFrom(

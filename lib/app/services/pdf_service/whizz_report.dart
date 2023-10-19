@@ -26,15 +26,17 @@ class WhizzReport {
   ///   DATA
   UserModel user;
   String diseaseName = "";
+  String severity = '';
   String diseaseDescription = "";
-  List<String> symptoms = [];
-  List<String> precautions = [];
+  List<dynamic> symptoms = [];
+  List<dynamic> precautions = [];
 
   ///     CONSTRUCTOR
   WhizzReport(
       {required this.user,
       required this.diseaseDescription,
       required this.symptoms,
+      required this.severity,
       required this.precautions});
 
   Future<File> generate() async {
@@ -180,11 +182,11 @@ class WhizzReport {
         Row(children: [
           ///    NAME
           tableHeaderCell("Name"),
-          tableValueCell(text: "Arthritis", width: true),
+          tableValueCell(text: diseaseName, width: true),
 
           ///    SEVERITY
           tableHeaderCell("Severity"),
-          tableValueCell(text: "3", width: true, color: PdfColors.amber)
+          tableValueCell(text: "${severity}", width: true, color: PdfColors.amber)
         ]),
 
         SizedBox(height: pageHeight / 35),
