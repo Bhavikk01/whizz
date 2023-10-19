@@ -435,8 +435,6 @@ class ApiClient extends GetConnect implements GetxService {
       required Function(Response err) onError}) async {
     try {
       log('--------------Calling API: upload report   ---------------');
-
-      log('================================ Data Received ==========================================');
       var request = http.MultipartRequest('POST', Uri.parse('${ApiRoutes.baseUrl}user/reports/add'));
       request.fields.addAll({
         'type': type,
@@ -444,11 +442,12 @@ class ApiClient extends GetConnect implements GetxService {
         'time': DateTime.now().toIso8601String(),
         'userId': UserStore.to.uid,
       });
-      request.files.add(await http.MultipartFile.fromPath('PAN', file.path));
+      request.files.add(await http.MultipartFile.fromPath('report', file.path));
 
       http.StreamedResponse res = await request.send();
+      log('================================ Data Received ==========================================');
+      log(await res.stream.bytesToString());
       log('================================ Finishing API Call =====================================');
-
       if (validateResponse(res)) {
         var data = jsonDecode(await res.stream.bytesToString());
         onSuccess(data);
