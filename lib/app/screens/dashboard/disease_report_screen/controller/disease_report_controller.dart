@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:Whizz/app/API/api_client.dart';
 import 'package:Whizz/app/services/user.dart';
+import 'package:Whizz/app/utils/loading_overlay.dart';
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:get/get.dart';
 
@@ -40,18 +41,21 @@ class DiseaseReportController extends GetxController {
   }
 
   Future<void> uploadReport(File file) async {
+    LoadingOverlay.showOverlay();
     await ApiClient.to.uploadUserReport(
       file: file,
       type: 'Symptoms Diagnosis',
       location: 'Whizz smart Report',
       onSuccess: (data) async {
         if(data['status']){
+          LoadingOverlay.hideOverlay();
           Get.back();
           customSnackBar(
             type: AnimatedSnackBarType.success,
             message: '${data['message']}',
           );
         }else{
+          LoadingOverlay.hideOverlay();
           customSnackBar(
             type: AnimatedSnackBarType.warning,
             message: '${data['message']}',
@@ -59,9 +63,10 @@ class DiseaseReportController extends GetxController {
         }
       },
       onError: (err) {
+        LoadingOverlay.hideOverlay();
         customSnackBar(
           type: AnimatedSnackBarType.error,
-          message: '${err.body['error']}',
+          message: '${err['message']}',
         );
       },
     );

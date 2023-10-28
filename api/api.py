@@ -1,7 +1,7 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify,url_for
 from pymongo import MongoClient
 from flask_restful import Api,Resource,reqparse
-import pickle 
+import pickle
 import numpy as np
 import warnings
 import time
@@ -9,9 +9,14 @@ import os
 import json
 from pytrie import StringTrie
 from collections import Counter
+from bson import Binary
+import gridfs
+from werkzeug.datastructures import FileStorage
+from werkzeug.utils import secure_filename
 
 
 data_path="data"
+# data_path="api/data"
 warnings.filterwarnings("ignore")
 with open(os.path.join(data_path,"data.json"), "r") as json_file:
     loaded_data = json.load(json_file)
@@ -26,15 +31,28 @@ severity=loaded_data["severity"]
 forest=pickle.load(open(os.path.join(data_path,"randomforest.pkl"),"rb"))
 
 
+
+ALLOWED_EXTENSIONS = {'pdf', 'doc',"txt"}
+MAX_CONTENT_LENGTH = 5 * 1024 * 1024  # 5MB
+
+# api.config['UPLOAD_FOLDER'] = 'uploads'
+# os.makedirs(api.config['UPLOAD_FOLDER'], exist_ok=True)
+
+
 #DB and API initialization
 app = Flask((__name__))
 api=Api(app)
 
-client = MongoClient("mongodb://localhost:27017")  
-db = client["Whizz"]  
-user = db["user_data"] 
+client = MongoClient("mongodb://localhost:27017")
+db = client["Whizz"]
+user = db["user_data"]
 hospital = db["healthcare_center"]
 doctor= db["doctor"]
+report= db["user_reports"]
+report_data= db["user_report_data"]
+
+
+fs=gridfs.GridFS(db,collection="user_reports")
 
 #Argument parsing
 create_arg=reqparse.RequestParser()
@@ -49,6 +67,13 @@ complete_arg.add_argument("user_input",type=str,help="none")
 doctor_status_update_arg=reqparse.RequestParser()
 doctor_status_update_arg.add_argument("id",type=str,help="none")
 doctor_status_update_arg.add_argument("status",type=bool,help="none")
+
+# report_upload_arg=reqparse.RequestParser()
+# report_upload_arg.add_argument("userid",type=str,help="none",required=True)
+# report_upload_arg.add_argument("time",type=str,help="none",required=True)
+# report_upload_arg.add_argument("location",type=str,help="none",required=True)
+# report_upload_arg.add_argument("type",type=str,help="none",required=True)
+# report_upload_arg.add_argument('file', type=FileStorage, location='files', required=True)
 
 
 def related_symptoms(symp):
@@ -66,7 +91,7 @@ def classify(sample):
             if i in all_symp:
                 testx[all_symp.index(i)]=1
 
-    cls=forest.predict([testx])   
+    cls=forest.predict([testx])
     print(cls[0])
     return disease_dict[str(cls[0])]
 
@@ -95,17 +120,20 @@ def calculate_disease_severity(symptoms):
     relevant_scores = [severity.get(symptom, 0) for symptom in symptoms]
     severity_sum = sum(relevant_scores)
 
-    min_severity = min(relevant_scores, default=1) 
+    min_severity = min(relevant_scores, default=1)
     max_severity = max(relevant_scores, default=1)
-    
+
     if min_severity == max_severity:
         normalized_severity = min_severity
     else:
         normalized_severity = (severity_sum - min_severity) / (max_severity - min_severity) * (5 - 1) + 1
-    
+
     severity_rounded = round(normalized_severity)
-    
+
     return max(1, min(severity_rounded, 5))
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 trie = build_trie(all_symp)
@@ -145,7 +173,7 @@ class by_email(Resource):
             return jsonify({
                 "status": False,
                 "message": "user not found"
-            })       
+            })
 api.add_resource(by_email, "/user/email/<string:email>")
 
 class by_phone(Resource):
@@ -163,16 +191,18 @@ class by_phone(Resource):
                 "message": "user not found"
             })
 api.add_resource(by_phone, "/user/phone/<string:mobile>")
-    
+
 class create(Resource):
     def post(self):
         new_data = request.get_json(silent=True)
 
         if isinstance(new_data, dict):
             mobile = new_data["mobile"]
+            id=new_data["id"]
             mobile_data = list(user.find({"mobile":mobile}))
-            if not mobile_data:
-                user.insert_one(new_data) 
+            id_data = list(user.find({"id":id}))
+            if not mobile_data and not id_data:
+                user.insert_one(new_data)
                 return jsonify({
                 "status":True,
                 "message": "user created successfully"
@@ -189,11 +219,35 @@ class create(Resource):
         })
 api.add_resource(create, "/user/create")
 
+class update(Resource):
+    def put(self):
+        new_data = request.get_json(silent=True)
+        if isinstance(new_data, dict):
+            mobile = new_data["mobile"]
+            mobile_data = list(user.find({"mobile":mobile}))
+            if mobile_data:
+                user.update_one({"mobile":mobile},{"$set":new_data})
+                return jsonify({
+                "status": True,
+                "message": "user updated successfully"
+            })
+            else:
+                return jsonify({
+                "status": False,
+                "message": "user not found"
+            })
+        else:
+            return jsonify({
+            "status": False,
+            "message": "user not updated"
+        })
+
+api.add_resource(update, "/user/update")
 # Disease prediction
 class predict(Resource):
     def get(self):
         return {"message":"API active"}
-        
+
     def post(self):
         args=predict_Arg.parse_args()
         symptoms=args["symptoms"].split("-")
@@ -213,7 +267,7 @@ class recommend(Resource):
         else:
             symp=[symp]
         send=related_symptoms(symp)
- 
+
         return {"symptoms":send}
 
 api.add_resource(recommend,"/ask/")
@@ -221,20 +275,22 @@ api.add_resource(recommend,"/ask/")
 #Search Healthcare centers
 class nearbyhealthcare(Resource):
     def get(self):
-        country = request.args['country']
+        try:
+            country = request.args['country']
+        except:
+            return jsonify({
+                "status": False,
+                "message": "Invalid request"
+            })
+
         state = request.args.get('state',None)
         city = request.args.get('city',None)
         if  city and  state:
             data = list(hospital.find({"address.country":country,"address.state":state,"address.city":city}))
         elif not city and  state:
             data = list(hospital.find({"address.country":country,"address.state":state}))
-        elif not city and not state:
-            data = list(hospital.find({"address.country":country}))
         else:
-            return jsonify({
-                "status": False,
-                "message": "Invalid request"
-            })
+            data = list(hospital.find({"address.country":country}))
 
         if data:
             cleaned_data = remove_id_mult(data)
@@ -246,29 +302,9 @@ class nearbyhealthcare(Resource):
             return jsonify({
                 "status": False,
                 "message": "Healthcare not found"
-            }) 
+            })
 
 api.add_resource(nearbyhealthcare,"/nearbyHealthcare")
-
-
-#Get HealthcareCenter by Id
-class getHealthcareCenterById(Resource):
-    def get(self, id):
-        data = list(hospital.find({"id":id}))
-        if data:
-            data=remove_id(data)
-            return jsonify({
-                "status": True,
-                "data": data[0]
-            })
-        else:
-            return jsonify({
-                "status": False,
-                "message": "Hospital not found"
-            })
-
-api.add_resource(getHealthcareCenterById,"/getHealthcareCenterById/<string:id>")
-
 
 class sympcomplete(Resource):
     def post(self):
@@ -293,16 +329,16 @@ class get_doctor_by_hid(Resource):
         else:
             return jsonify({
                 "status": False,
-                "message": "No doctors found"
+                "message": "healthcare not found"
             })
 
-api.add_resource(get_doctor_by_hid,"/get_doctors_by_hid/<string:id>")
+api.add_resource(get_doctor_by_hid,"/doctor/<string:id>")
 
 class doctor_status_update(Resource):
     def put(self):
         args=doctor_status_update_arg.parse_args()
         try:
-            if list(doctor.find({"id":id})):
+            if list(doctor.find({"id":args["id"]})):
                 doctor.update_one({"id":args["id"]},{"$set":{"available":args["status"]}})
                 return jsonify({
                     "status": True,
@@ -339,13 +375,87 @@ class doctor_status_check(Resource):
 
 api.add_resource(doctor_status_check,"/doctor/status/check")
 
+
+#User report methods
+
+class report_upload(Resource):
+    def post(self):
+        try:
+            userid = request.form['userId']
+            time = request.form['time']
+            location = request.form['location']
+            file_type = request.form['type']
+            uploaded_file = request.files['file']
+            if uploaded_file and allowed_file(uploaded_file.filename):
+                if len(uploaded_file.read()) > MAX_CONTENT_LENGTH:
+                    return jsonify({
+                        "status": False,
+                        "message": "File size exceeds the maximum allowed size (5MB)"
+                    })
+                # if fs.find_one({"filename": filename}):
+                #     return jsonify({
+                #         "status": False,
+                #         "message": "File already exists"
+                #     })
+                filename = secure_filename(uploaded_file.filename)
+                content_type = uploaded_file.content_type
+
+                file_id = fs.put(uploaded_file.stream, filename=filename, content_type=content_type)
+                file_id=str(file_id)
+                file_url=url_for("report_upload",file_id=file_id,_external=True)
+
+                reportdata={"userid": userid,
+                            "time": time,
+                            "location": location,
+                            "filename": filename,
+                            "content_type": content_type,
+                            "type": file_type,
+                            "file_id": file_id,
+                            "file_url":file_url
+                            }
+                report_data.insert_one(reportdata)
+
+                return jsonify({
+                    "status": True,
+                    "message": "File uploaded",
+                    "file_id": str(file_id)
+                })
+            else:
+                return jsonify({
+                    "status": False,
+                    "message": f"Invalid file format. Allowed formats:{' '.join(ALLOWED_EXTENSIONS)}"
+                })
+        except Exception as e:
+            return jsonify({
+                "status": False,
+                "message": str(e)
+            })
+api.add_resource(report_upload,"/report/upload")
+
+class get_user_reports(Resource):
+    def get(self,userid):
+        projection={"file_id":1,"file_url":1}
+        data = list(report_data.find({"userid":userid},projection))
+        print(data)
+        if data:
+            cleaned_data = remove_id_mult(data)
+            return jsonify({
+                "status": True,
+                "data": cleaned_data
+            })
+        else:
+            return jsonify({
+                "status": False,
+                "message": "user not found"
+            })
+api.add_resource(get_user_reports,"/report/user/<string:userid>")
+
+class report_url(Resource):
+    def get(self):
+        pass
+
+
 if __name__ == '__main__':
     #uncomment this when using with flutter
-    app.run(host = '192.168.1.15',port = 5000, debug=True)
+    app.run(host = '192.168.217.27',port = 5000, debug=True)
 #     app.run(debug=True)
-"""
- todo
- Change the current ip address
- 192.168.29.255
-
- """

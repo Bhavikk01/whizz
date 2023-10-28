@@ -231,7 +231,7 @@ class WhizzReport {
             spacing: 100,
             runAlignment: WrapAlignment.center,
             children: List.generate(
-                symptoms.length, (index) => bullets(precautions[index])))
+                precautions.length, (index) => bullets(precautions[index])))
       ]);
 
   /// REPORT BULLETS

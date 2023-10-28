@@ -432,40 +432,35 @@ class ApiClient extends GetConnect implements GetxService {
       required String type,
       required String location,
       required Function(Map<String, dynamic> res) onSuccess,
-      required Function(Response err) onError}) async {
+      required Function(Map<String, dynamic> err) onError}) async {
     try {
       log('--------------Calling API: upload report   ---------------');
-      var request = http.MultipartRequest('POST', Uri.parse('${ApiRoutes.baseUrl}user/reports/add'));
+      var request = http.MultipartRequest('POST', Uri.parse('${ApiRoutes.baseUrl}/report/upload'));
+      final filePath = await http.MultipartFile.fromPath(
+        'report',
+        file.path,
+      );
       request.fields.addAll({
         'type': type,
         'location': location,
         'time': DateTime.now().toIso8601String(),
         'userId': UserStore.to.uid,
       });
-      request.files.add(await http.MultipartFile.fromPath('report', file.path));
+      request.files.add(filePath);
 
       http.StreamedResponse res = await request.send();
       log('================================ Data Received ==========================================');
-      log(await res.stream.bytesToString());
+      var data = jsonDecode(await res.stream.bytesToString());
+      log(data.toString());
       log('================================ Finishing API Call =====================================');
       if (validateResponse(res)) {
-        var data = jsonDecode(await res.stream.bytesToString());
         onSuccess(data);
       } else {
-        onError(
-          Response(
-            statusCode: 404,
-            body: {'error': '${res.stream}'},
-          ),
-        );
+        onError(data);
       }
     } catch (err) {
-      onError(
-        Response(
-          statusCode: 404,
-          body: {'error': '$err'},
-        ),
-      );
+      log('Hello');
+      onError({"message": '$err'});
     }
   }
 }
