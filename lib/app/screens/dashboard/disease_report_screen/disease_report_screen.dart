@@ -3,8 +3,9 @@ import 'dart:io';
 import 'package:Whizz/app/screens/dashboard/disease_report_screen/controller/disease_report_controller.dart';
 import 'package:Whizz/app/services/pdf_service/pdf_class.dart';
 import 'package:Whizz/app/services/pdf_service/whizz_report.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:Whizz/app/services/user.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import '../../../utils/colors.dart';
@@ -23,8 +24,14 @@ class DiseaseReportScreen extends GetView<DiseaseReportController> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           InkWell(
-            onTap: () async{
-              File file = await WhizzReport(diseaseDescription: '', precautions: [], symptoms: [],).generate();
+            onTap: () async {
+              File file = await WhizzReport(
+                diseaseDescription: controller.description.value,
+                precautions: controller.precaution,
+                symptoms: controller.symptoms,
+                user: UserStore.to.profile,
+                severity: controller.range.value
+              ).generate();
               PdfApi.openFile(file);
             },
             child: Stack(
@@ -61,12 +68,25 @@ class DiseaseReportScreen extends GetView<DiseaseReportController> {
             width: 20,
           ),
           InkWell(
-            onTap: () {},
+            onTap: () async {
+              File file = await WhizzReport(
+                  diseaseDescription: controller.description.value,
+                  precautions: controller.precaution,
+                  symptoms: controller.symptoms,
+                  user: UserStore.to.profile,
+                  severity: controller.range.value
+              ).generate();
+              //TODO: Have to call upload API for file uploading
+              controller.uploadReport(file);
+            },
             child: CircleAvatar(
-              backgroundColor: Color(0xFF2B447C),
+              backgroundColor: const Color(0xFF2B447C),
               maxRadius: scale.getScaledWidth(22),
-              child: Icon(Icons.arrow_downward,
-                  color: Colors.white, size: scale.getScaledHeight(25)),
+              child: SvgPicture.asset(
+                ConstantData.uploadIcon,
+                color: Colors.white,
+                height: scale.getScaledHeight(15),
+              ),
             ),
           ),
         ],
@@ -109,24 +129,28 @@ class DiseaseReportScreen extends GetView<DiseaseReportController> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CircleAvatar(
-                      child: Text(
-                        controller.range,
-                        style: TextStyle(
-                            color: Color(0xFFFC3E32),
-                            fontWeight: FontWeight.bold,
-                            fontSize: scale.getScaledFont(15)),
-                      ),
                       backgroundColor: Colors.white,
+                      child: Obx(
+                        () => Text(
+                          controller.range.value.toString(),
+                          style: TextStyle(
+                              color: const Color(0xFFFC3E32),
+                              fontWeight: FontWeight.bold,
+                              fontSize: scale.getScaledFont(15)),
+                        ),
+                      ),
                     ),
                     SizedBox(
                       height: scale.getScaledHeight(5),
                     ),
-                    Text(
-                      controller.diseaseName,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: scale.getScaledFont(20),
-                        fontWeight: FontWeight.w600,
+                    Obx(
+                      () => Text(
+                        controller.diseaseName.value,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: scale.getScaledFont(20),
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
                   ],
@@ -143,14 +167,16 @@ class DiseaseReportScreen extends GetView<DiseaseReportController> {
                         topRight: Radius.circular(20),
                         bottomRight: Radius.circular(20))),
                 child: Center(
-                  child: Text(
-                    controller.description,
-                    style: TextStyle(
-                      color: Color(0xFFE7E7E7),
-                      fontSize: scale.getScaledFont(11),
-                      fontWeight: FontWeight.w400,
+                  child: Obx(
+                    () => Text(
+                      controller.description.value,
+                      style: TextStyle(
+                        color: const Color(0xFFE7E7E7),
+                        fontSize: scale.getScaledFont(11),
+                        fontWeight: FontWeight.w400,
+                      ),
+                      textAlign: TextAlign.start,
                     ),
-                    textAlign: TextAlign.start,
                   ),
                 ),
               ),
@@ -185,7 +211,7 @@ class DiseaseReportScreen extends GetView<DiseaseReportController> {
                     child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Obx(
-                            ()=>Wrap(
+                            ()=> Wrap(
                               runAlignment: WrapAlignment.center,
                               spacing: 10,
                               children: List.generate(

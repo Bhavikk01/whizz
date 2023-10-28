@@ -8,7 +8,7 @@ import '../../../routes/app_pages.dart';
 import '../../../services/auth_services.dart';
 import '../../../services/user.dart';
 
-class UserProfileController extends GetxController {
+class UserProfileEditController extends GetxController {
   late RxString dob;
 
   TextEditingController dobController = TextEditingController();
@@ -63,6 +63,7 @@ class UserProfileController extends GetxController {
         ),
         dOB: dobController.text,
         age: int.parse(ageController.text),
+        userProfile: userProfile.value,
       ),
     );
     Get.offAndToNamed(Routes.home);

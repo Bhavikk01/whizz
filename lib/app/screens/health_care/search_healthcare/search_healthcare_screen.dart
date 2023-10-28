@@ -31,6 +31,7 @@ class SearchHealthcareScreen extends GetView<SearchHealthcareController> {
     controller.draggableScrollableController = DraggableScrollableController();
     ScalingUtility scale = ScalingUtility(context: context)
       ..setCurrentDeviceSize();
+    controller.initialLoad();
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -510,7 +511,12 @@ class SearchHealthcareScreen extends GetView<SearchHealthcareController> {
                                       height: scale.getScaledHeight(100),
                                       child: ListTile(
                                         onTap: () {
-
+                                          Get.toNamed(
+                                              Routes.healthCenterScreen,
+                                              arguments: {
+                                                'healthcareId': center.id
+                                              }
+                                          );
                                         },
                                         leading: ClipRRect(
                                           borderRadius: BorderRadius.circular(10),

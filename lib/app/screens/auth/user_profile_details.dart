@@ -7,14 +7,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../routes/app_pages.dart';
 import '../../utils/colors.dart';
 import '../../utils/constants.dart';
 import '../../utils/scale_utility.dart';
 import '../../widgets/address_picker.dart';
 import 'controllers/user_profile_controller.dart';
 
-class UserProfileDetails extends GetView<UserProfileController> {
+class UserProfileDetails extends GetView<UserProfileEditController> {
   UserProfileDetails({Key? key}) : super(key: key);
 
   var formKey = GlobalKey<FormState>();
@@ -297,6 +296,7 @@ class UserProfileDetails extends GetView<UserProfileController> {
                         onPressed: () async {
                           if(formKey.currentState!.validate()){
                             await controller.updateUserData();
+                            Get.back();
                           }
                         },
                         child: const Text("Submit"),

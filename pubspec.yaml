@@ -43,6 +43,7 @@ dependencies:
   table_calendar: ^3.0.9
   flutter_typeahead: ^4.8.0
   pdf: ^3.10.4
+  syncfusion_flutter_datepicker: ^23.1.41
   open_filex: ^4.3.4
   printing: ^5.11.0
   path_provider: ^2.1.1

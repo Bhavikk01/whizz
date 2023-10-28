@@ -1,9 +1,14 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:Whizz/app/utils/colors.dart';
 import 'package:Whizz/app/utils/constants.dart';
 import 'package:Whizz/app/utils/scale_utility.dart';
+
+import '../../routes/app_pages.dart';
+import '../../services/user.dart';
 
 class UserProfileScreen extends StatelessWidget {
   const UserProfileScreen({Key? key}) : super(key: key);
@@ -32,48 +37,53 @@ class UserProfileScreen extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: scale.getScaledHeight(15),
-                  ),
-                  CircleAvatar(
-                    backgroundColor: Colors.white,
-                    radius: 60,
-                    child: Text(
-                      "A",
-                      style: GoogleFonts.roboto(
-                        fontSize: scale.getScaledFont(63),
-                        fontWeight: FontWeight.w900,
-                        color: ColorsUtil.brandColor,
-                      ),
+              child: Obx(
+                () => Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: scale.getScaledHeight(15),
                     ),
-                  ),
-                  Column(
+                    UserStore.to.profile.userProfile != '' ? CircleAvatar(
+                      backgroundImage: NetworkImage(
+                        UserStore.to.profile.userProfile!,
+                      ),
+                      radius: 60,
+                    ):  const CircleAvatar(
+                      backgroundImage: AssetImage(
+                        ConstantData.userAvatar,
+                      ),
+                      radius: 60,
+                    ),
+                    Column(
 
-                    children: [
-                      SizedBox(
-                        height: scale.getScaledHeight(10),
-                      ),
-                      Text(
-                        "Apoorv Pancholi",
-                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          color: Colors.white,
+                      children: [
+                        SizedBox(
+                          height: scale.getScaledHeight(10),
                         ),
-                      ),
-                      SizedBox(
-                        height: scale.getScaledHeight(10),
-                      ),
-                      Text(
-                        "Indore, Madhya Pradesh",
-                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                          color: Colors.white70,
+                        Text(
+                          UserStore.to.profile.fullName?? '--/--',
+                          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                        SizedBox(
+                          height: scale.getScaledHeight(10),
+                        ),
+                        Container(
+                          alignment: Alignment.center,
+                          width: scale.getScaledWidth(300),
+                          child: Text(
+                            '${UserStore.to.profile.userAddress!.city}, ${UserStore.to.profile.userAddress!.state}\n${UserStore.to.profile.userAddress!.street}',
+                            style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                              color: Colors.white70,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
             pinned: true,
@@ -102,7 +112,6 @@ class UserProfileScreen extends StatelessWidget {
                     height: scale.getScaledHeight(20),
                   ),
                   Container(
-                    // height: 100,
                     padding: scale.getPadding(all: 10),
                     decoration: ShapeDecoration(
                       shape: RoundedRectangleBorder(
@@ -117,69 +126,58 @@ class UserProfileScreen extends StatelessWidget {
                       children: [
                         Align(
                           alignment: Alignment.topRight,
-                          child: Icon(
-                            Icons.edit,
-                            size: scale.getScaledFont(15),
+                          child: GestureDetector(
+                            onTap: () async {
+                              await Get.toNamed(Routes.userProfileDetails);
+                              log('Hello world');
+                            },
+                            child: Icon(
+                              Icons.edit,
+                              size: scale.getScaledFont(15),
+                            ),
                           ),
                         ),
-                        Text.rich(
-                          TextSpan(
-                            children: [
-                              TextSpan(
-                                text: 'Phone no :',
-                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                  color: ColorsUtil.brandColor,
+                        Obx(
+                          () => Text.rich(
+                            TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: 'Phone no :',
+                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: ColorsUtil.brandColor,
+                                  ),
                                 ),
-                              ),
-                              TextSpan(
-                                text: ' 9244470379',
-                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                  color: ColorsUtil.brandColor,
+                                TextSpan(
+                                  text: ' ${UserStore.to.profile.mobile}',
+                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: ColorsUtil.brandColor,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: scale.getScaledFont(10),
-                        ),
-                        Text.rich(
-                          TextSpan(
-                            children: [
-                              TextSpan(
-                                text: 'Gender  :',
-                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                  color: ColorsUtil.brandColor,
-                                ),
-                              ),
-                              TextSpan(
-                                text: ' Male',
-                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                  color: ColorsUtil.brandColor,
-                                ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                         SizedBox(
                           height: scale.getScaledHeight(10),
                         ),
-                        Text.rich(
-                          TextSpan(
-                            children: [
-                              TextSpan(
-                                text: 'Age :',
-                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                  color: ColorsUtil.brandColor,
+                        Obx(
+                          () => Text.rich(
+                            TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: 'Age :',
+                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: ColorsUtil.brandColor,
+                                  ),
                                 ),
-                              ),
-                              TextSpan(
-                                text: ' 21',
-                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                  color: ColorsUtil.brandColor,
+                                TextSpan(
+                                  text: ' ${UserStore.to.profile.age}',
+                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: ColorsUtil.brandColor,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                         SizedBox(
@@ -195,7 +193,7 @@ class UserProfileScreen extends StatelessWidget {
                                 ),
                               ),
                               TextSpan(
-                                text: '  apoorv@gmail.com',
+                                text: ' ${UserStore.to.profile.email}',
                                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                                   color: ColorsUtil.brandColor,
                                 ),
@@ -206,22 +204,24 @@ class UserProfileScreen extends StatelessWidget {
                         SizedBox(
                           height: scale.getScaledHeight(10),
                         ),
-                        Text.rich(
-                          TextSpan(
-                            children: [
-                              TextSpan(
-                                text: 'Address :',
-                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                  color: ColorsUtil.brandColor,
+                        Obx(
+                          () => Text.rich(
+                            TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: 'Address :',
+                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: ColorsUtil.brandColor,
+                                  ),
                                 ),
-                              ),
-                              TextSpan(
-                                text: '  32 Dhanvantri Nagar  Rajendra  nagar',
-                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                  color: ColorsUtil.brandColor,
+                                TextSpan(
+                                  text: ' ${UserStore.to.profile.userAddress!.street}',
+                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: ColorsUtil.brandColor,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                         SizedBox(
