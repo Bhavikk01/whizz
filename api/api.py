@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify,url_for,send_file
 from pymongo import MongoClient
 from flask_restful import Api,Resource,reqparse
-import pickle 
+import pickle
 import numpy as np
 import warnings
 import time
@@ -16,8 +16,8 @@ from werkzeug.utils import secure_filename
 import io
 
 
-# data_path="data"
-data_path="api/data"
+data_path="data"
+# data_path="api/data"
 warnings.filterwarnings("ignore")
 with open(os.path.join(data_path,"data.json"), "r") as json_file:
     loaded_data = json.load(json_file)
@@ -41,9 +41,9 @@ MAX_CONTENT_LENGTH = 5 * 1024 * 1024  # 5MB
 app = Flask((__name__))
 api=Api(app)
 
-client = MongoClient("mongodb://localhost:27017")  
-db = client["Whizz"]  
-user = db["user_data"] 
+client = MongoClient("mongodb://localhost:27017")
+db = client["Whizz"]
+user = db["user_data"]
 hospital = db["healthcare_center"]
 doctor= db["doctor"]
 report= db["user_reports"]
@@ -83,7 +83,7 @@ def classify(sample):
             if i in all_symp:
                 testx[all_symp.index(i)]=1
 
-    cls=forest.predict([testx])   
+    cls=forest.predict([testx])
     print(cls[0])
     return disease_dict[str(cls[0])]
 
@@ -112,16 +112,16 @@ def calculate_disease_severity(symptoms):
     relevant_scores = [severity.get(symptom, 0) for symptom in symptoms]
     severity_sum = sum(relevant_scores)
 
-    min_severity = min(relevant_scores, default=1) 
+    min_severity = min(relevant_scores, default=1)
     max_severity = max(relevant_scores, default=1)
-    
+
     if min_severity == max_severity:
         normalized_severity = min_severity
     else:
         normalized_severity = (severity_sum - min_severity) / (max_severity - min_severity) * (5 - 1) + 1
-    
+
     severity_rounded = round(normalized_severity)
-    
+
     return max(1, min(severity_rounded, 5))
 
 def allowed_file(filename):
@@ -165,7 +165,7 @@ class by_email(Resource):
             return jsonify({
                 "status": False,
                 "message": "user not found"
-            })       
+            })
 api.add_resource(by_email, "/user/email/<string:email>")
 
 class by_phone(Resource):
@@ -183,7 +183,7 @@ class by_phone(Resource):
                 "message": "user not found"
             })
 api.add_resource(by_phone, "/user/phone/<string:mobile>")
-    
+
 class create(Resource):
     def post(self):
         new_data = request.get_json(silent=True)
@@ -194,21 +194,21 @@ class create(Resource):
             mobile_data = list(user.find({"mobile":mobile}))
             id_data = list(user.find({"id":id}))
             if not mobile_data and not id_data:
-                user.insert_one(new_data) 
+                user.insert_one(new_data)
                 return jsonify({
-                "status":True,
-                "message": "user created successfully"
-            })
+                    "status":True,
+                    "message": "user created successfully"
+                })
             else:
                 return jsonify({
-                "status": False,
-                "message": "user already exists"
-            })
+                    "status": False,
+                    "message": "user already exists"
+                })
         else:
             return jsonify({
-            "status": False,
-            "message": "user not created"
-        })
+                "status": False,
+                "message": "user not created"
+            })
 api.add_resource(create, "/user/create")
 
 class update(Resource):
@@ -220,26 +220,26 @@ class update(Resource):
             if mobile_data:
                 user.update_one({"mobile":mobile},{"$set":new_data})
                 return jsonify({
-                "status": True,
-                "message": "user updated successfully"
-            })
+                    "status": True,
+                    "message": "user updated successfully"
+                })
             else:
                 return jsonify({
-                "status": False,
-                "message": "user not found"
-            })
+                    "status": False,
+                    "message": "user not found"
+                })
         else:
             return jsonify({
-            "status": False,
-            "message": "user not updated"
-        })
+                "status": False,
+                "message": "user not updated"
+            })
 
 api.add_resource(update, "/user/update")
 # Disease prediction
 class predict(Resource):
     def get(self):
         return {"message":"API active"}
-        
+
     def post(self):
         args=predict_Arg.parse_args()
         symptoms=args["symptoms"].split("-")
@@ -259,7 +259,7 @@ class recommend(Resource):
         else:
             symp=[symp]
         send=related_symptoms(symp)
- 
+
         return {"symptoms":send}
 
 api.add_resource(recommend,"/ask/")
@@ -294,7 +294,7 @@ class nearbyhealthcare(Resource):
             return jsonify({
                 "status": False,
                 "message": "Healthcare not found"
-            }) 
+            })
 
 api.add_resource(nearbyhealthcare,"/nearbyHealthcare")
 
@@ -407,7 +407,7 @@ class report_upload(Resource):
 
                 filename = secure_filename(uploaded_file.filename)
                 content_type = uploaded_file.content_type
-                uploaded_file.seek(0)                
+                uploaded_file.seek(0)
                 result = report.insert_one({"file_data": file_data})
                 file_id = str(result.inserted_id)
                 file_url = url_for("get_report", file_id=file_id, _external=True)
@@ -429,7 +429,7 @@ class report_upload(Resource):
                     "status": True,
                     "message": "File uploaded",
                     "file_id": file_id,
-                    "file_url": file_url  
+                    "file_url": file_url
                 })
             else:
                 return jsonify({
@@ -448,7 +448,7 @@ api.add_resource(report_upload,"/report/upload")
 def get_report(file_id):
     file_data = report.find_one({"_id":ObjectId(file_id)})
     data=report_data.find_one({"file_id":file_id})
-   
+
     if file_data:
         return send_file(
             io.BytesIO(file_data["file_data"]),
@@ -481,7 +481,7 @@ api.add_resource(get_report_by_userid,"/report/get/<string:userid>")
 
 if __name__ == '__main__':
     #uncomment this when using with flutter
-    app.run(host = '192.168.190.29',port = 5000, debug=True)
+    app.run(host = '192.168.175.27',port = 5000, debug=True)
 #     app.run(debug=True)
 """
  todo
